@@ -1,0 +1,168 @@
+[
+    {
+        "0": "Hooke’s law states that the force, F, in a spring extended by a length x is given by F = −kx. According to Newton’s second law F = ma, where m is the mass and a is the acceleration. Calculate the dimension of the spring constant k.",
+        "1": "Compute the dimensional formula of electrical resistance (R).",
+        "2": "Express Capacitance in terms of dimensions of fundamental quantities i.e. Mass (M), Length (L), Time (T) and Ampere (A).",
+        "3": "Three forces act on a point: 3N at 0°, 4N at 90°, and 5N at 217°. What are the net force and its direction?",
+        "4": "If a = i–2j+3k and b =i –3k then find |b × 2a| where i, j and k and k are unit vector.",
+        "5": "A student drives his car 6.0km, north before making a right hand turn and driving 6.0km to the East. Finally, the student makes a left hand turn and travels another 2.0km to the north. What is the magnitude of the overall displacement of the student?",
+        "6": "A motorboat traveling 5m/s, East encounters a current traveling 2.5m/s, north. What is the resultant velocity of the motor boat?",
+        "7": "As an engineer you are required to design the runway for an airport. Of the planes that will use the airport, the lowest acceleration rate is likely to be 3m/s². The takeoff speed for this plane will be 65m/s. Assuming this minimum acceleration, what is the minimum allowed length for the runway?",
+        "8": "A stone is dropped into a deep well and is heard to hit the water 3.41s after being dropped. Determine the depth of the well.",
+        "9": "A bullet is moving at a speed of 367m/s when it embeds into a lump of moist clay. The bullet penetrates for a distance of 0.0621m. Determine the acceleration of the bullet while moving into the clay. (Assume a uniform acceleration.)",
+        "10": "A car travels 200m in 10s. What is the average speed of the car?",
+        "11": "A runner travels at a speed of 8m/s. How long will it take to run one lap of a 400m track?",
+        "12": "The lunar rover used by the Apollo15 astronauts has a mass of 120kg. What is the weight of the rover on the Earth?",
+        "13": "A 20N force and a 15N force act on a crate at right angles, what is the magnitude and direction of the resultant force?",
+        "14": "Travelling between stops, the average frictional force on a bus was 8×10³N over a distance of 500m. Calculate the work done by the bus engine to overcome this frictional force.",
+        "15": "The average work done by a human heart while it beats once is 0.5J. Calculate the power used by heart if it beats 72 times in a minute.",
+        "16": "Calculate the power of a crane in watts, which lifts a mass of 100 kg to a height of 10m in 20s.",
+        "17": "A cricket ball of mass 150g moving with a speed of 126km/h hits at the middle of the bat, held firmly at its position by the batsman. The ball moves straight back to the bowler after hitting the bat. Assuming that collision between ball and bat is completely elastic and the two remain in contact for 0.001s, the force that the batsman had to apply to hold the bat firmly at its place would be?",
+        "18": "Two cars A and B race each other. The Car A ran for 2 minute at a speed of 7.5km/h, slept for 56 minutes and again ran for 2 minutes at a speed of 7.5km/h. Find the average speed of the car A in the race.",
+        "19": "Find the minimum radius of an arc of a circle that can be negotiated by a motorcycle riding at 21m/s if the coefficient of friction between the tyres and the ground is 0.3. What is the banking angle made by the motorcyclist at this speed?"
+    },
+    {
+        "0": {
+            "a": "k = MT⁻²",
+            "b": "k = MT⁻¹",
+            "c": "k = MT⁻³",
+            "d": "k = ML⁻²"
+        },
+        "1": {
+            "a": "R = ML¹T⁻³A⁻²",
+            "b": "R = ML²T⁻²A⁻²",
+            "c": "R = ML²T⁻³A⁻³",
+            "d": "R = ML²T⁻³A⁻²"
+        },
+        "2": {
+            "a": "C = M⁻²L⁻¹T³A²",
+            "b": "C = M⁻¹L⁻²T⁴A²",
+            "c": "C = M⁻¹L⁻¹T⁴A²",
+            "d": "C = M⁻¹L⁻²T⁴A³"
+        },
+        "3": {
+            "a": "1.4N, 135°",
+            "b": "1.2N, 135°",
+            "c": "1.4N, 120°",
+            "d": "1.5N, 110°"
+        },
+        "4": {
+            "a": "√104",
+            "b": "√204",
+            "c": "√300",
+            "d": "√304"
+        },
+        "5": {
+            "a": "20km",
+            "b": "4km",
+            "c": "10km",
+            "d": "5km"
+        },
+        "6": {
+            "a": "6.0m/s",
+            "b": "5.6m/s",
+            "c": "2.1m/s",
+            "d": "4.7m/s"
+        },
+        "7": {
+            "a": "200m",
+            "b": "50.5m",
+            "c": "58.6m",
+            "d": "704m"
+        },
+        "8": {
+            "a": "57m",
+            "b": "67m",
+            "c": "24m",
+            "d": "88m"
+        },
+        "9": {
+            "a": "1,084,252m/s²",
+            "b": "1,184,452m/s²",
+            "c": "1,084,752m/s²",
+            "d": "1,084,452m/s²"
+        },
+        "10": {
+            "a": "20m/s",
+            "b": "159m/s",
+            "c": "12m/s",
+            "d": "37.7m/s"
+        },
+        "11": {
+            "a": "25s",
+            "b": "2s",
+            "c": "50s",
+            "d": "10s"
+        },
+        "12": {
+            "a": "1,165N",
+            "b": "1,176N",
+            "c": "1,275N",
+            "d": "1,457N"
+        },
+        "13": {
+            "a": "10N, 23.13°",
+            "b": "15N, 23.13°",
+            "c": "25N, 53.13°",
+            "d": "20N, 13.13°"
+        },
+        "14": {
+            "a": "400J",
+            "b": "20J",
+            "c": "200KJ",
+            "d": "4MJ"
+        },
+        "15": {
+            "a": "0.6W",
+            "b": "60W",
+            "c": "6W",
+            "d": "0.06KW"
+        },
+        "16": {
+            "a": "204W",
+            "b": "100W",
+            "c": "498W",
+            "d": "490W"
+        },
+        "17": {
+            "a": "5,220KN",
+            "b": "5,250N",
+            "c": "52.50N",
+            "d": "500.5N"
+        },
+        "18": {
+            "a": "0.014m/s",
+            "b": "0.14km/s",
+            "c": "0.14m/s",
+            "d": "0.004m/s"
+        },
+        "19": {
+            "a": "150m, 1.42°",
+            "b": "13m, 19.42°",
+            "c": "110m, 16.42°",
+            "d": "150m, 12.42°"
+        }
+    },
+    {
+        "0": "k = MT⁻²",
+        "1": "R = ML²T⁻³A⁻²",
+        "2": "C = M⁻¹L⁻²T⁴A²",
+        "3": "1.4N, 135°",
+        "4": "√304",
+        "5": "10km",
+        "6": "5.6m/s",
+        "7": "704m",
+        "8": "57m",
+        "9": "1,084,452m/s²",
+        "10": "20m/s",
+        "11": "50s",
+        "12": "1,176N",
+        "13": "25N, 53.13°",
+        "14": "4MJ",
+        "15": "0.6W",
+        "16": "490W",
+        "17": "5,250N",
+        "18": "0.14m/s",
+        "19": "150m, 16.42°"
+    }
+]

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "154967308722",
+    "project_id": "mx-companion",
+    "storage_bucket": "mx-companion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154967308722:android:d5d20d08858c3c04524cab",
+        "android_client_info": {
+          "package_name": "io.prodigy.mx_companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154967308722-ii54sqski06laqh7gdhg9rhmp0si6ne5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpOJowvTuwKu2axdHsH9p4Om4hgHLvAN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154967308722-ii54sqski06laqh7gdhg9rhmp0si6ne5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
