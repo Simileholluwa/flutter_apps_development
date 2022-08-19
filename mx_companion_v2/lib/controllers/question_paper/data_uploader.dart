@@ -40,15 +40,17 @@ class DataUploader extends GetxController {
     var batch = fireStore.batch();
     for(var papers in questionPapers){
       batch.set(questionPaperRF.doc(papers.id), {
-        "title": papers.title,
+        "course_code": papers.courseCode,
         "image_url": papers.imageUrl,
-        "description": papers.description,
+        "course_title": papers.courseTitle,
+        "credit_unit": papers.creditUnit,
+        "semester": papers.semester,
         "time_seconds": papers.timeSeconds,
         "questions_count": papers.questions == null ? 0 : papers.questions!.length
       });
 
       for (var questions in papers.questions!){
-        final questionPath = questionsRef(paperId: papers.id, questionId: questions.id);
+        final questionPath = questionsRef(paperId: papers.id!, questionId: questions.id);
         batch.set(questionPath, {
           "question" : questions.question,
           "correct_answer": questions.correctAnswer

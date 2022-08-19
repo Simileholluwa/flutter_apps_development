@@ -1,8 +1,10 @@
 {
     "id": "ppr003",
-    "title": "Maths",
+    "course_code": "MAT111",
+    "semester": "First",
+    "credit_unit" : "3",
     "image_url": "",
-    "Description": "Basic Maths Multiple Choice Questions (MCQ) to practice basic Maths quiz answers",
+    "course_title": "Elementary Mathematics I",
     "time_seconds": 900,
     "questions": [
         {

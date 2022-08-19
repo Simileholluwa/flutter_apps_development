@@ -1,39 +1,64 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class QuestionsModel {
-  String id;
-  String title;
-  String imageUrl;
-  String description;
-  int timeSeconds;
+  String? id;
+  String? semester;
+  String? creditUnit;
+  String? courseCode;
+  String? imageUrl;
+  String? courseTitle;
+  int? timeSeconds;
+  int? questionCount;
   List<Questions>? questions;
 
   QuestionsModel({
-        required this.id,
-        required this.title,
-        required this.imageUrl,
-        required this.description,
-        required this.timeSeconds,
+        this.id,
+        this.courseCode,
+        this.imageUrl,
+        this.courseTitle,
+        this.timeSeconds,
+        this.creditUnit,
+        this.semester,
+        this.questionCount,
         this.questions
       });
 
   QuestionsModel.fromJson(Map<String, dynamic> json) :
     id = json['id'] as String,
-    title = json['title'] as String,
+    courseCode = json['course_code'] as String,
     imageUrl = json['image_url'] as String,
-    description = json['Description'] as String,
+    courseTitle = json['course_title'] as String,
+    semester = json['semester'] as String,
+    creditUnit = json['credit_unit'] as String,
     timeSeconds = json['time_seconds'],
+    questionCount = 0,
     questions = (json['questions'] as List)
         .map((dynamic e) => Questions.fromJson(e as Map<String, dynamic>))
         .toList();
+
+  QuestionsModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> json) :
+        id = json.id,
+        courseCode = json['course_code'] ,
+        //imageUrl = json['image_url'],
+        courseTitle = json['course_title'],
+        semester = json['semester'] ,
+        creditUnit = json['credit_unit'] ,
+        timeSeconds = json['time_seconds'],
+        questionCount = json['questions_count'];
+
+  String timeInMinutes() => "${(timeSeconds! / 60).ceil()} minutes";
 
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
-    data['title'] = this.title;
+    data['course_code'] = this.courseCode;
     data['image_url'] = this.imageUrl;
-    data['Description'] = this.description;
+    data['course_title'] = this.courseTitle;
     data['time_seconds'] = this.timeSeconds;
+    data['semester'] = this.semester;
+    data['credit_unit'] = this.courseTitle;
     return data;
   }
 }

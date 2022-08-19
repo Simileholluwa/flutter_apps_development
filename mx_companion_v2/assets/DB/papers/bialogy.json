@@ -1,8 +1,10 @@
 {
     "id": "ppr004",
-    "title": "Biology",
+    "course_code": "PHY113",
+    "semester": "First",
+    "credit_unit" : "3",
     "image_url": "",
-    "Description": "Basic Biology Multiple Choice Questions (MCQ) to practice basic Biology quiz answers",
+    "course_title": "General Physics I (Mechanics, Thermal Physics and Waves)",
     "time_seconds": 900,
     "questions": [
         {

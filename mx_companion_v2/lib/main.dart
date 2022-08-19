@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/bindings/initial_binding.dart';
 import 'package:mx_companion_v2/routes/routes.dart';
-import 'package:mx_companion_v2/screens/introduction/introduction.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'controllers/theme_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   InitialBinding().dependencies();
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 
   SystemChrome.setPreferredOrientations(
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: Get.find<ThemeController>().darkTheme,
       debugShowCheckedModeBanner: false,
       builder: (context, widget) =>
           ResponsiveWrapper.builder(

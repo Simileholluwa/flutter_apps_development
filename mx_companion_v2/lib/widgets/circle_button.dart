@@ -8,7 +8,7 @@ class CircleButton extends StatelessWidget {
   const CircleButton({Key? key,
     required this.child,
     this.color,
-    this.width = 60,
+    this.width = 100,
     this.onTap,
 
   }) : super(key: key);
@@ -16,6 +16,8 @@ class CircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      type: MaterialType.transparency,
+      clipBehavior: Clip.hardEdge,
       shape: const CircleBorder(),
       child: InkWell(
         onTap: onTap,

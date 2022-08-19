@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-
+import 'package:flutter/services.dart';
+import '../../config/themes/app_colors.dart';
+import '../../config/themes/app_dark_theme.dart';
+import '../../config/themes/app_light_theme.dart';
+import '../../config/themes/ui_parameters.dart';
 import '../introduction/introduction.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,21 +26,27 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: mainGradient(context),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset("assets/images/app_splash_logo.png",
+            height: 200,
+            ),
+            const SizedBox(height: 30,),
             const Text('MX Companion',
                 style: TextStyle(
-                    color: Colors.black,
                     fontSize: 40,
+                  fontWeight: FontWeight.w800,
                 ),
             ),
-            const SizedBox(height: 10),
-            LoadingAnimationWidget.fourRotatingDots(
-                color: Colors.black, size: 80),
           ],
         ),
       ),

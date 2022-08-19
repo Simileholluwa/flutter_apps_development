@@ -1,8 +1,10 @@
 {
     "id": "ppr002",
-    "title": "Chemistry",
+    "course_code": "CHM111",
+    "semester": "First",
+    "credit_unit" : "3",
     "image_url": "",
-    "Description": "Basic Chemistry Multiple Choice Questions (MCQ) to practice basic Chemistry quiz answers",
+    "course_title": "General Chemistry I",
     "time_seconds": 900,
     "questions": [
         {

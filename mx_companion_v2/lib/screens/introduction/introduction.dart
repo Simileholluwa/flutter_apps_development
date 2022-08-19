@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import '../../controllers/auth_controller.dart';
+import '../../config/themes/app_colors.dart';
+import '../../config/themes/app_dark_theme.dart';
+import '../../config/themes/app_light_theme.dart';
+import '../../config/themes/ui_parameters.dart';
 import '../../widgets/circle_button.dart';
 
 class IntroductionScreen extends StatelessWidget {
@@ -8,26 +13,50 @@ class IntroductionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController auth = Get.find();
+
     return Scaffold(
+      backgroundColor: UIParameters.isDarkMode()
+          ? primaryDarkColor1
+          : primaryLightColor1,
       body: Container(
         alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: mainGradient(context),
+        ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.2),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.star, size: 65, color: Colors.amber,),
-              SizedBox(height: 40,),
-              Text('This app will guide you as a student of FUTMinna to study past questions and get familiar with the exam mode of conducting exams.',
-              textAlign: TextAlign.center,
+            children:  [
+              const Icon(
+                Icons.star,
+                size: 65,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              const Text(
+                'This app will guide you as a student of FUTMinna to study past questions and get familiar with the electronic exam mode of conducting exams.',
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  height: 2,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
               CircleButton(
-                child: Icon(Icons.arrow_forward_ios, size: 35,),
+                onTap: auth.navigateToHome,
+                child: const Icon(
+
+                  Icons.arrow_forward_ios,
+                  size: 35,
+                ),
               ),
             ],
           ),

@@ -1,8 +1,10 @@
 {
     "id": "ppr001",
-    "title": "Physics",
+    "course_code": "PHY123",
+    "semester": "Second",
+    "credit_unit" : "3",
     "image_url": "",
-    "Description": "Basic physics Multiple Choice Questions (MCQ) to practice basic physics quiz answers",
+    "course_title": "General Physics II (Electricity, Magnetism and Modern Physics)",
     "time_seconds": 900,
     
     "questions": [
