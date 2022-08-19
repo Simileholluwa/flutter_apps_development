@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
-
+import '../firebase_ref/loading_status.dart';
 import '../firebase_ref/references.dart';
 import '../widgets/alert_user.dart';
+
+
 
 class AuthController extends GetxController {
   @override
@@ -13,7 +15,10 @@ class AuthController extends GetxController {
     super.onReady();
   }
 
+  final loadingStatus = LoadingStatus.loading.obs;
+
   late FirebaseAuth _auth;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final _user = Rxn<User>();
   late Stream<User?> _authStateChanges;
 
@@ -28,22 +33,31 @@ class AuthController extends GetxController {
   }
 
   signInWithGoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
+      loadingStatus.value = LoadingStatus.loading;
       GoogleSignInAccount? account = await _googleSignIn.signIn();
       if (account != null) {
+        loadingStatus.value = LoadingStatus.loading;
         final _authAccount = await account.authentication;
         final _credential = GoogleAuthProvider.credential(
           idToken: _authAccount.idToken,
           accessToken: _authAccount.accessToken,
         );
-
         await _auth.signInWithCredential(_credential);
         await saveUser(account);
+        navigateToHome();
+        loadingStatus.value = LoadingStatus.completed;
       }
+
     } on Exception catch (error) {
       print(error);
+      loadingStatus.value = LoadingStatus.error;
     }
+  }
+
+  User? getUser(){
+    _user.value = _auth.currentUser;
+    return _user.value;
   }
 
   saveUser(GoogleSignInAccount account) {
@@ -52,6 +66,20 @@ class AuthController extends GetxController {
       'name': account.displayName,
       'profile_pic': account.photoUrl,
     });
+  }
+
+  Future<void> signOut() async {
+    try {
+      loadingStatus.value = LoadingStatus.loading;
+      await _googleSignIn.disconnect();
+      await _auth.signOut();
+      navigateToHome();
+      loadingStatus.value = LoadingStatus.completed;
+    } on FirebaseAuthException catch (e) {
+      loadingStatus.value = LoadingStatus.error;
+    } catch (e) {
+      loadingStatus.value = LoadingStatus.error;
+    }
   }
 
   void navigateToIntroduction() {

@@ -15,13 +15,10 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     QuestionPaperController questionPaperController = Get.find();
     MyZoomDrawerController controller = Get.find();
     return Container(
-      decoration: const BoxDecoration(
-          color: transparentColor
-      ),
+      decoration: const BoxDecoration(color: transparentColor),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,8 +29,9 @@ class MainScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap:  controller.toggleDrawer,
-                    child: const Icon(AppIcons.menuLeft,
+                    onTap: controller.toggleDrawer,
+                    child: const Icon(
+                      AppIcons.menuLeft,
                       color: altTextColor,
                       size: 24,
                     ),
@@ -43,14 +41,22 @@ class MainScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.person,
+                      const Icon(
+                        Icons.waving_hand_sharp,
                         color: Colors.grey,
                       ),
-                      const SizedBox(width: 5,),
-                      Text('Hello username',
-                        style: GoogleFonts.jost(
-                          fontSize: 15,
-                          color: Colors.grey,
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Obx(
+                        () => Text(
+                          controller.user.value == null
+                              ? 'Hello there!'
+                              : 'Hello, ${controller.user.value!.displayName}!',
+                          style: GoogleFonts.jost(
+                            fontSize: 15,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ],
@@ -58,7 +64,8 @@ class MainScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text('Choose your preferred course to begin your practice journey.',
+                  Text(
+                    'Choose your preferred course to begin your practice journey.',
                     style: GoogleFonts.jost(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -69,12 +76,17 @@ class MainScreen extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 20,),
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                  bottom: 20,
+                ),
                 child: ContentAreaCustom(
                   addPadding: false,
                   child: Obx(
-                        () => ListView.separated(
-                      padding: UIParameters.mobileScreenPadding,
+                    () => ListView.separated(
+                      padding: const EdgeInsets.all(20),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
@@ -84,7 +96,9 @@ class MainScreen extends StatelessWidget {
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(height: 20,);
+                        return const SizedBox(
+                          height: 15,
+                        );
                       },
                       itemCount: questionPaperController.allPapers.length,
                     ),

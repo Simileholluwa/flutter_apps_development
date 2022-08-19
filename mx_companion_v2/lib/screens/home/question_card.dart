@@ -18,7 +18,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
 
   @override
   Widget build(BuildContext context) {
-    const double customPadding = 20;
+    const double customPadding = 10;
     return Container(
       decoration: BoxDecoration(
         borderRadius: UIParameters.cardBorderRadius,
@@ -78,13 +78,13 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                         Text(model.courseCode!,
                           style: cardTitles(context),
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(height: 20,),
                         Text(model.courseTitle!,
                           style: GoogleFonts.jost(
                             height: 1.3,
                           ),
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(height: 20,),
                         Row(
                           children: [
                             AppIconText(

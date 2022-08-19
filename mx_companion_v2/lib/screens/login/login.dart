@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
+import 'package:mx_companion_v2/widgets/app_button.dart';
+import '../../firebase_ref/loading_status.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
@@ -15,76 +17,81 @@ class LoginScreen extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
+    AuthController response = Get.find();
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        systemNavigationBarColor: UIParameters.isDarkMode()
-            ? transparentColor
-            : primaryLightColor1,
-        systemNavigationBarIconBrightness: UIParameters.isDarkMode()
-            ? Brightness.light
-            : Brightness.dark,
-        statusBarIconBrightness: UIParameters.isDarkMode()
-            ? Brightness.light
-            : Brightness.dark,
-        statusBarColor: UIParameters.isDarkMode()
-            ? transparentColor
-            : primaryLightColor1,
+        systemNavigationBarColor:
+            UIParameters.isDarkMode() ? transparentColor : primaryLightColor1,
+        systemNavigationBarIconBrightness:
+            UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness:
+            UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
+        statusBarColor:
+            UIParameters.isDarkMode() ? transparentColor : primaryLightColor1,
       ),
     );
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: (){
-              controller.signInWithGoogle();
-            },
-            child: Container(
-              margin: const EdgeInsets.only(
-                top: 40,
-                right: 20,
-                left: 20,
-                bottom: 20,
-              ),
-              width: double.maxFinite,
-              height: 70,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: primaryDarkColor1,
-              ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: 20,
-                    child: SvgPicture.asset('assets/icons/google.svg'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20,),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Center(
-                          child: Text(
-                            'Sign In With Google',
-                            style: GoogleFonts.jost(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+         AppButton(
+             onTap: () {
+               if (response.loadingStatus.value == LoadingStatus.loading) {
+                 _authResponse(context, 'Signing in...');
+               }
+               else if (response.loadingStatus.value == LoadingStatus.completed) {
+                 _authResponse(context, 'Signed in successfully...');
+               }
+               else {
+                 _authResponse(context, 'Error signing in...');
+               }
+               controller.signInWithGoogle();
+             },
+             buttonImage: SvgPicture.asset('assets/icons/google.svg'),
+             buttonText: 'Sign In With Google',
+         ),
+          const SizedBox(height: 20,),
+          Text(
+            'OR',
+            style: GoogleFonts.jost(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-          )
+          ),
+          const SizedBox(height: 20,),
+          AppButton(
+              onTap: (){}, 
+              buttonImage: const Icon(Icons.mail_sharp, size: 30,),
+              buttonText: 'Sign In With Email',
+          ),
         ],
       ),
     );
   }
 }
+
+ void _authResponse(BuildContext context, String responseText){
+   ScaffoldMessenger.of(context).showSnackBar(
+     SnackBar(
+       content: Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: [
+           Text(responseText, style: GoogleFonts.jost(
+             color: Colors.white,
+           ),),
+         ],
+       ),
+       backgroundColor: altBackgroundColor,
+       margin: const EdgeInsets.all(20),
+       behavior: SnackBarBehavior.floating,
+       shape: const RoundedRectangleBorder(
+         borderRadius: BorderRadius.all(
+           Radius.circular(10),
+         ),
+       ),
+     ),
+   );
+ }
+
+

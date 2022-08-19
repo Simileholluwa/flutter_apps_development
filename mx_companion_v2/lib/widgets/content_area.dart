@@ -20,9 +20,9 @@ class ContentAreaCustom extends StatelessWidget {
           color: primaryDarkColor1,
         ),
         padding: addPadding ? EdgeInsets.only(
-          top: mobileScreenPadding,
-          left: mobileScreenPadding,
-          right: mobileScreenPadding,
+          top: 10,
+          left: 10,
+          right: 10,
         ) : EdgeInsets.zero,
         child: child,
       ),
