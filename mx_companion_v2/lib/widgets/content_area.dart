@@ -11,21 +11,17 @@ class ContentAreaCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(20),
-      clipBehavior: Clip.hardEdge,
-      type: MaterialType.transparency,
-      child: Ink(
-        decoration: const BoxDecoration(
-          color: primaryDarkColor1,
-        ),
-        padding: addPadding ? EdgeInsets.only(
-          top: 10,
-          left: 10,
-          right: 10,
-        ) : EdgeInsets.zero,
-        child: child,
+    return Container(
+      decoration: BoxDecoration(
+        color: primaryDark,
+          borderRadius: const BorderRadius.all(Radius.circular(30),),
       ),
+      padding: addPadding ? const EdgeInsets.only(
+        top: 10,
+        left: 10,
+        right: 10,
+      ) : EdgeInsets.zero,
+      child: child,
     );
   }
 }

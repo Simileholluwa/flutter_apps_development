@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:mx_companion_v2/bindings/initial_binding.dart';
 import 'package:mx_companion_v2/routes/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'config/themes/app_dark_theme.dart';
+import 'config/themes/app_light_theme.dart';
+import 'config/themes/ui_parameters.dart';
 import 'controllers/theme_controller.dart';
 import 'firebase_options.dart';
 
@@ -18,6 +21,18 @@ Future<void> main() async {
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
   );
 
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      systemNavigationBarColor:
+      UIParameters.isDarkMode() ? primaryDarkColor1 : primaryLightColor1,
+      systemNavigationBarIconBrightness:
+      UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
+      statusBarIconBrightness:
+      UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
+      statusBarColor:
+      UIParameters.isDarkMode() ? primaryDarkColor1 : primaryLightColor1,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

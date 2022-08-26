@@ -31,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
   var password = '';
 
   bool isLoading = false;
-
   @override
   void initState() {
     super.initState();

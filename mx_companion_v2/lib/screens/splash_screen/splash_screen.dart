@@ -5,6 +5,7 @@ import '../../config/themes/app_colors.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
+import '../data_uploader_screen.dart';
 import '../introduction/introduction.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 5),
-          () => const IntroductionScreen(),
+          () => const DataUploaderScreen(),
     );
   }
 

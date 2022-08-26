@@ -13,13 +13,17 @@ class Dialogs {
     return _singleton;
   }
 
-  static Widget paperStartDialog({
+  static Widget appDialog({
     required VoidCallback onTap,
+    required VoidCallback onPressed,
+    required String text,
+    required String message,
+    required String action,
   }) {
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       child: AlertDialog(
-        backgroundColor: transparentColor,
+        backgroundColor: moreTransparent.withAlpha(50,),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -29,48 +33,47 @@ class Dialogs {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Hello there!',
-              style: GoogleFonts.jost(
+              text,
+              style: GoogleFonts.lobsterTwo(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
-                color: altTextColor,
+                color: standoutBlue,
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             Text(
-              'To start practicing your selected course, you need to sign in. It will only take a while..',
+              message,
               style: GoogleFonts.jost(
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
                 height: 1.3,
+                color: textColor,
               ),
             ),
           ],
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: onPressed,
             child: Text(
               'Cancel',
-              style: GoogleFonts.jost(
+              style: GoogleFonts.lobsterTwo(
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
-                fontSize: 17,
+                fontSize: 20,
               ),
             )
           ),
           TextButton(
             onPressed: onTap,
             child: Text(
-              'Login',
-              style: GoogleFonts.jost(
+              action,
+              style: GoogleFonts.lobsterTwo(
                 fontWeight: FontWeight.bold,
-                color: altTextColor,
-                fontSize: 17,
+                color: standoutBlue,
+                fontSize: 20,
               ),
             ),
           ),

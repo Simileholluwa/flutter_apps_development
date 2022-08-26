@@ -1,97 +1,198 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/widgets/app_button.dart';
-import '../../firebase_ref/loading_status.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
+import '../../widgets/custom_icon_button.dart';
+import '../../widgets/text_button_with_icon.dart';
+import '../../widgets/text_field.dart';
+import '../../widgets/text_field_password.dart';
 
-class LoginScreen extends GetView<AuthController> {
+
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
 
   static const String routeName = "/login";
 
   @override
-  Widget build(BuildContext context) {
-    AuthController response = Get.find();
-
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        systemNavigationBarColor:
-            UIParameters.isDarkMode() ? transparentColor : primaryLightColor1,
-        systemNavigationBarIconBrightness:
-            UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
-        statusBarIconBrightness:
-            UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
-        statusBarColor:
-            UIParameters.isDarkMode() ? transparentColor : primaryLightColor1,
-      ),
-    );
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-         AppButton(
-             onTap: () {
-               if (response.loadingStatus.value == LoadingStatus.loading) {
-                 _authResponse(context, 'Signing in...');
-               }
-               else if (response.loadingStatus.value == LoadingStatus.completed) {
-                 _authResponse(context, 'Signed in successfully...');
-               }
-               else {
-                 _authResponse(context, 'Error signing in...');
-               }
-               controller.signInWithGoogle();
-             },
-             buttonImage: SvgPicture.asset('assets/icons/google.svg'),
-             buttonText: 'Sign In With Google',
-         ),
-          const SizedBox(height: 20,),
-          Text(
-            'OR',
-            style: GoogleFonts.jost(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20,),
-          AppButton(
-              onTap: (){}, 
-              buttonImage: const Icon(Icons.mail_sharp, size: 30,),
-              buttonText: 'Sign In With Email',
-          ),
-        ],
-      ),
-    );
-  }
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
- void _authResponse(BuildContext context, String responseText){
-   ScaffoldMessenger.of(context).showSnackBar(
-     SnackBar(
-       content: Row(
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
-           Text(responseText, style: GoogleFonts.jost(
-             color: Colors.white,
-           ),),
-         ],
-       ),
-       backgroundColor: altBackgroundColor,
-       margin: const EdgeInsets.all(20),
-       behavior: SnackBarBehavior.floating,
-       shape: const RoundedRectangleBorder(
-         borderRadius: BorderRadius.all(
-           Radius.circular(10),
-         ),
-       ),
-     ),
-   );
- }
+class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //AuthController controller = Get.find();
 
+  Color btnColor = primaryDarkColor;
+
+  late TextEditingController emailController, passwordController;
+  var email = '';
+  var password = '';
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<AuthController>(builder: (controller){
+      return Scaffold(
+        backgroundColor: primaryDarkColor1,
+        appBar: AppBar(
+          backgroundColor: primaryDarkColor1,
+          shadowColor: Colors.transparent,
+          leading: Container(
+            margin: const EdgeInsets.only(left: 15,),
+            child: CustomIconButton(
+              onPressed: (){
+                controller.navigateToHome();
+              },
+              icon:Icons.home,
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: UIParameters.mobileScreenPadding,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 150,
+                    width: 150,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: primaryDarkColor,
+                    ),
+                    child: const Center(
+                      child: Icon(FontAwesomeIcons.unlockKeyhole, size: 70, color: textColor,),
+                    ),
+                  ),
+                  Text(
+                    'MX Companion',
+                    style: GoogleFonts.jost(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Form(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          onSaved: (value) {
+                            email = value!;
+                          },
+                          validator: (String? value) {
+                            if (!GetUtils.isEmail(value!)) {
+                              return 'Enter a valid email address';
+                            } else if (value.isEmpty) {
+                              return 'Enter cannot be empty';
+                            } else {
+                              return null;
+                            }
+                          },
+                          hintText: 'Email',
+                          labelText: 'Email',
+                          prefixIcon: Icons.mail,
+                          textInputType: TextInputType.emailAddress,
+                          controller: emailController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFieldPW(
+                          onSaved: (value) {
+                            password = value!;
+                          },
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Password cannot be empty';
+                            } else if (value.length < 6) {
+                              return 'Password is at least six characters long';
+                            } else {
+                              return null;
+                            }
+                          },
+                          hintText: 'Password',
+                          labelText: 'Password',
+                          prefixIcon: Icons.password,
+                          controller: passwordController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        AppButton(
+                          onTap: () {
+                            var email = emailController.text.trim().capitalizeFirst;
+                            var password = passwordController.text.trim();
+                            final isValid = _formKey.currentState!.validate();
+                            if(!isValid){
+                              return;
+                            } else {
+                              _formKey.currentState!.save();
+                              setState((){
+                              });
+                              controller.signInWithEmail(email!, password);
+                            }
+                          },
+                          buttonText: controller.isLoading == false ? 'Sign In' : 'Processing...',
+                          btnColor: controller.isLoading == false ? btnColor : standoutBlue,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButtonWithIcon(
+                        onTap: () {
+                          controller.navigateToReset();
+                        },
+                        text: 'Forgot Password',
+                      ),
+                      TextButtonWithIcon(
+                        onTap: () {
+                          controller.navigateToSignup();
+                        },
+                        text: 'Sign Up',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
 

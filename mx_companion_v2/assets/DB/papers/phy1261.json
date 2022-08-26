@@ -1,0 +1,118 @@
+{
+    "id": "ppr007",
+    "course_code": "CHM111",
+    "semester": "First",
+    "credit_unit" : "3",
+    "image_url": "",
+    "course_title": "General Chemistry I ",
+    "time_seconds": 900,
+    "questions": [
+        {
+            "id": "ppr007q001",
+            "question": "What is the chemical symbol for carbon?",
+            "answers": [
+                {
+                    "identifier": "A",
+                    "Answer": "C"
+                },
+                {
+                    "identifier": "B",
+                    "Answer": "Ca"
+                },
+                {
+                    "identifier": "C",
+                    "Answer": "Cn"
+                },
+                {
+                    "identifier": "D",
+                    "Answer": "Crn"
+                }
+            ],
+            "correct_answer": "A"
+        },
+        {
+            "id": "ppr007q002",
+            "question": "Molecules bonded together make up atoms.",
+            "answers": [
+                {
+                    "identifier": "A",
+                    "Answer": "True"
+                },
+                {
+                    "identifier": "B",
+                    "Answer": "False"
+                }
+            ],
+            "correct_answer": "B"
+        },
+        {
+            "id": "ppr007q003",
+            "question": "When we combined vinegar and baking soda and created carbon dioxide what was the product?",
+            "answers": [
+                {
+                    "identifier": "A",
+                    "Answer": "vinegar"
+                },
+                {
+                    "identifier": "B",
+                    "Answer": "carbon dioxide and baking soda"
+                },
+                {
+                    "identifier": "C",
+                    "Answer": "carbon dioxide"
+                },
+                {
+                    "identifier": "D",
+                    "Answer": "vinegar and baking soda"
+                }
+            ],
+            "correct_answer": "C"
+        },
+        {
+            "id": "ppr007q004",
+            "question": "which of the following is a unit of eletric current:",
+            "answers": [
+                {
+                    "identifier": "A",
+                    "Answer": "ohm"
+                },
+                {
+                    "identifier": "B",
+                    "Answer": "volt"
+                },
+                {
+                    "identifier": "C",
+                    "Answer": "watt"
+                },
+                {
+                    "identifier": "D",
+                    "Answer": "amp"
+                }
+            ],
+            "correct_answer": "D"
+        },
+        {
+            "id": "ppr007q005",
+            "question": "Which organelle is found in most plants, some bacteria and some protists?",
+            "answers": [
+                {
+                    "identifier": "A",
+                    "Answer": "ribosomes"
+                },
+                {
+                    "identifier": "B",
+                    "Answer": "mitochondria"
+                },
+                {
+                    "identifier": "C",
+                    "Answer": "endoplasmic reticulum"
+                },
+                {
+                    "identifier": "D",
+                    "Answer": "chloroplasts"
+                }
+            ],
+            "correct_answer": "D"
+        }
+    ]
+}

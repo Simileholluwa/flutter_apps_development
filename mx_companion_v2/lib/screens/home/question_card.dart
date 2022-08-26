@@ -18,48 +18,50 @@ class QuestionsCard extends GetView<QuestionPaperController> {
 
   @override
   Widget build(BuildContext context) {
-    const double customPadding = 10;
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: UIParameters.cardBorderRadius,
-        color: transparentColor,
-      ),
-      child: InkWell(
-        onTap: (){
-          controller.navigateToQuestions(paper: model);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(customPadding),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(30),),
+            splashFactory: InkRipple.splashFactory,
+            splashColor: altBackgroundColor,
+            onTap: (){
+              controller.navigateToQuestions(paper: model);
+            },
+            child: Container(
+              padding: const EdgeInsets.only(left: 20, right: 20,),
+              child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: ColoredBox(
-                      color: altBackgroundColor,
-                      child: SizedBox(
-                        width: 70,
-                        height: 70,
-                        child: Center(
+                  const SizedBox(height: 20,),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 70,
+                          height: 70,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: transparentColor,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(model.creditUnit!,
                               style: GoogleFonts.jost(
-                                //color: altTextColor,
-                                fontSize: 40,
+                                color: textColor,
+                                fontSize: 30,
                                 fontWeight: FontWeight.w800,
                               ),
                               ),
-                              const SizedBox(width: 5,),
                               Text('units',
                                 style: GoogleFonts.jost(
                                   fontSize: 10,
+                                  color: textColor,
                                   fontFeatures: [const FontFeature.subscripts()],
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -68,79 +70,92 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 20,),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(model.courseCode!,
-                          style: cardTitles(context),
-                        ),
-                        const SizedBox(height: 20,),
-                        Text(model.courseTitle!,
-                          style: GoogleFonts.jost(
-                            height: 1.3,
-                          ),
-                        ),
-                        const SizedBox(height: 20,),
-                        Row(
+                      const SizedBox(width: 15,),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AppIconText(
-                              icon: const Icon(Icons.help_outline_sharp,
-                                color: altTextColor,
-                                size: 20,
-                              ),
-                              text: Text('${model.questionCount} questions',
-                                style: GoogleFonts.jost(
-                                  fontSize: 15,
-                                  color: altTextColor,
-                                ),
+                            Text(model.courseCode!,
+                              style: cardTitles(context),
+                            ),
+                            const SizedBox(height: 5,),
+                            Text(model.courseTitle!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.lobsterTwo(
+                                color: Colors.grey,
+                                fontSize: 17,
                               ),
                             ),
-                            const SizedBox(width: 10,),
-                            AppIconText(
-                              icon: const Icon(Icons.timer,
-                                color: altTextColor,
-                                size: 20,
+                            const SizedBox(height: 5,),
+                            Text("${model.semester!} semester",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.lobsterTwo(
+                                  color: Colors.grey,
+                                fontSize: 17,
                               ),
-                              text: Text(model.timeInMinutes(),
-                                style: GoogleFonts.jost(
-                                  fontSize: 15,
-                                  color: altTextColor,
+                            ),
+                            const SizedBox(height: 5,),
+                            Row(
+                              children: [
+                                AppIconText(
+                                  icon: const Icon(Icons.help_outline_sharp,
+                                    color: Colors.grey,
+                                    size: 17,
+                                  ),
+                                  text: Text('${model.questionCount} questions',
+                                    style: GoogleFonts.lobsterTwo(
+                                      fontSize: 17,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )
+                                const SizedBox(width: 10,),
+                                AppIconText(
+                                  icon: const Icon(Icons.timer,
+                                    color: Colors.grey,
+                                    size: 17,
+                                  ),
+                                  text: Text(model.timeInMinutes(),
+                                    style: GoogleFonts.lobsterTwo(
+                                      fontSize: 17,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                      ],
-                    ),
-                  )
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
                 ],
               ),
-              Positioned(
-                top: -customPadding,
-                right: -customPadding,
-                child: GestureDetector(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20 ),
-                    decoration: BoxDecoration(
-                      //border: Border.all(width: 2, color: transparentColor,),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(cardBorderRadius),
-                        bottomLeft: Radius.circular(cardBorderRadius),
-                      ),
-                      color: altBackgroundColor,
-                    ),
-                    child: const Icon(AppIcons.trophyOutLine),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        Positioned(
+          bottom: 20,
+          right: 20,
+          child: GestureDetector(
+            onTap: (){},
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20 ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(cardBorderRadius),
+                  bottomLeft: Radius.circular(cardBorderRadius),
+                ),
+                color: Colors.blue.shade800,
+              ),
+              child: const Icon(AppIcons.trophyOutLine),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

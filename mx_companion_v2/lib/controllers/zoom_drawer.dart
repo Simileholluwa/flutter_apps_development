@@ -18,11 +18,19 @@ class MyZoomDrawerController extends GetxController{
   }
 
   void signOut(){
-    Get.find<AuthController>().signOut();
+    Get.find<AuthController>().showSignOutAlertDialog();
   }
 
   void signIn(){
     Get.find<AuthController>().navigateToLogin();
+  }
+
+  void signUp(){
+    Get.find<AuthController>().navigateToSignup();
+  }
+
+  void menu(){
+    Get.find<AuthController>().navigateToMenu();
   }
 
   void website(){

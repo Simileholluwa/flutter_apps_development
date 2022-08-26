@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
@@ -18,7 +17,7 @@ class MainScreen extends StatelessWidget {
     QuestionPaperController questionPaperController = Get.find();
     MyZoomDrawerController controller = Get.find();
     return Container(
-      decoration: const BoxDecoration(color: transparentColor),
+      decoration: const BoxDecoration(color: primaryDarkColor1),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,13 +27,30 @@ class MainScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                    onTap: controller.toggleDrawer,
-                    child: const Icon(
-                      AppIcons.menuLeft,
-                      color: altTextColor,
-                      size: 24,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        splashFactory: InkRipple.splashFactory,
+                        splashColor: altBackgroundColor,
+                        onTap: controller.menu,
+                        child: Icon(
+                          AppIcons.menuLeft,
+                          color: textColor,
+                          size: 30,
+                        ),
+                      ),
+                      InkWell(
+                        splashFactory: InkRipple.splashFactory,
+                        splashColor: altBackgroundColor,
+                        onTap: (){},
+                        child: Icon(
+                          Icons.search,
+                          color: textColor,
+                          size: 30,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 20,
@@ -53,8 +69,8 @@ class MainScreen extends StatelessWidget {
                           controller.user.value == null
                               ? 'Hello there!'
                               : 'Hello, ${controller.user.value!.displayName}!',
-                          style: GoogleFonts.jost(
-                            fontSize: 15,
+                          style: GoogleFonts.lobsterTwo(
+                            fontSize: 17,
                             color: Colors.grey,
                           ),
                         ),
@@ -69,6 +85,7 @@ class MainScreen extends StatelessWidget {
                     style: GoogleFonts.jost(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
+                      color: textColor,
                     ),
                   ),
                 ],
@@ -77,27 +94,22 @@ class MainScreen extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
+                  left: 25,
+                  right: 25,
                   top: 20,
                   bottom: 20,
                 ),
                 child: ContentAreaCustom(
                   addPadding: false,
                   child: Obx(
-                    () => ListView.separated(
-                      padding: const EdgeInsets.all(20),
+                    () => ListView.builder(
+                      //padding: const EdgeInsets.all(20),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
                           child: QuestionsCard(
                             model: questionPaperController.allPapers[index],
                           ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 15,
                         );
                       },
                       itemCount: questionPaperController.allPapers.length,

@@ -20,7 +20,7 @@ class HomeScreen extends GetView<MyZoomDrawerController> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: UIParameters.isDarkMode()
-            ? transparentColor
+            ? primaryDarkColor1
             : primaryLightColor1,
         systemNavigationBarIconBrightness: UIParameters.isDarkMode()
             ? Brightness.light
@@ -29,24 +29,14 @@ class HomeScreen extends GetView<MyZoomDrawerController> {
             ? Brightness.light
             : Brightness.dark,
         statusBarColor: UIParameters.isDarkMode()
-            ? transparentColor
+            ? primaryDarkColor1
             : primaryLightColor1,
       ),
     );
 
     return Scaffold(
       body: GetBuilder<MyZoomDrawerController>(builder: (_){
-        return ZoomDrawer(
-          borderRadius: 50,
-          angle: 0,
-          controller: _.zoomDrawerController,
-          style: DrawerStyle.style1,
-          menuScreen: const MenuScreen(),
-          menuScreenWidth: 275,
-          showShadow: true,
-          overlayBlur: 10,
-          mainScreen: const MainScreen(),
-        );
+        return const MainScreen();
       }),
     );
   }

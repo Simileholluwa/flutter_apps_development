@@ -5,5 +5,5 @@ import 'package:flutter/material.dart';
 TextStyle cardTitles(context) => GoogleFonts.jost(
   fontSize: 25,
   fontWeight: FontWeight.bold,
-  color: altTextColor,
+  color: textColor,
 );
