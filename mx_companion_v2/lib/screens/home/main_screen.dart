@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
     QuestionPaperController questionPaperController = Get.find();
     MyZoomDrawerController controller = Get.find();
     return Container(
-      decoration: const BoxDecoration(color: primaryDarkColor1),
+      decoration: BoxDecoration(color: primaryDarkColor1),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,7 @@ class MainScreen extends StatelessWidget {
                         child: Icon(
                           AppIcons.menuLeft,
                           color: textColor,
-                          size: 30,
+                          size: 25,
                         ),
                       ),
                       InkWell(
@@ -59,7 +59,7 @@ class MainScreen extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.waving_hand_sharp,
-                        color: Colors.grey,
+                        color: orangeColor,
                       ),
                       const SizedBox(
                         width: 5,
@@ -71,7 +71,7 @@ class MainScreen extends StatelessWidget {
                               : 'Hello, ${controller.user.value!.displayName}!',
                           style: GoogleFonts.lobsterTwo(
                             fontSize: 17,
-                            color: Colors.grey,
+                            color: altTextColor,
                           ),
                         ),
                       ),

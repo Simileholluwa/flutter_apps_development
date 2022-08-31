@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +6,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/widgets/app_button.dart';
 import '../../config/themes/app_dark_theme.dart';
-import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../../widgets/custom_icon_button.dart';
 import '../../widgets/text_button_with_icon.dart';
@@ -30,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //AuthController controller = Get.find();
 
-  Color btnColor = primaryDarkColor;
+  Color btnColor = maroonColor;
 
   late TextEditingController emailController, passwordController;
   var email = '';
@@ -56,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return Scaffold(
         backgroundColor: primaryDarkColor1,
         appBar: AppBar(
+
           backgroundColor: primaryDarkColor1,
           shadowColor: Colors.transparent,
           leading: Container(
@@ -81,10 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 150,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: primaryDarkColor,
+                      color: primaryDark,
                     ),
                     child: const Center(
-                      child: Icon(FontAwesomeIcons.unlockKeyhole, size: 70, color: textColor,),
+                      child: Icon(FontAwesomeIcons.unlockKeyhole, size: 70, color: altTextColor,),
                     ),
                   ),
                   Text(
@@ -160,8 +158,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller.signInWithEmail(email!, password);
                             }
                           },
-                          buttonText: controller.isLoading == false ? 'Sign In' : 'Processing...',
-                          btnColor: controller.isLoading == false ? btnColor : standoutBlue,
+                          buttonWidget: controller.isLoading == false ? Text(
+                            'Sign In',
+                            style: GoogleFonts.jost(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: altTextColor,
+                            ),
+                          ) : LoadingAnimationWidget.prograssiveDots(color: altTextColor, size: 60,),
+                          btnColor: btnColor,
                         ),
                         const SizedBox(
                           height: 20,

@@ -192,7 +192,6 @@ class AuthController extends GetxController {
         navigateToLogin();
       }, onPressed: () {
         Get.back();
-        navigateToSignup();
       },
           action: 'Sign In',
           text: 'Hello there!',
@@ -238,11 +237,12 @@ class AuthController extends GetxController {
         ),
         child: Icon(icon, size: 30,),
       ),
-      margin: const EdgeInsets.only(left: 25, right: 25, bottom: 50,),
+      margin: const EdgeInsets.only(left: 25, right: 25, top: 50,),
       borderRadius: 10,
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
-      backgroundColor: primaryDarkColor,
+      backgroundColor: primaryDark,
+      duration: const Duration(seconds: 5,),
     );
   }
 }

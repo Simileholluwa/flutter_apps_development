@@ -26,7 +26,9 @@ class QuestionsCard extends GetView<QuestionPaperController> {
           child: InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(30),),
             splashFactory: InkRipple.splashFactory,
-            splashColor: altBackgroundColor,
+            splashColor: standoutBlue,
+            highlightColor: standoutBlue,
+            hoverColor: standoutBlue,
             onTap: (){
               controller.navigateToQuestions(paper: model);
             },
@@ -41,11 +43,11 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                     children: [
                       Center(
                         child: Container(
-                          width: 70,
-                          height: 70,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: transparentColor,
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(Radius.circular(10),),
+                            color: standoutBlue.withOpacity(.2),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +55,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                             children: [
                               Text(model.creditUnit!,
                               style: GoogleFonts.jost(
-                                color: textColor,
+                                color: altTextColor,
                                 fontSize: 30,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -61,7 +63,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                               Text('units',
                                 style: GoogleFonts.jost(
                                   fontSize: 10,
-                                  color: textColor,
+                                  color: altTextColor,
                                   fontFeatures: [const FontFeature.subscripts()],
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -83,7 +85,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.lobsterTwo(
-                                color: Colors.grey,
+                                color: altTextColor,
                                 fontSize: 17,
                               ),
                             ),
@@ -92,7 +94,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.lobsterTwo(
-                                  color: Colors.grey,
+                                  color: altTextColor,
                                 fontSize: 17,
                               ),
                             ),
@@ -101,26 +103,26 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                               children: [
                                 AppIconText(
                                   icon: const Icon(Icons.help_outline_sharp,
-                                    color: Colors.grey,
+                                    color: orangeColor,
                                     size: 17,
                                   ),
                                   text: Text('${model.questionCount} questions',
                                     style: GoogleFonts.lobsterTwo(
                                       fontSize: 17,
-                                      color: Colors.grey,
+                                      color: altTextColor,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(width: 10,),
                                 AppIconText(
                                   icon: const Icon(Icons.timer,
-                                    color: Colors.grey,
+                                    color: orangeColor,
                                     size: 17,
                                   ),
                                   text: Text(model.timeInMinutes(),
                                     style: GoogleFonts.lobsterTwo(
                                       fontSize: 17,
-                                      color: Colors.grey,
+                                      color: altTextColor,
                                     ),
                                   ),
                                 ),
@@ -149,9 +151,9 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                   topRight: Radius.circular(cardBorderRadius),
                   bottomLeft: Radius.circular(cardBorderRadius),
                 ),
-                color: Colors.blue.shade800,
+                color: standoutBlue.withOpacity(.2),
               ),
-              child: const Icon(AppIcons.trophyOutLine),
+              child: const Icon(AppIcons.trophyOutLine, color: textColor,),
             ),
           ),
         ),

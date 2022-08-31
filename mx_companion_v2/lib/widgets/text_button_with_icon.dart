@@ -14,13 +14,13 @@ class TextButtonWithIcon extends StatelessWidget {
       onPressed: onTap,
       icon: Icon(
         Icons.arrow_forward_ios,
-        color: standoutBlue,
+        color: textColor,
       ),
       label: Text(
         text,
         style: GoogleFonts.jost(
           fontSize: 15,
-          color: standoutBlue,
+          color: textColor,
           fontWeight: FontWeight.bold,
         ),
       ),

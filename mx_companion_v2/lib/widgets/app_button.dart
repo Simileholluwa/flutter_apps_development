@@ -6,9 +6,9 @@ import '../config/themes/app_dark_theme.dart';
 class AppButton extends StatelessWidget {
   final VoidCallback onTap;
   final Widget? buttonImage;
-  final String buttonText;
+  final Widget buttonWidget;
   final Color btnColor;
-  const AppButton({Key? key, required this.onTap, this.buttonImage, required this.buttonText, required this.btnColor}) : super(key: key);
+  const AppButton({Key? key, required this.onTap, this.buttonImage, required this.buttonWidget, required this.btnColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,7 @@ class AppButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              buttonText,
-              style: GoogleFonts.jost(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: textColor,
-              ),
-            ),
-
+            buttonWidget,
           ],
         ),
 

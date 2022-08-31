@@ -37,7 +37,7 @@ class Dialogs {
               style: GoogleFonts.lobsterTwo(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
-                color: standoutBlue,
+                color: textColor,
               ),
             ),
             const SizedBox(
@@ -49,7 +49,7 @@ class Dialogs {
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
                 height: 1.3,
-                color: textColor,
+                color: altTextColor,
               ),
             ),
           ],
@@ -72,7 +72,7 @@ class Dialogs {
               action,
               style: GoogleFonts.lobsterTwo(
                 fontWeight: FontWeight.bold,
-                color: standoutBlue,
+                color: textColor,
                 fontSize: 20,
               ),
             ),

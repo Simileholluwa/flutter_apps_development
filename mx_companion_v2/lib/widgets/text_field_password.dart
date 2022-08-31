@@ -29,6 +29,7 @@ class _CustomTextFieldPWState extends State<CustomTextFieldPW> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       onSaved: widget.onSaved,
       validator: widget.validator,
       keyboardType: TextInputType.text,
@@ -42,9 +43,11 @@ class _CustomTextFieldPWState extends State<CustomTextFieldPW> {
         fontWeight: FontWeight.w600,
       ),
       decoration: InputDecoration(
+        filled: true,
+        fillColor: primaryDark,
         prefixIcon: Icon(
           widget.prefixIcon,
-          color: Colors.grey,
+          color: altTextColor,
         ),
         suffixIcon: IconButton(
           splashRadius: 5,
@@ -55,31 +58,31 @@ class _CustomTextFieldPWState extends State<CustomTextFieldPW> {
           },
           icon: Icon(
             _isHidden ? Icons.visibility : Icons.visibility_off,
-            color: standoutBlue,
+            color: textColor,
           ),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: standoutBlue, width: 2.0),
+          borderSide: BorderSide(color: orangeColor, width: 2.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: standoutBlue, width: 2.0),
+          borderSide: BorderSide(color: orangeColor, width: 2.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: primaryDarkColor
-              , width: 2.0),
+          borderSide: const BorderSide(color: Colors.transparent
+              , width: 0.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
         hintText: widget.hintText,
         hintStyle: GoogleFonts.jost(
-          color: Colors.grey,
+          color: altTextColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         labelText: widget.labelText,
         labelStyle: GoogleFonts.jost(
-          color: Colors.grey,
+          color: altTextColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),

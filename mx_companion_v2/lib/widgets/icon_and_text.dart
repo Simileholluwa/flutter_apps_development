@@ -26,14 +26,14 @@ class IconAndText extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(icon, color: standoutBlue, size: size,),
+              Icon(icon, color: textColor, size: size,),
               const SizedBox(width: 30,),
               Text(
                 text,
                 style: GoogleFonts.jost(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: textColor,
+                  color: altTextColor,
                 ),
               ),
               const Spacer(),
@@ -41,7 +41,7 @@ class IconAndText extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.arrow_forward_ios_sharp, color: Colors.grey, size: 10,),
+                  Icon(Icons.arrow_forward_ios_sharp, color: orangeColor, size: 10,),
                 ],
               ),
             ],

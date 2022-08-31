@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
@@ -26,7 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AuthController controller = Get.find();
 
-  Color btnColor = primaryDarkColor;
+  Color btnColor = maroonColor;
 
   late TextEditingController emailController,
       passwordController,
@@ -90,12 +91,12 @@ class _SignupScreenState extends State<SignupScreen> {
                 Container(
                   height: 150,
                   width: 150,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: primaryDarkColor,
+                    color: primaryDark,
                   ),
                   child: const Center(
-                    child: Icon(CupertinoIcons.person, size: 90, color: textColor,),
+                    child: Icon(CupertinoIcons.person, size: 90, color: altTextColor,),
                   ),
                 ),
                 Text(
@@ -248,7 +249,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             );
                           }
                         },
-                        buttonText: controller.isLoading == false ? 'Sign Up' : 'Processing...',
+                        buttonWidget: controller.isLoading == false ? Text(
+                          'Sign Up',
+                          style: GoogleFonts.jost(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: altTextColor,
+                          ),
+                        ) : LoadingAnimationWidget.prograssiveDots(color: altTextColor, size: 60,),
                         btnColor: controller.isLoading == false ? btnColor : standoutBlue,
                       ),
                       const SizedBox(

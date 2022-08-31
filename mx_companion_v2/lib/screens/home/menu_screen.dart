@@ -83,7 +83,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         width: 150,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: primaryDarkColor,
+                          color: primaryDark,
                         ),
                         child: const Center(
                           child: Icon(
@@ -104,7 +104,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             style: GoogleFonts.lobsterTwo(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: textColor,
+                              color: altTextColor,
                             ),
                           )
                         : Text(
@@ -112,7 +112,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             style: GoogleFonts.lobsterTwo(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: textColor,
+                              color: altTextColor,
                             ),
                           ),
                   ),
@@ -149,12 +149,12 @@ class _MenuScreenState extends State<MenuScreen> {
                               IconAndText(
                                 onTap: () {},
                                 text: 'Leaderboard',
-                                icon: FontAwesomeIcons.chartColumn,
+                                icon: FontAwesomeIcons.chartSimple,
                               ),
                               IconAndText(
                                 onTap: () {},
                                 text: 'FAQs',
-                                icon: FontAwesomeIcons.question,
+                                icon: FontAwesomeIcons.personCircleQuestion,
                               ),
                               IconAndText(
                                 onTap: () {},
@@ -163,8 +163,9 @@ class _MenuScreenState extends State<MenuScreen> {
                               ),
                               IconAndText(
                                 onTap: () {},
-                                text: 'Join WhatsApp Group',
-                                icon: FontAwesomeIcons.whatsapp,
+                                text: 'Social',
+                                icon: Icons.group_add_sharp,
+                                size: 30,
                               ),
                               IconAndText(
                                 onTap: () {},

@@ -40,32 +40,34 @@ class CustomTextField extends StatelessWidget {
         fontWeight: FontWeight.w600,
       ),
       decoration: InputDecoration(
+        fillColor: primaryDark,
+        filled: true,
         prefixIcon: Icon(
           prefixIcon,
-          color: Colors.grey,
+          color: altTextColor,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: standoutBlue, width: 2.0),
+          borderSide: BorderSide(color: orangeColor, width: 2.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: standoutBlue, width: 2.0),
+          borderSide: BorderSide(color: orangeColor, width: 2.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: primaryDarkColor
-              , width: 2.0),
+          borderSide: const BorderSide(color: transparentColor
+              , width: 0.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
         hintText: hintText,
         hintStyle: GoogleFonts.jost(
-          color: Colors.grey,
+          color: altTextColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         labelText: labelText,
         labelStyle: GoogleFonts.jost(
-          color: Colors.grey,
+          color: altTextColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),

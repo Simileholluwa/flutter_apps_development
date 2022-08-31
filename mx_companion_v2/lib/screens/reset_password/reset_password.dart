@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
@@ -25,7 +26,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AuthController controller = Get.find();
 
-  Color btnColor = primaryDarkColor;
+  Color btnColor = maroonColor;
 
   late TextEditingController emailController, passwordController;
   var email = '';
@@ -70,12 +71,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                 Container(
                   height: 150,
                   width: 150,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: primaryDarkColor,
+                    color: primaryDark,
                   ),
                   child: const Center(
-                    child: Icon(FontAwesomeIcons.shield, size: 70, color: textColor,),
+                    child: Icon(FontAwesomeIcons.shield, size: 70, color: altTextColor,),
                   ),
                 ),
                 Text(
@@ -129,8 +130,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                             controller.resetPassword(email!);
                           }
                         },
-                        buttonText: controller.isLoading == false ? 'Reset' : 'Processing...',
-                        btnColor: controller.isLoading == false ? btnColor : standoutBlue,
+                        buttonWidget: controller.isLoading == false ? Text(
+                          'Reset',
+                          style: GoogleFonts.jost(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: altTextColor,
+                          ),
+                        ) : LoadingAnimationWidget.prograssiveDots(color: altTextColor, size: 60,),
+                        btnColor: btnColor,
                       ),
                       const SizedBox(
                         height: 20,
