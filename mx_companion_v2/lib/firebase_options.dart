@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '294895503490',
     projectId: 'mx-companion-v2',
     storageBucket: 'mx-companion-v2.appspot.com',
+    androidClientId: '294895503490-e4eem1tc2cq3hqnlg2flpvisj5cpenn1.apps.googleusercontent.com',
     iosClientId: '294895503490-5dunnku6vprua2les16hifsq5os7c2t7.apps.googleusercontent.com',
     iosBundleId: 'io.prodigy.mxCompanionV2',
   );
