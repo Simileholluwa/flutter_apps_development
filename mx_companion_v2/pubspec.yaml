@@ -49,6 +49,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   cached_network_image: ^3.2.1
   samsung_ui_scroll_effect: ^0.0.2
+  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:

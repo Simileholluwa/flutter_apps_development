@@ -8,6 +8,7 @@ import '../firebase_ref/loading_status.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
+import '../screens_controller/screens_controller.dart';
 import '../services/Authentication/auth_service.dart';
 import '../widgets/alert_user.dart';
 
@@ -166,7 +167,7 @@ class AuthController extends GetxController {
   }
 
   void navigateToHome() {
-    Get.offAllNamed("/homepage");
+    Get.offAllNamed(ScreensController.routeName);
   }
 
   void navigateToMenu() {

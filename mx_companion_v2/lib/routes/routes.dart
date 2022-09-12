@@ -5,7 +5,7 @@ import 'package:mx_companion_v2/screens/data_uploader_screen.dart';
 import 'package:mx_companion_v2/screens/home/menu_screen.dart';
 import 'package:mx_companion_v2/screens/introduction/introduction.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
-import '../screens/home/home_screen.dart';
+import 'package:mx_companion_v2/screens_controller/screens_controller.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
 import '../screens/splash_screen/splash_screen.dart';
@@ -21,8 +21,8 @@ class AppRoutes {
           page: () => const IntroductionScreen(),
         ),
         GetPage(
-          name: "/homepage",
-          page: () => const HomeScreen(),
+          name: ScreensController.routeName,
+          page: () => const ScreensController(),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(milliseconds: 700,),
           binding: BindingsBuilder(() {

@@ -36,10 +36,11 @@ class MainScreen extends StatelessWidget {
                       size: 15,
                       color: orangeColor,
                     ),
+                    const SizedBox(width: 2,),
                     Text(
                       controller.user.value == null
                           ? 'Hello there, to start practicing,'
-                          : 'Hello, ${controller.user.value!.displayName}, to start practicing,',
+                          : 'Hello ${controller.user.value!.displayName}, to start practicing,',
                       style: GoogleFonts.lobsterTwo(
                         fontSize: 17,
                         color: altTextColor,

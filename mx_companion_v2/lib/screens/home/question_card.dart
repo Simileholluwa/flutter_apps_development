@@ -20,20 +20,16 @@ class QuestionsCard extends GetView<QuestionPaperController> {
     return Material(
       type: MaterialType.transparency,
       child: InkWell(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(30),
-        ),
         splashFactory: InkRipple.splashFactory,
-        splashColor: standoutBlue,
-        highlightColor: standoutBlue,
-        hoverColor: standoutBlue,
+        splashColor: altBackgroundColor,
+        highlightColor: altBackgroundColor,
         onTap: () {
           controller.navigateToQuestions(paper: model);
         },
         child: Container(
           padding: const EdgeInsets.only(
             left: 25,
-            right: 25,
+            right: 28,
           ),
           child: Column(
             children: [
