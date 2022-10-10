@@ -13,7 +13,10 @@ class ContentAreaCustom extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: primaryDark,
-          borderRadius: BorderRadius.all(Radius.circular(30),),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30),
+            topLeft: Radius.circular(30),
+      ),
       ),
       padding: addPadding ? const EdgeInsets.only(
         top: 10,

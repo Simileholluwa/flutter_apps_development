@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../config/themes/app_dark_theme.dart';
-import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/app_button.dart';
@@ -91,7 +89,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Container(
                   height: 150,
                   width: 150,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: primaryDark,
                   ),
@@ -165,7 +163,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         validator: (String? value) {
                           if (value!.isEmpty) {
                             return 'Username field is required';
-                          } else {
+                          } else if(value.length > 15) {
+                            return 'Username should be at most 15 characters';
+                          }
+                          else {
                             return null;
                           }
                         },
@@ -230,7 +231,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           var department =
                               departmentController.text.trim().capitalizeFirst;
                           var phoneNumber = phoneNumberController.text.trim();
-                          var url = 'https://unsplash.com/photos/f1YfrZ1o2r8';
+                          var url = 'https://pixabay.com/get/g1a15e8abc18a61f2df80b2b18a5d07950815f2bc3cb9fa515f4d05fca938b9f32adfaaff469550813ddea11cf47d4bb7f9063109d33d9ab1346e594ea8b266dba274160a6856d1b0c02c6a830f2b01f0_640.jpg';
                           var created = DateTime.now();
                           final isValid = _formKey.currentState!.validate();
                           if (!isValid) {
@@ -257,7 +258,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: altTextColor,
                           ),
                         ) : LoadingAnimationWidget.prograssiveDots(color: altTextColor, size: 60,),
-                        btnColor: controller.isLoading == false ? btnColor : standoutBlue,
+                        btnColor: btnColor,
                       ),
                       const SizedBox(
                         height: 20,

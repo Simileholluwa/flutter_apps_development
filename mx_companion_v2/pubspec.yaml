@@ -41,15 +41,12 @@ dependencies:
   loading_animation_widget: ^1.2.0+2
   google_fonts: ^3.0.1
   firebase_storage: ^10.3.5
-  flutter_zoom_drawer: ^3.0.3
   url_launcher: ^6.1.5
   firebase_auth: ^3.6.4
   google_sign_in: ^5.4.1
   flutter_svg: ^1.1.4
   font_awesome_flutter: ^10.1.0
-  cached_network_image: ^3.2.1
   samsung_ui_scroll_effect: ^0.0.2
-  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:

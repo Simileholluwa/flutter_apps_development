@@ -8,7 +8,7 @@ class IconAndText extends StatelessWidget {
   final String text;
   final IconData icon;
   final double size;
-  const IconAndText({Key? key, required this.onTap, required this.text, required this.icon, this.size =30,}) : super(key: key);
+  const IconAndText({Key? key, required this.onTap, required this.text, required this.icon, this.size =25,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class IconAndText extends StatelessWidget {
               Text(
                 text,
                 style: GoogleFonts.jost(
-                  fontSize: 20,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
                   color: altTextColor,
                 ),

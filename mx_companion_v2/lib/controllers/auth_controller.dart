@@ -5,10 +5,10 @@ import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../config/themes/app_dark_theme.dart';
 import '../firebase_ref/loading_status.dart';
+import '../screens/home/main_screen.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
-import '../screens_controller/screens_controller.dart';
 import '../services/Authentication/auth_service.dart';
 import '../widgets/alert_user.dart';
 
@@ -43,7 +43,7 @@ class AuthController extends GetxController {
       await AuthService.firebase().logIn(email: email, password: password,);
       _isLoading = false;
       navigateToHome();
-      showSnackBar('Sign in', 'Signed in successfully...',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Sign in', 'You have successfully signed in',  icon: Icons.check_circle, containerColor: Colors.green,);
     } on UserNotFoundAuthException {
       _isLoading = false;
       showSnackBar('An Error Occurred', 'No account found with this email.');
@@ -91,7 +91,7 @@ class AuthController extends GetxController {
       );
       _isLoading = false;
       navigateToLogin();
-      showSnackBar('Sign up', 'Signed up successfully...',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Sign up', 'You have successfully signed up',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on WeakPasswordAuthException {
       _isLoading = false;
@@ -158,7 +158,7 @@ class AuthController extends GetxController {
     try {
       await AuthService.firebase().logOut();
       navigateToHome();
-      showSnackBar('Sign out', 'Signed out successfully...',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Sign out', 'You have successfully signed out',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on UserNotLoggedInAuthException {
       showSnackBar('An Error Occurred', 'You are currently not signed in.');
@@ -167,7 +167,7 @@ class AuthController extends GetxController {
   }
 
   void navigateToHome() {
-    Get.offAllNamed(ScreensController.routeName);
+    Get.offAllNamed(MainScreen.routeName);
   }
 
   void navigateToMenu() {

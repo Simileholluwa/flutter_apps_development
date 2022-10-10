@@ -24,7 +24,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
         splashColor: altBackgroundColor,
         highlightColor: altBackgroundColor,
         onTap: () {
-          controller.navigateToQuestions(paper: model);
+          controller.navigateToQuestions(paper: model, tryAgain: false,);
         },
         child: Container(
           padding: const EdgeInsets.only(

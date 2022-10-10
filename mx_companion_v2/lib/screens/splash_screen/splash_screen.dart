@@ -6,7 +6,6 @@ import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/app_light_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../data_uploader_screen.dart';
-import '../introduction/introduction.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -27,6 +26,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor:
+        UIParameters.isDarkMode() ? primaryDark : primaryLightColor1,
+        systemNavigationBarIconBrightness:
+        UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness:
+        UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
+        statusBarColor:
+        UIParameters.isDarkMode() ? primaryDark : primaryLightColor1,
+      ),
+    );
 
     return Scaffold(
       body: Container(
