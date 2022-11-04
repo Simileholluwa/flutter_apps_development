@@ -3,7 +3,7 @@ import 'app_dark_theme.dart';
 import 'package:flutter/material.dart';
 
 TextStyle cardTitles(context) => GoogleFonts.jost(
-  fontSize: 25,
+  fontSize: 20,
   fontWeight: FontWeight.bold,
-  color: textColor,
+  color: altTextColor,
 );

@@ -16,7 +16,6 @@ class CustomIconButton extends StatelessWidget {
       splashRadius: 25,
       splashColor: maroonColor,
       highlightColor: maroonColor,
-      hoverColor: maroonColor,
       icon: Icon(
         icon,
         size: size,

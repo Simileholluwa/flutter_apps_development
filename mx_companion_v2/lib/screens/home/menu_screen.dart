@@ -27,7 +27,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
       backgroundColor: primaryDarkColor1,
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.only(bottom: 20, top: 20, left: 30, right: 30,),
         child: AppButton(
           onTap: () {
             controller.user.value == null
@@ -74,7 +74,9 @@ class _MenuScreenState extends State<MenuScreen> {
               right: 15,
             ),
             child: CustomIconButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.openEmail();
+              },
               icon: Icons.email,
             ),
           ),
@@ -86,11 +88,11 @@ class _MenuScreenState extends State<MenuScreen> {
             controller.user.value == null
                 ? Container()
                 : Positioned(
-                    top: 33,
+                    top: 53,
                     right: 18,
                     child: CustomIconButton(
-                      onPressed: () {},
-                      //color: orangeColor,
+                      onPressed: () {
+                      },
                       icon: CupertinoIcons.camera_fill,
                     ),
                   ),
@@ -98,6 +100,7 @@ class _MenuScreenState extends State<MenuScreen> {
               margin: const EdgeInsets.only(
                 left: 25,
                 right: 25,
+                top: 20,
               ),
               child: Obx(
                 () => Column(
@@ -110,16 +113,18 @@ class _MenuScreenState extends State<MenuScreen> {
                           alignment: Alignment.center,
                           child: CircleAvatar(
                             radius: 60,
-                            backgroundColor: maroonColor,
+                            backgroundColor: primaryDark,
                             child: ClipOval(
                               child: SizedBox(
                                 height: 110,
                                 width: 110,
                                 child: controller.user.value == null
-                                    ? const Icon(
-                                        CupertinoIcons.person_alt_circle,
-                                        size: 100,
-                                      )
+                                    ? const Center(
+                                      child: Icon(
+                                          CupertinoIcons.person_alt_circle,
+                                          size: 100,
+                                        ),
+                                    )
                                     : Image.network(
                                         controller.user.value!.photoURL!,
                                         loadingBuilder:
@@ -241,7 +246,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 25,
+                        top: 20,
                       ),
                       child: Text(
                         'Thank you for using MX Companion. Kindly shoot us a mail if you encounter any challenges or chat with us on WhatsApp. We value your reviews and support.\nTap on the "About Us" button for our contact details.',

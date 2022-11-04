@@ -157,8 +157,7 @@ class MainScreen extends StatelessWidget {
                       () => ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.only(
-                          top: 20,
-                          bottom: 20,
+                          bottom: 10,
                         ),
                         shrinkWrap: true,
                         itemCount: questionPaperController.allPapers.length,
@@ -169,9 +168,10 @@ class MainScreen extends StatelessWidget {
                               right: 10,
                             ),
                             child: const Divider(
-                              height: 30,
-                              color: textColor,
-                              indent: 98,
+                              color: primaryDarkColor1,
+                              //indent: 25,
+                              //endIndent: 25,
+                              thickness: 5,
                             ),
                           );
                         },
