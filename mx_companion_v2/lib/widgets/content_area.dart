@@ -4,19 +4,19 @@ import '../config/themes/app_dark_theme.dart';
 class ContentAreaCustom extends StatelessWidget {
   final bool addPadding;
   final Widget child;
+  final bool addRadius;
 
-  const ContentAreaCustom({Key? key, this.addPadding = true, required this.child})
+  const ContentAreaCustom({Key? key, this.addPadding = true, required this.child, this.addRadius = false,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: primaryDark,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30),
-            topLeft: Radius.circular(30),
-      ),
+          borderRadius: addRadius ? const BorderRadius.all(
+            Radius.circular(30),
+          ) : null,
       ),
       padding: addPadding ? const EdgeInsets.only(
         top: 10,

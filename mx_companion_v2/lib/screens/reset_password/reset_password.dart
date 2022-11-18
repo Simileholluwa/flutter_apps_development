@@ -117,6 +117,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         height: 20,
                       ),
                       AppButton(
+                        noSplash: true,
                         onTap: () {
                           var email = emailController.text.trim().capitalizeFirst;
                           final isValid = _formKey.currentState!.validate();

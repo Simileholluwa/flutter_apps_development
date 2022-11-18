@@ -223,6 +223,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 20,
                       ),
                       AppButton(
+                        noSplash: true,
                         onTap: () {
                           var email = emailController.text.trim().capitalizeFirst;
                           var password = passwordController.text.trim();

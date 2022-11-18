@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
 import '../../config/themes/app_dark_theme.dart';
+import '../../config/themes/custom_text.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/custom_icon_button.dart';
@@ -29,6 +30,7 @@ class _MenuScreenState extends State<MenuScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 20, top: 20, left: 30, right: 30,),
         child: AppButton(
+          noSplash: true,
           onTap: () {
             controller.user.value == null
                 ? controller.signIn()
@@ -37,19 +39,11 @@ class _MenuScreenState extends State<MenuScreen> {
           buttonWidget: controller.user.value == null
               ? Text(
                   'Sign in',
-                  style: GoogleFonts.jost(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: altTextColor,
-                  ),
+                  style: cardTitles,
                 )
               : Text(
                   'Sign out',
-                  style: GoogleFonts.jost(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: altTextColor,
-                  ),
+                  style: cardTitles,
                 ),
           btnColor: maroonColor,
         ),
@@ -160,21 +154,13 @@ class _MenuScreenState extends State<MenuScreen> {
                           child: controller.user.value == null
                               ? Text(
                                   'Hi there',
-                                  style: GoogleFonts.lobsterTwo(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: altTextColor,
-                                  ),
+                                  style: smallLobster,
                                 )
                               : Text(
                                   'Hello ${controller.user.value!.displayName}',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: GoogleFonts.lobsterTwo(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: altTextColor,
-                                  ),
+                                  style: smallLobster,
                                 ),
                         ),
                       ],
@@ -189,6 +175,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                         child: ContentAreaCustom(
                           addPadding: false,
+                          addRadius: true,
                           child: SingleChildScrollView(
                             physics: const BouncingScrollPhysics(),
                             child: Column(
@@ -251,11 +238,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       child: Text(
                         'Thank you for using MX Companion. Kindly shoot us a mail if you encounter any challenges or chat with us on WhatsApp. We value your reviews and support.\nTap on the "About Us" button for our contact details.',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.jost(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
+                        style: smallestJost,
                       ),
                     ),
                   ],

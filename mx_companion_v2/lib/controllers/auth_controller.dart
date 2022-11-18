@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mx_companion_v2/screens/data_uploader_screen.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../config/themes/app_dark_theme.dart';
@@ -28,12 +29,13 @@ class AuthController extends GetxController {
   late Stream<User?> _authStateChanges;
 
   void initAuth() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 10));
     _auth = FirebaseAuth.instance;
     _authStateChanges = _auth.authStateChanges();
     _authStateChanges.listen((User? user) {
       _user.value = user;
     });
+    //navigateToUploader();
     navigateToHome();
   }
 
@@ -178,6 +180,10 @@ class AuthController extends GetxController {
     Get.offAllNamed(ResetPassword.routeName);
   }
 
+  void navigateToUploader() {
+    Get.offAllNamed("/uploader");
+  }
+
   void navigateToLogin() {
     Get.toNamed(LoginScreen.routeName);
   }
@@ -243,7 +249,7 @@ class AuthController extends GetxController {
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
       backgroundColor: primaryDark,
-      duration: const Duration(seconds: 5,),
+      duration: const Duration(seconds: 3,),
     );
   }
 }

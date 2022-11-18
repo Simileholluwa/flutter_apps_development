@@ -24,14 +24,14 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       systemNavigationBarColor:
-      UIParameters.isDarkMode() ? primaryDark : primaryLightColor1,
+      UIParameters.isDarkMode() ? primaryDarkColor1 : primaryLightColor1,
       systemNavigationBarIconBrightness:
       UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
       statusBarIconBrightness:
       UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
       statusBarColor:
-      UIParameters.isDarkMode() ? primaryDark : primaryLightColor1,
-      systemNavigationBarDividerColor: primaryDarkColor1,
+      UIParameters.isDarkMode() ? primaryDarkColor1 : primaryLightColor1,
+      systemNavigationBarDividerColor: primaryDark,
     ),
   );
 }

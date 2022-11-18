@@ -15,7 +15,7 @@ class BackgroundDecoration extends StatelessWidget {
           Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
-                  color: showGradient ? null : primaryDarkColor1,
+                  color: showGradient ? null : primaryDark,
                   gradient: showGradient ? mainGradient(context) : null
                 ),
                 child: CustomPaint(
@@ -23,8 +23,8 @@ class BackgroundDecoration extends StatelessWidget {
                 ),
               ),
           ),
-          Positioned(
-            child: child,
+          Positioned.fill(
+            child: SafeArea(child: child),
           ),
         ]
       ),
@@ -35,23 +35,21 @@ class BackgroundDecoration extends StatelessWidget {
 class BackgroundPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = primaryDark;
-    final path = Path();
-    final path1 = Path();
+    Paint paint = Paint()..color = primaryDarkColor1;
+    Path path = Path();
 
     path.moveTo(0, 0);
-    path.lineTo(size.width * 0.2, 0);
-    path.lineTo(0, size.height * .4);
-    path.close();
+    path.lineTo(0, size.height * 0.025);
+    path.quadraticBezierTo(
+      size.width / 2,
+      size.height * .2,
+      size.width,
+      size.height * 0.025,
+    );
+    path.lineTo(size.width, 0);
 
-    path1.moveTo(size.width, 0);
-    path1.lineTo(size.width * 0.8, 0);
-    path1.lineTo(size.width * .2, size.height);
-    path1.lineTo(size.width, size.height);
-    path1.close();
 
     canvas.drawPath(path, paint);
-    canvas.drawPath(path1, paint);
   }
 
   @override

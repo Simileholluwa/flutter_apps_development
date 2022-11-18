@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../config/themes/app_dark_theme.dart';
+import '../config/themes/custom_text.dart';
 
 class IconAndText extends StatelessWidget {
   final VoidCallback onTap;
@@ -30,17 +31,13 @@ class IconAndText extends StatelessWidget {
               const SizedBox(width: 30,),
               Text(
                 text,
-                style: GoogleFonts.jost(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: altTextColor,
-                ),
+                style: smallJost,
               ),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.arrow_forward_ios_sharp, color: orangeColor, size: 10,),
                 ],
               ),

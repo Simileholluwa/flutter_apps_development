@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
+import 'package:mx_companion_v2/config/themes/custom_text.dart';
+import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import '../../config/themes/app_colors.dart';
-import '../../config/themes/app_dark_theme.dart';
-import '../../config/themes/app_light_theme.dart';
-import '../../config/themes/ui_parameters.dart';
 import '../data_uploader_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,8 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 5),
-          () => const DataUploaderScreen(),
+      const Duration(seconds: 10),
+          () => AuthController(),
     );
   }
 
@@ -28,15 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        systemNavigationBarColor:
-        UIParameters.isDarkMode() ? primaryDark : primaryLightColor1,
-        systemNavigationBarIconBrightness:
-        UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
-        statusBarIconBrightness:
-        UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
-        statusBarColor:
-        UIParameters.isDarkMode() ? primaryDark : primaryLightColor1,
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: primaryDarkColor1,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: primaryDarkColor1,
+        systemNavigationBarDividerColor: primaryDarkColor1,
       ),
     );
 
@@ -50,15 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset("assets/images/app_splash_logo.png",
-            height: 200,
-            ),
-            const SizedBox(height: 30,),
-            const Text('MX Companion',
-                style: TextStyle(
-                    fontSize: 40,
-                  fontWeight: FontWeight.w800,
-                ),
+            LoadingAnimationWidget.beat(color: orangeColor, size: 70,),
+            const SizedBox(height: 10,),
+            Text('MX Companion',
+                style: heading,
             ),
           ],
         ),
