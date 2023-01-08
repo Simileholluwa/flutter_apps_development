@@ -225,14 +225,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       AppButton(
                         noSplash: true,
                         onTap: () {
-                          var email = emailController.text.trim().capitalizeFirst;
+                          var email = emailController.text.capitalizeFirst!.trim();
                           var password = passwordController.text.trim();
                           var userName =
-                              userNameController.text.trim().capitalizeFirst;
+                              userNameController.text.capitalizeFirst!.trim();
                           var department =
-                              departmentController.text.trim().capitalizeFirst;
+                              departmentController.text.camelCase!.trim();
                           var phoneNumber = phoneNumberController.text.trim();
-                          var url = 'https://pixabay.com/get/g1a15e8abc18a61f2df80b2b18a5d07950815f2bc3cb9fa515f4d05fca938b9f32adfaaff469550813ddea11cf47d4bb7f9063109d33d9ab1346e594ea8b266dba274160a6856d1b0c02c6a830f2b01f0_640.jpg';
+                          var url = 'https://drive.google.com/file/d/1V-jYO1XsiveBaDdtkMBkg1S76LSg4SOO/view?usp=sharing';
                           var created = DateTime.now();
                           final isValid = _formKey.currentState!.validate();
                           if (!isValid) {
@@ -241,10 +241,10 @@ class _SignupScreenState extends State<SignupScreen> {
                             _formKey.currentState!.save();
                             setState(() {});
                             controller.signUpWithEmail(
-                              email!,
+                              email,
                               password,
-                              userName!,
-                              department!,
+                              userName,
+                              department,
                               phoneNumber,
                               url,
                               created,
