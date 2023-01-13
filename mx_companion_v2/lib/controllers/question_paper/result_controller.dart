@@ -16,11 +16,11 @@ extension QuestionsControllerExtension on QuestionsController {
   }
 
   String get points {
-    var points = (correctQuestionCount / allQuestions.length) *
-        100 *
-        (questionModel.timeSeconds! - secondsLeft) /
+    var points = ((correctQuestionCount / allQuestions.length) *
+        100 +
+        (secondsLeft /
         questionModel.timeSeconds! *
-        100;
+        100) / 10);
     return points.toStringAsFixed(2);
   }
 
@@ -30,7 +30,7 @@ extension QuestionsControllerExtension on QuestionsController {
     if (_user == null) return;
 
     batch.set(
-        userRF.doc(_user.email)
+        userRF.doc(_user.uid)
             .collection('user_tests')
             .doc(questionModel.id),
         {
