@@ -13,7 +13,7 @@ import '../screens/questions_page/questions_page.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
 import '../screens/splash_screen/splash_screen.dart';
-import '../widgets/questions/result_screen.dart';
+import '../widgets/questions/reult_screen.dart';
 
 class AppRoutes {
   static List<GetPage> routes() => [

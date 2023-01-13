@@ -6,7 +6,7 @@ import '../../widgets/background_decoration.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/questions/answer_card.dart';
-import '../../widgets/questions/result_screen.dart';
+import '../../widgets/questions/reult_screen.dart';
 
 class AnswerCheckScreen extends GetView<QuestionsController> {
   const AnswerCheckScreen({Key? key}) : super(key: key);

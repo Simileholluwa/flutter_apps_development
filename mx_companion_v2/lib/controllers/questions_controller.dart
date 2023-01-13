@@ -7,7 +7,7 @@ import 'package:mx_companion_v2/firebase_ref/loading_status.dart';
 import 'package:mx_companion_v2/models/questions_model.dart';
 import '../firebase_ref/references.dart';
 import '../screens/home/main_screen.dart';
-import '../widgets/questions/result_screen.dart';
+import '../widgets/questions/reult_screen.dart';
 
 class QuestionsController extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;
@@ -25,8 +25,8 @@ class QuestionsController extends GetxController {
 
   @override
   void onReady() {
-    final questionPaper = Get.arguments as QuestionsModel;
-    loadData(questionPaper);
+    final _questionPaper = Get.arguments as QuestionsModel;
+    loadData(_questionPaper);
     super.onReady();
   }
 
@@ -46,23 +46,23 @@ class QuestionsController extends GetxController {
 
       questionPaper.questions = questions;
 
-      for (Questions question in questionPaper.questions!) {
+      for (Questions _question in questionPaper.questions!) {
         final QuerySnapshot<Map<String, dynamic>> answerQuery =
             await questionPaperRF
                 .doc(questionPaper.id)
                 .collection("questions")
-                .doc(question.id)
+                .doc(_question.id)
                 .collection("answers")
                 .get();
 
         final answers = answerQuery.docs
             .map((answer) => Answers.fromSnapshot(answer))
             .toList();
-        question.answers = answers;
+        _question.answers = answers;
       }
     } catch (e) {
       if (kDebugMode) {
-        return;
+        print(e.toString());
       }
     }
     if (questionPaper.questions != null &&
@@ -71,7 +71,7 @@ class QuestionsController extends GetxController {
       currentQuestion.value = questionPaper.questions![0];
       _startTimer(questionPaper.timeSeconds!);
       if (kDebugMode) {
-        return;
+        print(questionPaper.questions![0].question);
       }
       loadingStatus.value = LoadingStatus.completed;
     } else {

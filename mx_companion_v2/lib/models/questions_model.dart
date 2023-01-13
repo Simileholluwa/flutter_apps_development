@@ -104,7 +104,7 @@ class Answers {
 
   Answers.fromJson(Map<String, dynamic> json) :
     identifier = json['identifier'],
-    answer = json['answer'];
+    answer = json['Answer'];
 
   Answers.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) :
         identifier = snapshot['identifier'],
