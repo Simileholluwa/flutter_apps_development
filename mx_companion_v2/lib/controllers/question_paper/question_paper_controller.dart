@@ -35,9 +35,9 @@ class QuestionPaperController extends GetxController {
     AuthController _authController = Get.find();
     if(_authController.isLoggedIn()){
       if(tryAgain){
-        Get.toNamed(QuestionsPage.routename, arguments: paper, preventDuplicates:false, );
+        Get.toNamed(QuestionsPage.routeName, arguments: paper, preventDuplicates:false, );
       } else {
-        Get.toNamed(QuestionsPage.routename, arguments: paper,);
+        Get.toNamed(QuestionsPage.routeName, arguments: paper,);
       }
     } else {
       _authController.showLoginAlertDialog();

@@ -39,9 +39,18 @@ class ResultScreen extends GetView<QuestionsController> {
                 child: ContentAreaCustom(
                   addRadius: true,
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 20,),
                     child: Column(
                       children: [
+                        Container(
+                          height: 150,
+                          width: double.maxFinite,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/practice_complete.png"),
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(
                             top: 10,
@@ -53,12 +62,12 @@ class ResultScreen extends GetView<QuestionsController> {
                           ),
                         ),
                         Text(
-                          "You have earned ${controller.points} points out of 20, keep practicing to earn more!",
+                          "You have earned ${controller.points} points, keep practicing to earn more!",
                           textAlign: TextAlign.center,
                           style: smallLobster,
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 15,
                         ),
                         Text(
                           "Tap any question number to view your answers and where you might have been wrong.",

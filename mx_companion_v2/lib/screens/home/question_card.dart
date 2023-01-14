@@ -61,17 +61,13 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                         children: [
                           Text(
                             model.creditUnit!,
-                            style: GoogleFonts.jost(
-                              color: altTextColor,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w800,
-                            ),
+                            style: appHeading,
                           ),
                           Text(
                             'units',
                             style: GoogleFonts.jost(
                               fontSize: 10,
-                              color: altTextColor,
+                              color: textColor,
                               fontFeatures: [
                                 const FontFeature.subscripts()
                               ],

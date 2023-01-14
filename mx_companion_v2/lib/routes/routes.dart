@@ -7,13 +7,14 @@ import 'package:mx_companion_v2/screens/introduction/introduction.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/screens/questions_page/check_answer.dart';
 import '../controllers/questions_controller.dart';
+import '../history/history.dart';
 import '../screens/home/main_screen.dart';
 import '../screens/questions_page/questions_overview.dart';
 import '../screens/questions_page/questions_page.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
 import '../screens/splash_screen/splash_screen.dart';
-import '../widgets/questions/reult_screen.dart';
+import '../widgets/questions/result_screen.dart';
 
 class AppRoutes {
   static List<GetPage> routes() => [
@@ -44,6 +45,14 @@ class AppRoutes {
         GetPage(
           name: LoginScreen.routeName,
           page: () => const LoginScreen(),
+          transition: Transition.fadeIn,
+          transitionDuration: const Duration(
+            milliseconds: 400,
+          ),
+        ),
+        GetPage(
+          name: HistoryScreen.routeName,
+          page: () => const HistoryScreen(),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(
             milliseconds: 400,
@@ -90,7 +99,7 @@ class AppRoutes {
           ),
         ),
         GetPage(
-          name: QuestionsPage.routename,
+          name: QuestionsPage.routeName,
           page: () => const QuestionsPage(),
           transition: Transition.fadeIn,
           transitionDuration: const Duration(

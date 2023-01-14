@@ -17,7 +17,7 @@ import '../../widgets/questions/answer_card.dart';
 class QuestionsPage extends GetView<QuestionsController> {
   const QuestionsPage({Key? key}) : super(key: key);
 
-  static const String routename = "/questions_page";
+  static const String routeName = "/questions_page";
 
   @override
   Widget build(BuildContext context) {

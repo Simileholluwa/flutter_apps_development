@@ -37,6 +37,11 @@ TextStyle smallLobster = GoogleFonts.lobsterTwo(
     color: altTextColor,
 );
 
+TextStyle smallestLobster = GoogleFonts.lobsterTwo(
+  fontSize: 15,
+  color: altTextColor,
+);
+
 TextStyle bigLobster = GoogleFonts.lobsterTwo(
   fontSize: 30,
   color: altTextColor,

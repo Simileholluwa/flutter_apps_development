@@ -124,24 +124,13 @@ class MainScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          LoadingAnimationWidget.inkDrop(
-                            color: orangeColor,
-                            size: 70,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           Text(
-                            'Loading Database...',
-                            style: bigLobster,
+                            'MX Companion',
+                            style: heading,
                           ),
-                          Text(
-                            'Ensure you have an active internet connection',
-                            style: smallLobster,
-                          ),
+                          const SizedBox(height: 10),
+                          LoadingAnimationWidget.fourRotatingDots(
+                              color: altTextColor, size: 80),
                         ],
                       ),
                     ),

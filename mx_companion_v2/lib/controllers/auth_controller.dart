@@ -6,6 +6,7 @@ import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../config/themes/app_dark_theme.dart';
 import '../firebase_ref/loading_status.dart';
+import '../history/history.dart';
 import '../screens/home/main_screen.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/reset_password/reset_password.dart';
@@ -192,6 +193,10 @@ class AuthController extends GetxController {
     Get.toNamed(SignupScreen.routeName);
   }
 
+  void navigateToHistory() {
+    Get.toNamed(HistoryScreen.routeName);
+  }
+
   void showLoginAlertDialog() {
     Get.dialog(
       Dialogs.appDialog(onTap: () {
@@ -220,6 +225,21 @@ class AuthController extends GetxController {
         action: 'Sign Out',
         text: 'Sign Out',
         message: 'Are you sure you want to sign out?',
+      ),
+      barrierDismissible: true,
+    );
+  }
+
+  void showDeleteAllHistory(VoidCallback onTap) {
+    Get.dialog(
+      Dialogs.appDialog(
+        onTap: onTap,
+        onPressed: () {
+          Get.back();
+        },
+        action: 'Delete',
+        text: 'Delete All',
+        message: 'Are you sure you want to delete all courses practice history?',
       ),
       barrierDismissible: true,
     );

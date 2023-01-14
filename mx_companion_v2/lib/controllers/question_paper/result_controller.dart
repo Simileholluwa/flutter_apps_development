@@ -16,11 +16,7 @@ extension QuestionsControllerExtension on QuestionsController {
   }
 
   String get points {
-    var points = ((correctQuestionCount / allQuestions.length) *
-        100 +
-        (secondsLeft /
-        questionModel.timeSeconds! *
-        100) / 10);
+    var points = ((correctQuestionCount / allQuestions.length * 100) + (secondsLeft / questionModel.timeSeconds! * 100)) / 10;
     return points.toStringAsFixed(2);
   }
 
@@ -37,8 +33,9 @@ extension QuestionsControllerExtension on QuestionsController {
           "points": points,
           "correct_answer_count":
               "$correctQuestionCount/${allQuestions.length}",
-          "question_id": questionModel.id,
+          "question_id": questionModel.courseCode,
           "time_spent": questionModel.timeSeconds! - secondsLeft,
+          "course_title": questionModel.courseTitle,
         });
     batch.commit();
     navigateToHome();

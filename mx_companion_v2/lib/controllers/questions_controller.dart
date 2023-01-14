@@ -7,7 +7,7 @@ import 'package:mx_companion_v2/firebase_ref/loading_status.dart';
 import 'package:mx_companion_v2/models/questions_model.dart';
 import '../firebase_ref/references.dart';
 import '../screens/home/main_screen.dart';
-import '../widgets/questions/reult_screen.dart';
+import '../widgets/questions/result_screen.dart';
 
 class QuestionsController extends GetxController {
   final loadingStatus = LoadingStatus.loading.obs;

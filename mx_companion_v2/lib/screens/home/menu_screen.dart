@@ -190,7 +190,9 @@ class _MenuScreenState extends State<MenuScreen> {
                                 controller.user.value == null
                                     ? Container()
                                     : IconAndText(
-                                        onTap: () {},
+                                        onTap: () {
+                                          controller.history();
+                                        },
                                         text: 'Practice History',
                                         icon: FontAwesomeIcons.chartSimple,
                                       ),

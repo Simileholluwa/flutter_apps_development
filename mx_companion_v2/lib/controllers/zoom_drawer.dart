@@ -26,6 +26,10 @@ class MyZoomDrawerController extends GetxController{
     Get.find<AuthController>().navigateToSignup();
   }
 
+  void history(){
+    Get.find<AuthController>().navigateToHistory();
+  }
+
   void menu(){
     Get.find<AuthController>().navigateToMenu();
   }
