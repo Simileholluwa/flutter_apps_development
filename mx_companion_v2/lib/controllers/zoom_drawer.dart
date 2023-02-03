@@ -1,11 +1,16 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyZoomDrawerController extends GetxController{
-
+  final zoomDrawerController = ZoomDrawerController();
+  void toggleZoomDrawer(){
+    zoomDrawerController.toggle?.call();
+    update();
+  }
 
   Rxn<User?> user = Rxn();
   @override

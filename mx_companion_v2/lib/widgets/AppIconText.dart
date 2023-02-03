@@ -8,8 +8,6 @@ class AppIconText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         icon,
         const SizedBox(width: 4,),

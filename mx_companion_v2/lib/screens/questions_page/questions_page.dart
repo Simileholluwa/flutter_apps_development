@@ -113,7 +113,7 @@ class QuestionsPage extends GetView<QuestionsController> {
                 if (controller.loadingStatus.value == LoadingStatus.completed)
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: ContentAreaCustom(
                         addRadius: true,
                         child: SingleChildScrollView(

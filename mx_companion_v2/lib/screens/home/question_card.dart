@@ -46,7 +46,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                 width: 70,
                 decoration: BoxDecoration(
                   borderRadius: UIParameters.cardBorderRadius,
-                  color: Theme.of(context).canvasColor,
+                  color: Theme.of(context).dividerColor,
                 ),
                 child: Center(
                   child: Column(
