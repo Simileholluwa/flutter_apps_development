@@ -8,41 +8,52 @@ TextStyle smallestJost = GoogleFonts.jost(
   color: Colors.grey,
 );
 
-TextStyle smallJost = GoogleFonts.jost(
+TextStyle smallJost = TextStyle(
+  fontSize: 17,
+  fontWeight: FontWeight.bold,
+);
+
+TextStyle smallJost2 = GoogleFonts.jost(
   fontSize: 17,
   fontWeight: FontWeight.bold,
   color: altTextColor,
 );
 
-TextStyle cardTitles = GoogleFonts.jost(
+TextStyle smallJost3 = GoogleFonts.jost(
+  fontSize: 15,
+  fontWeight: FontWeight.bold,
+  color: Colors.grey,
+);
+
+TextStyle cardTitles = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
+);
+
+TextStyle buttonText = GoogleFonts.jost(
   fontSize: 20,
   fontWeight: FontWeight.bold,
   color: altTextColor,
 );
 
 TextStyle heading = GoogleFonts.jost(
-    color: altTextColor,
     fontSize: 40,
     fontWeight: FontWeight.bold
 );
 
-TextStyle appHeading = GoogleFonts.jost(
-    color: textColor,
+TextStyle appHeading = TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.bold
 );
 
 TextStyle smallLobster = GoogleFonts.lobsterTwo(
     fontSize: 17,
-    color: altTextColor,
 );
 
 TextStyle smallestLobster = GoogleFonts.lobsterTwo(
   fontSize: 15,
-  color: altTextColor,
 );
 
 TextStyle bigLobster = GoogleFonts.lobsterTwo(
   fontSize: 30,
-  color: altTextColor,
 );

@@ -2,14 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mx_companion_v2/bindings/initial_binding.dart';
 import 'package:mx_companion_v2/routes/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'config/themes/app_dark_theme.dart';
-import 'config/themes/app_light_theme.dart';
-import 'config/themes/ui_parameters.dart';
-import 'controllers/theme_controller.dart';
 import 'firebase_options.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,20 +19,6 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
   );
-
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      systemNavigationBarColor:
-      UIParameters.isDarkMode() ? primaryDarkColor1 : primaryLightColor1,
-      systemNavigationBarIconBrightness:
-      UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
-      statusBarIconBrightness:
-      UIParameters.isDarkMode() ? Brightness.light : Brightness.dark,
-      statusBarColor:
-      UIParameters.isDarkMode() ? primaryDarkColor1 : primaryLightColor1,
-      systemNavigationBarDividerColor: primaryDark,
-    ),
-  );
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +27,47 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: Get.find<ThemeController>().darkTheme,
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.flutterDash,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 15,
+        appBarStyle: FlexAppBarStyle.scaffoldBackground,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 10,
+          blendOnColors: false,
+          elevatedButtonRadius: 10.0,
+        ),
+        keyColors: const FlexKeyColors(
+          useSecondary: true,
+          useTertiary: true,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        useMaterial3: true,
+        swapLegacyOnMaterial3: true,
+        fontFamily: GoogleFonts.ptSerif().fontFamily,
+      ),
+      darkTheme: FlexThemeData.dark(
+        scheme: FlexScheme.flutterDash,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 15,
+        appBarStyle: FlexAppBarStyle.scaffoldBackground,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 10,
+          elevatedButtonRadius: 10.0,
+          blendOnColors: false,
+        ),
+        keyColors: const FlexKeyColors(
+          useSecondary: true,
+          useTertiary: true,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        useMaterial3: true,
+        swapLegacyOnMaterial3: true,
+        fontFamily: GoogleFonts.ptSerif().fontFamily,
+      ),
+      themeMode: ThemeMode.system,
+
+
       debugShowCheckedModeBanner: false,
       builder: (context, widget) =>
           ResponsiveWrapper.builder(

@@ -3,7 +3,6 @@ import 'package:mx_companion_v2/controllers/question_paper/question_paper_contro
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
 import 'package:mx_companion_v2/screens/data_uploader_screen.dart';
 import 'package:mx_companion_v2/screens/home/menu_screen.dart';
-import 'package:mx_companion_v2/screens/introduction/introduction.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/screens/questions_page/check_answer.dart';
 import '../controllers/questions_controller.dart';
@@ -21,10 +20,6 @@ class AppRoutes {
         GetPage(
           name: "/",
           page: () => const SplashScreen(),
-        ),
-        GetPage(
-          name: "/introduction",
-          page: () => const IntroductionScreen(),
         ),
         GetPage(
           name: MainScreen.routeName,

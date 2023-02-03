@@ -1,13 +1,12 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/app_button.dart';
-import '../../widgets/custom_icon_button.dart';
 import '../../widgets/text_button_with_icon.dart';
 import '../../widgets/text_field.dart';
 
@@ -43,130 +42,146 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (controller){
-      return Scaffold(
-        backgroundColor: primaryDarkColor1,
-        appBar: AppBar(
-          backgroundColor: primaryDarkColor1,
+    AuthController controller = Get.find();
+      return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: FlexColorScheme.themedSystemNavigationBar(
+          context,
+          systemNavBarStyle: FlexSystemNavBarStyle.scaffoldBackground,
+          useDivider: false,
+          opacity: 1,
+        ),
+        child: Scaffold(
+          appBar: AppBar(
           shadowColor: Colors.transparent,
-          leading: Container(
-            margin: const EdgeInsets.only(left: 15,),
-            child: CustomIconButton(
-              onPressed: (){
-                controller.navigateToHome();
-              },
-              icon:Icons.home,
+          toolbarHeight: 70,
+          automaticallyImplyLeading: false,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              'Reset Password',
+              style: Theme.of(context).textTheme.titleLarge!.merge(
+                const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
             ),
           ),
+          actions: [
+            Container(
+              margin: const EdgeInsets.only(
+                right: 15,
+              ),
+              child: IconButton(
+                onPressed: () {
+                  controller.navigateToHome();
+                },
+                icon: const Icon(Icons.home, size: 30,),
+              ),
+            ),
+          ],
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: UIParameters.mobileScreenPadding,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 150,
-                  width: 150,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: primaryDark,
-                  ),
-                  child: const Center(
-                    child: Icon(FontAwesomeIcons.shield, size: 70, color: altTextColor,),
-                  ),
-                ),
-                Text(
-                  'MX Companion',
-                  style: GoogleFonts.jost(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Form(
-                  key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                        inputAction : TextInputAction.done,
-                        onSaved: (value) {
-                          email = value!;
-                        },
-                        validator: (String? value) {
-                          if (!GetUtils.isEmail(value!)) {
-                            return 'Enter a valid email address';
-                          } else if (value.isEmpty) {
-                            return 'Enter cannot be empty';
-                          } else {
-                            return null;
-                          }
-                        },
-                        hintText: 'Email',
-                        labelText: 'Email',
-                        prefixIcon: Icons.mail,
-                        textInputType: TextInputType.emailAddress,
-                        controller: emailController,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      AppButton(
-                        noSplash: true,
-                        onTap: () {
-                          var email = emailController.text.trim().capitalizeFirst;
-                          final isValid = _formKey.currentState!.validate();
-                          if(!isValid){
-                            return;
-                          } else {
-                            _formKey.currentState!.save();
-                            setState((){});
-                            controller.resetPassword(email!);
-                          }
-                        },
-                        buttonWidget: controller.isLoading == false ? Text(
-                          'Reset',
-                          style: GoogleFonts.jost(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: altTextColor,
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: UIParameters.mobileScreenPadding,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 150,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).backgroundColor,
+                    ),
+                    child: Center(
+                      child: Container(
+                        height: 130,
+                        width: 130,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/reset-password.png"),
                           ),
-                        ) : LoadingAnimationWidget.prograssiveDots(color: altTextColor, size: 60,),
-                        btnColor: btnColor,
+                        ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Form(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.disabled,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          inputAction : TextInputAction.done,
+                          onSaved: (value) {
+                            email = value!;
+                          },
+                          validator: (String? value) {
+                            if (!GetUtils.isEmail(value!)) {
+                              return 'Enter a valid email address';
+                            } else if (value.isEmpty) {
+                              return 'Enter cannot be empty';
+                            } else {
+                              return null;
+                            }
+                          },
+                          hintText: 'Email',
+                          labelText: 'Email',
+                          prefixIcon: Icons.mail,
+                          textInputType: TextInputType.emailAddress,
+                          controller: emailController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        AppButton(
+                          onTap: () {
+                            var email = emailController.text.trim().capitalizeFirst;
+                            final isValid = _formKey.currentState!.validate();
+                            if(!isValid){
+                              return;
+                            } else {
+                              _formKey.currentState!.save();
+                              setState((){});
+                              controller.resetPassword(email!);
+                            }
+                          },
+                          buttonWidget: controller.isLoading.isFalse ? const Text(
+                            'Reset Password', style: TextStyle(fontSize: 20,),
+                          ) : LoadingAnimationWidget.prograssiveDots(color: textColor, size: 60,),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButtonWithIcon(
+                        onTap: () {
+                          controller.navigateToLogin();
+                        },
+                        text: 'Login',
+                      ),
+                      TextButtonWithIcon(
+                        onTap: () {
+                          controller.navigateToSignup();
+                        },
+                        text: 'Register',
                       ),
                     ],
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButtonWithIcon(
-                      onTap: () {
-                        controller.navigateToLogin();
-                      },
-                      text: 'Sign In',
-                    ),
-                    TextButtonWithIcon(
-                      onTap: () {
-                        controller.navigateToSignup();
-                      },
-                      text: 'Sign Up',
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       );
-    });
   }
 }

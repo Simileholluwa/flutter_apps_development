@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/controllers/questions_controller.dart';
-
 import '../../firebase_ref/references.dart';
 import '../auth_controller.dart';
 

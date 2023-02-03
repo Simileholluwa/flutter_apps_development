@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mx_companion_v2/screens/data_uploader_screen.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../config/themes/app_dark_theme.dart';
@@ -22,8 +21,8 @@ class AuthController extends GetxController {
   }
 
   final loadingStatus = LoadingStatus.loading.obs;
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  var _isLoading = false.obs;
+  RxBool get isLoading => _isLoading;
 
   late FirebaseAuth _auth;
   final _user = Rxn<User>();
@@ -42,34 +41,33 @@ class AuthController extends GetxController {
 
   signInWithEmail(String email, String password) async {
     try {
-      _isLoading = true;
+      _isLoading.value = true;
       await AuthService.firebase().logIn(email: email, password: password,);
-      _isLoading = false;
+      _isLoading.value = false;
       navigateToHome();
       showSnackBar('Sign in', 'You have successfully signed in',  icon: Icons.check_circle, containerColor: Colors.green,);
     } on UserNotFoundAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'No account found with this email.');
     } on WrongPasswordAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Your password is incorrect.');
     } on UnknownAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Text fields cannot be empty.');
     } on InvalidEmailAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'The email address is invalid.');
     } on NetworkRequestFailedAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'You are not connected to the internet.');
     } on TooManyRequestAuthException {
-      _isLoading = false;
-      showSnackBar('An Error Occurred', 'Too many incorrect password. Try again later.');
+      _isLoading.value = false;
+      showSnackBar('An Error Occurred', 'Your account is locked due to too many incorrect password. Please, try again later.');
     } on GenericAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Sign in failed. Try again later.');
     }
-    update();
   }
 
   signUpWithEmail(
@@ -82,7 +80,7 @@ class AuthController extends GetxController {
     DateTime created,
   ) async {
     try {
-      _isLoading = true;
+      _isLoading.value = true;
       await AuthService.firebase().createUser(
         email: email,
         password: password,
@@ -92,33 +90,32 @@ class AuthController extends GetxController {
         url: url,
         created: created,
       );
-      _isLoading = false;
+      _isLoading.value = false;
       navigateToLogin();
       showSnackBar('Sign up', 'You have successfully signed up',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on WeakPasswordAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Password is too weak.');
     } on EmailAlreadyInUseAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'This email already exist.');
     } on UnknownAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Text fields cannot be empty.');
     } on InvalidEmailAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'The email address is invalid.');
     } on NetworkRequestFailedAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'You are not connected to the internet.');
     } on TooManyRequestAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Too many incorrect password. Try again later.');
     } on GenericAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Sign in failed. Try again later.');
     }
-    update();
   }
 
   User? getUser() {
@@ -128,33 +125,32 @@ class AuthController extends GetxController {
 
   resetPassword(String email) async {
     try {
-      _isLoading = true;
+      _isLoading.value = true;
       await AuthService.firebase().resetPassword(email: email);
-      _isLoading = false;
+      _isLoading.value = false;
       navigateToLogin();
       showSnackBar('Reset password', 'Please check your email...',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on UserNotFoundAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'No account found with this email.');
     } on UnknownAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Text fields cannot be empty.');
     } on InvalidEmailAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'The email address is invalid.');
     } on NetworkRequestFailedAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'You are not connected to the internet.');
     } on TooManyRequestAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       showSnackBar('An Error Occurred', 'Too many requests sent. Try again later.');
     } on GenericAuthException {
-      _isLoading = false;
+      _isLoading.value = false;
       navigateToLogin();
       showSnackBar('Reset password', 'Please check your email including your spam folder.',  icon: Icons.check_circle, containerColor: Colors.green,);
     }
-    update();
   }
 
   signOut() async {
@@ -178,7 +174,7 @@ class AuthController extends GetxController {
   }
 
   void navigateToReset() {
-    Get.offAllNamed(ResetPassword.routeName);
+    Get.toNamed(ResetPassword.routeName);
   }
 
   void navigateToUploader() {
@@ -245,6 +241,21 @@ class AuthController extends GetxController {
     );
   }
 
+  void showPracticeInfo(VoidCallback onTap, String message) {
+    Get.dialog(
+      Dialogs.appDialog(
+        onTap: onTap,
+        onPressed: () {
+          Get.back();
+        },
+        action: 'Start',
+        text: 'Heads Up!',
+        message: message,
+      ),
+      barrierDismissible: true,
+    );
+  }
+
   bool isLoggedIn() {
     return _auth.currentUser != null;
   }
@@ -262,13 +273,12 @@ class AuthController extends GetxController {
           color: containerColor,
           borderRadius: const BorderRadius.all(Radius.circular(10),),
         ),
-        child: Icon(icon, size: 30,),
+        child: Icon(icon, size: 30, color: altTextColor,),
       ),
-      margin: const EdgeInsets.only(left: 25, right: 25, top: 50,),
+      margin: const EdgeInsets.only(left: 25, right: 25, top: 20,),
       borderRadius: 10,
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
-      backgroundColor: primaryDark,
       duration: const Duration(seconds: 3,),
     );
   }

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
 import 'package:mx_companion_v2/config/themes/ui_parameters.dart';
-
-import '../config/themes/custom_text.dart';
 import '../screens/questions_page/questions_overview.dart';
-import 'custom_icon_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
@@ -37,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ? Center(
                       child: Text(
                         title,
-                        style: smallJost,
+                        style: Theme.of(context).textTheme.titleMedium!.merge(TextStyle(fontWeight: FontWeight.bold,),),
                       ),
                     )
                   : Center(child: titleWidget),
@@ -48,15 +44,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 timer ??
                     Transform.translate(
-                      offset: const Offset(-14, 0),
+                      offset: const Offset(-14, -3),
                       child: const BackButton(),
                     ),
                 if (showMenu)
                   Transform.translate(
-                    offset: const Offset(10, 0),
-                    child: CustomIconButton(
+                    offset: const Offset(10, -10),
+                    child: IconButton(
                       onPressed: onMenuTap ?? () => Get.toNamed(QuestionsOverview.routeName),
-                      icon: Icons.menu,
+                      icon: Icon(Icons.apps, size: 30,),
                     ),
                   ),
               ],
@@ -70,6 +66,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size(
         double.maxFinite,
-        100,
+        80,
       );
 }

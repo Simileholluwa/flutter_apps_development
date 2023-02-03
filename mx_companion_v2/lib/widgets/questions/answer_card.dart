@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mx_companion_v2/config/themes/app_colors.dart';
 import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
 import 'package:mx_companion_v2/config/themes/ui_parameters.dart';
 
@@ -15,21 +13,23 @@ class AnswerCard extends StatelessWidget {
   final String answer;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool noSplash;
 
   const AnswerCard(
       {Key? key,
       required this.answer,
       this.isSelected = false,
+        this.noSplash = false,
       required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      type: MaterialType.transparency,
+      borderRadius: UIParameters.cardBorderRadius,
       child: InkWell(
-        splashFactory: InkRipple.splashFactory,
-        splashColor: altBackgroundColor,
+        splashFactory: noSplash ? null : InkRipple.splashFactory,
+        splashColor: noSplash ? null : Theme.of(context).splashColor,
         borderRadius: UIParameters.cardBorderRadius,
         onTap: onTap,
         child: Ink(
@@ -39,16 +39,13 @@ class AnswerCard extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: UIParameters.cardBorderRadius,
-            color: isSelected ? textColor : primaryDarkColor1,
-            // border: Border.all(color: isSelected ? Colors.blue : maroonColor,
-            // ),
+            color: isSelected ? textColor : null,
           ),
           child: Text(
             answer,
-            style: TextStyle(
-              color: isSelected ? onSurfaceTextColor : null,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.titleMedium!.merge(TextStyle(
+              color: isSelected ? altTextColor : null,
+            ),),
           ),
         ),
       ),
@@ -75,10 +72,10 @@ class CorrectAnswer extends StatelessWidget {
         ),
         child: Text(
           answer,
-          style: const TextStyle(
+          style: Theme.of(context).textTheme.titleMedium!.merge(const TextStyle(
             color: Colors.green,
             fontWeight: FontWeight.bold,
-          ),
+          ),),
         ),
       ),
     );
@@ -104,10 +101,10 @@ class WrongAnswer extends StatelessWidget {
         ),
         child: Text(
           answer,
-          style: const TextStyle(
+          style: Theme.of(context).textTheme.titleMedium!.merge(const TextStyle(
             color: maroonColor,
             fontWeight: FontWeight.bold,
-          ),
+          ),),
         ),
       ),
     );

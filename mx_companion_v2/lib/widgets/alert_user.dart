@@ -1,7 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../config/themes/app_dark_theme.dart';
 
 class Dialogs {
   static final Dialogs _singleton = Dialogs._internal();
@@ -19,65 +16,31 @@ class Dialogs {
     required String message,
     required String action,
   }) {
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-      child: AlertDialog(
-        backgroundColor: moreTransparent.withAlpha(50,),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              text,
-              style: GoogleFonts.lobsterTwo(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: textColor,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              message,
-              style: GoogleFonts.jost(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-                height: 1.3,
-                color: altTextColor,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: onPressed,
-            child: Text(
-              'Cancel',
-              style: GoogleFonts.lobsterTwo(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-                fontSize: 20,
-              ),
-            )
-          ),
-          TextButton(
-            onPressed: onTap,
-            child: Text(
-              action,
-              style: GoogleFonts.lobsterTwo(
-                fontWeight: FontWeight.bold,
-                color: textColor,
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ],
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
+      title: Text(
+        text,
+      ),
+      titlePadding: const EdgeInsets.only(top: 20, left: 20, bottom: 10,),
+      content: Text(
+        message,
+      ),
+      actions: [
+        TextButton(
+          onPressed: onPressed,
+          child: const Text(
+            'Cancel',
+          )
+        ),
+        TextButton(
+          onPressed: onTap,
+          child: Text(
+            action,
+          ),
+        ),
+      ],
     );
   }
 }

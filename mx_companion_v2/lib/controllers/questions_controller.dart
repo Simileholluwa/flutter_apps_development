@@ -137,11 +137,11 @@ class QuestionsController extends GetxController {
   }
 
   _startTimer(int seconds) {
-    const duration = Duration(seconds: 1);
+    const duration = Duration(seconds: 1,);
     secondsLeft = seconds;
     _timer = Timer.periodic(duration, (Timer timer) {
       if (secondsLeft == 0) {
-        timer.cancel();
+        _timer!.cancel();
       } else {
         int minutes = secondsLeft ~/ 60;
         int seconds = secondsLeft % 60;

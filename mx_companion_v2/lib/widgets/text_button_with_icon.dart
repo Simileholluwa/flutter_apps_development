@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../config/themes/app_dark_theme.dart';
 
 class TextButtonWithIcon extends StatelessWidget {
   final VoidCallback onTap;
@@ -12,17 +9,12 @@ class TextButtonWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton.icon(
       onPressed: onTap,
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_forward_ios,
-        color: textColor,
+        size: 20,
       ),
       label: Text(
         text,
-        style: GoogleFonts.jost(
-          fontSize: 15,
-          color: textColor,
-          fontWeight: FontWeight.bold,
-        ),
       ),
     );
   }

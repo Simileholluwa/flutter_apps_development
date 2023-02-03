@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../config/themes/app_dark_theme.dart';
 
 class ContentAreaCustom extends StatelessWidget {
   final bool addPadding;
@@ -13,7 +12,6 @@ class ContentAreaCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: primaryDark,
           borderRadius: addRadius ? const BorderRadius.all(
             Radius.circular(30),
           ) : null,

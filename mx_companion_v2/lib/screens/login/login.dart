@@ -1,21 +1,18 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/widgets/app_button.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/ui_parameters.dart';
-import '../../widgets/custom_icon_button.dart';
 import '../../widgets/text_button_with_icon.dart';
 import '../../widgets/text_field.dart';
 import '../../widgets/text_field_password.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
 
   static const String routeName = "/login";
 
@@ -49,22 +46,48 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (controller){
-      return Scaffold(
-        backgroundColor: primaryDarkColor1,
+    AuthController controller = Get.find();
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: FlexColorScheme.themedSystemNavigationBar(
+        context,
+        systemNavBarStyle: FlexSystemNavBarStyle.scaffoldBackground,
+        useDivider: false,
+        opacity: 1,
+      ),
+      child: Scaffold(
         appBar: AppBar(
-
-          backgroundColor: primaryDarkColor1,
           shadowColor: Colors.transparent,
-          leading: Container(
-            margin: const EdgeInsets.only(left: 15,),
-            child: CustomIconButton(
-              onPressed: (){
-                controller.navigateToHome();
-              },
-              icon:Icons.home,
+          toolbarHeight: 70,
+          automaticallyImplyLeading: false,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              'Login',
+              style: Theme.of(context).textTheme.titleLarge!.merge(
+                const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
+          actions: [
+            Container(
+              margin: const EdgeInsets.only(
+                right: 15,
+              ),
+              child: IconButton(
+                onPressed: () {
+                  controller.navigateToHome();
+                },
+                icon: const Icon(
+                  Icons.home,
+                  size: 30,
+                ),
+              ),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -77,40 +100,42 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     height: 150,
                     width: 150,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: primaryDark,
+                      color: Theme.of(context).backgroundColor,
                     ),
-                    child: const Center(
-                      child: Icon(FontAwesomeIcons.unlockKeyhole, size: 70, color: altTextColor,),
-                    ),
-                  ),
-                  Text(
-                    'MX Companion',
-                    style: GoogleFonts.jost(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
+                    child: Center(
+                      child: Container(
+                        height: 130,
+                        width: 130,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/password.png"),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Form(
+                  Obx(() => Form(
                     key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
                       children: [
                         CustomTextField(
                           onSaved: (value) {
-                            email = value!;
+                            email = value!.removeAllWhitespace;
                           },
                           validator: (String? value) {
                             if (!GetUtils.isEmail(value!)) {
                               return 'Enter a valid email address';
                             } else if (value.isEmpty) {
                               return 'Enter cannot be empty';
-                            } else {
+                            } else if (value.contains(' ')){
+                              return 'Remove all whitespaces';
+                            }else {
                               return null;
                             }
                           },
@@ -145,36 +170,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 20,
                         ),
                         AppButton(
-                          noSplash: true,
                           onTap: () {
-                            var email = emailController.text.trim().capitalizeFirst;
+                            var email =
+                                emailController.text.trim().capitalizeFirst;
                             var password = passwordController.text.trim();
                             final isValid = _formKey.currentState!.validate();
-                            if(!isValid){
+                            if (!isValid) {
                               return;
                             } else {
                               _formKey.currentState!.save();
-                              setState((){
-                              });
+                              setState(() {});
                               controller.signInWithEmail(email!, password);
                             }
                           },
-                          buttonWidget: controller.isLoading == false ? Text(
-                            'Sign In',
-                            style: GoogleFonts.jost(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: altTextColor,
-                            ),
-                          ) : LoadingAnimationWidget.prograssiveDots(color: altTextColor, size: 60,),
-                          btnColor: btnColor,
+                          buttonWidget: controller.isLoading.isFalse
+                              ? const Text(
+                            'Login', style: TextStyle(fontSize: 20,),
+                          )
+                              : LoadingAnimationWidget.prograssiveDots(
+                            color: textColor,
+                            size: 60,
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                       ],
                     ),
-                  ),
+                  ),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -182,13 +205,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {
                           controller.navigateToReset();
                         },
-                        text: 'Forgot Password',
+                        text: 'Reset Password',
                       ),
                       TextButtonWithIcon(
                         onTap: () {
                           controller.navigateToSignup();
                         },
-                        text: 'Sign Up',
+                        text: 'Register',
                       ),
                     ],
                   ),
@@ -197,8 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }
-

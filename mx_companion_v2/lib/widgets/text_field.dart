@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../config/themes/app_dark_theme.dart';
 
 class CustomTextField extends StatelessWidget {
   final void Function(String?)? onSaved;
@@ -29,48 +26,29 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       onSaved: onSaved,
       validator: validator,
-      keyboardType: textInputType,
+      keyboardType: TextInputType.text,
       controller: controller,
-      textInputAction: inputAction,
-      style: GoogleFonts.jost(
-        fontSize: 15,
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        fillColor: primaryDark,
         filled: true,
         prefixIcon: Icon(
           prefixIcon,
-          color: altTextColor,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: orangeColor, width: 2.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: orangeColor, width: 2.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: transparentColor
+          borderSide: const BorderSide(color: Colors.transparent
               , width: 0.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
         hintText: hintText,
-        hintStyle: GoogleFonts.jost(
-          color: altTextColor,
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-        ),
-        labelText: labelText,
-        labelStyle: GoogleFonts.jost(
-          color: altTextColor,
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-        ),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
-import 'package:mx_companion_v2/config/themes/custom_text.dart';
 import 'package:mx_companion_v2/widgets/questions/answer_card.dart';
 
 import '../../config/themes/ui_parameters.dart';
@@ -14,7 +13,7 @@ class QuestionAnswerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColorr = Colors.blue.withOpacity(.2);
+    Color backgroundColorr = Theme.of(context).backgroundColor;
     switch(status) {
       case AnswerStatus.answered:
         backgroundColorr = textColor;
@@ -29,17 +28,15 @@ class QuestionAnswerCard extends StatelessWidget {
         break;
 
       case AnswerStatus.notAnswered:
-        backgroundColorr = primaryDark;
+        backgroundColorr = Theme.of(context).backgroundColor;
         break;
 
       default:
-        backgroundColorr = primaryDarkColor1;
+        backgroundColorr = Theme.of(context).backgroundColor;
     }
     return Material(
-      type: MaterialType.transparency,
+      borderRadius: UIParameters.cardBorderRadius,
       child: InkWell(
-        splashFactory: InkRipple.splashFactory,
-        splashColor: addSplash ? altBackgroundColor : null,
         borderRadius: UIParameters.cardBorderRadius,
         onTap: onTap,
         child: Ink(
@@ -53,7 +50,7 @@ class QuestionAnswerCard extends StatelessWidget {
           child: Center(
             child: Text(
               '$index',
-              style: smallJost,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
 
