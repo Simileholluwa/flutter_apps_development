@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
+import '../../config/themes/app_dark_theme.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/icon_and_text.dart';
 
@@ -23,7 +25,10 @@ class _MenuScreenState extends State<MenuScreen> {
         scrolledUnderElevation: 0,
       ),
       body: Container(
-        margin: const EdgeInsets.only(top: 15, bottom: 5,),
+        margin: const EdgeInsets.only(
+          top: 15,
+          bottom: 5,
+        ),
         decoration: BoxDecoration(
           color: Theme.of(context).canvasColor,
           borderRadius: const BorderRadius.only(
@@ -32,7 +37,7 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
         ),
         child: Obx(
-              () => Column(
+          () => Column(
             children: [
               Expanded(
                 child: ContentAreaCustom(
@@ -42,36 +47,108 @@ class _MenuScreenState extends State<MenuScreen> {
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       children: [
-                        Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 15, bottom: 15,),
-                            height: 100,
-                            width: 100,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/man.png"),
+                        GetBuilder<MyZoomDrawerController>(
+                          builder: (_) {
+                            return Center(
+                              child: Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 15,
+                                    bottom: 10,
+                                  ),
+                                  height: 120,
+                                  width: 120,
+                                  child:
+                                  controller.photo != null ?
+                                  CircleAvatar(
+                                    radius: 55,
+                                    child: ClipOval(
+                                      child: SizedBox(
+                                        height: 110,
+                                        width: 110,
+                                        child: Image.file(
+                                          controller.photo!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  : CircleAvatar(
+                                    radius: 55,
+                                    child: ClipOval(
+                                      child: SizedBox(
+                                        height: 110,
+                                        width: 110,
+                                        child: Image.network(
+                                          controller.user.value?.photoURL ?? "",
+                                          loadingBuilder:
+                                              (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: LoadingAnimationWidget
+                                                  .fourRotatingDots(
+                                                  color: textColor, size: 70),
+                                            );
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              decoration: const BoxDecoration(
+                                                image: DecorationImage(image: AssetImage("assets/images/man.png"),),
+                                              ),
+                                            );
+                                          },
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                               ),
-                            ),
+                            );
+                          },
+                        ),
+                        Visibility(
+                          visible: controller.isPhoto.isTrue,
+                          child: Text(
+                            controller.isUploading.isTrue ? 'Uploading Profile Image...' : 'Current Profile Image',
                           ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            controller.user.value != null ? IconButton(
-                              onPressed: (){},
-                              icon: const Icon(Icons.edit, size: 30,),
-                            ) : Container(),
-                            controller.user.value != null ? IconButton(
-                              onPressed: (){},
-                              icon: const Icon(Icons.camera_alt, size: 30,),
-                            ): Container(),
+                            controller.user.value != null
+                                ? IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.edit,
+                                      size: 30,
+                                    ),
+                                  )
+                                : Container(),
+                            controller.user.value != null
+                                ? IconButton(
+                                    onPressed: () async {
+                                      controller.imgFromGallery();
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera_alt,
+                                      size: 30,
+                                    ),
+                                  )
+                                : Container(),
                             IconButton(
-                              onPressed: (){
-                                controller.user.value == null ? controller.signIn() : controller.signOut();
+                              onPressed: () {
+                                controller.user.value == null
+                                    ? controller.signIn()
+                                    : controller.signOut();
                               },
-                              icon: Icon(controller.user.value == null ? Icons.login : Icons.logout, size: 30,),
+                              icon: Icon(
+                                controller.user.value == null
+                                    ? Icons.login
+                                    : Icons.logout,
+                                size: 30,
+                              ),
                             ),
                           ],
                         ),
@@ -83,16 +160,16 @@ class _MenuScreenState extends State<MenuScreen> {
                         controller.user.value == null
                             ? Container()
                             : IconAndText(
-                          onTap: () {},
-                          text: 'Practice History',
-                          image: const AssetImage(
-                              "assets/images/bomb.png"),
-                        ),
+                                onTap: () {},
+                                text: 'Practice History',
+                                image:
+                                    const AssetImage("assets/images/bomb.png"),
+                              ),
                         IconAndText(
                           onTap: () {},
                           text: 'FAQs',
                           image:
-                          const AssetImage("assets/images/questions.png"),
+                              const AssetImage("assets/images/questions.png"),
                         ),
                         IconAndText(
                           onTap: () {},
@@ -103,14 +180,14 @@ class _MenuScreenState extends State<MenuScreen> {
                         IconAndText(
                           onTap: () {},
                           text: 'Social Groups',
-                          image: const AssetImage(
-                              "assets/images/connection.png"),
+                          image:
+                              const AssetImage("assets/images/connection.png"),
                         ),
                         IconAndText(
                           onTap: () {},
                           text: 'Notifications',
-                          image: const AssetImage(
-                              "assets/images/newsletter.png"),
+                          image:
+                              const AssetImage("assets/images/newsletter.png"),
                         ),
                         IconAndText(
                           onTap: () {},
@@ -120,8 +197,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         IconAndText(
                           onTap: () {},
                           text: 'About Us',
-                          image:
-                          const AssetImage("assets/images/comment.png"),
+                          image: const AssetImage("assets/images/comment.png"),
                         ),
                       ],
                     ),
@@ -144,22 +220,34 @@ class _MenuScreenState extends State<MenuScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: (){
+                    onPressed: () {
                       controller.openEmail();
                     },
-                    icon: const Icon(Icons.mail, size: 30,),
+                    icon: const Icon(
+                      Icons.mail,
+                      size: 30,
+                    ),
                   ),
                   IconButton(
-                    onPressed: (){},
-                    icon: const Icon(Icons.telegram, size: 30,),
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.telegram,
+                      size: 30,
+                    ),
                   ),
                   IconButton(
-                    onPressed: (){},
-                    icon: const Icon(Icons.whatsapp, size: 30,),
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.whatsapp,
+                      size: 30,
+                    ),
                   ),
                   IconButton(
-                    onPressed: (){},
-                    icon: const Icon(Icons.facebook, size: 30,),
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.facebook,
+                      size: 30,
+                    ),
                   ),
                 ],
               ),

@@ -32,7 +32,7 @@ class _CustomTextFieldPWState extends State<CustomTextFieldPW> {
       validator: widget.validator,
       keyboardType: TextInputType.text,
       controller: widget.controller,
-      textInputAction: TextInputAction.done,
+      textInputAction: TextInputAction.go,
       obscuringCharacter: '*',
       obscureText: _isHidden,
       decoration: InputDecoration(

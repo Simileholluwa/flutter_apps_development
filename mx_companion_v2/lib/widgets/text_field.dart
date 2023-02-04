@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final void Function(String?)? onSaved;
@@ -10,9 +11,11 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextInputType textInputType;
   final TextInputAction inputAction;
+  final List<TextInputFormatter>? inputFormatter;
   const CustomTextField({
     Key? key,
     this.onSaved,
+    this.inputFormatter,
     this.validator,
     this.controller,
     required this.prefixIcon,
@@ -26,12 +29,12 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
+      inputFormatters: inputFormatter,
       onSaved: onSaved,
       validator: validator,
       keyboardType: TextInputType.text,
       controller: controller,
-      textInputAction: TextInputAction.done,
+      textInputAction: inputAction,
       decoration: InputDecoration(
         filled: true,
         prefixIcon: Icon(

@@ -7,6 +7,7 @@ import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/screens/questions_page/check_answer.dart';
 import '../controllers/questions_controller.dart';
 import '../history/history.dart';
+import '../screens/home/home_screen.dart';
 import '../screens/home/main_screen.dart';
 import '../screens/questions_page/questions_overview.dart';
 import '../screens/questions_page/questions_page.dart';
@@ -36,6 +37,18 @@ class AppRoutes {
         GetPage(
           name: "/uploader",
           page: () => const DataUploaderScreen(),
+        ),
+        GetPage(
+          name: HomeScreen.routeName,
+          page: () => const HomeScreen(),
+          transition: Transition.fadeIn,
+          transitionDuration: const Duration(
+            milliseconds: 400,
+          ),
+          binding: BindingsBuilder(() {
+            Get.put(MyZoomDrawerController());
+            Get.put(QuestionPaperController());
+          }),
         ),
         GetPage(
           name: LoginScreen.routeName,

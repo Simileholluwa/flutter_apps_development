@@ -6,7 +6,7 @@ import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../config/themes/app_dark_theme.dart';
 import '../firebase_ref/loading_status.dart';
 import '../history/history.dart';
-import '../screens/home/main_screen.dart';
+import '../screens/home/home_screen.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
@@ -21,7 +21,7 @@ class AuthController extends GetxController {
   }
 
   final loadingStatus = LoadingStatus.loading.obs;
-  var _isLoading = false.obs;
+  final RxBool _isLoading = false.obs;
   RxBool get isLoading => _isLoading;
 
   late FirebaseAuth _auth;
@@ -166,7 +166,7 @@ class AuthController extends GetxController {
   }
 
   void navigateToHome() {
-    Get.offAllNamed(MainScreen.routeName);
+    Get.offAllNamed(HomeScreen.routeName);
   }
 
   void navigateToMenu() {

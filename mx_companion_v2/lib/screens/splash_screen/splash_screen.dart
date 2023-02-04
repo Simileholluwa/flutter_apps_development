@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 4),
+      const Duration(seconds: 2),
           () => AuthController(),
     );
   }

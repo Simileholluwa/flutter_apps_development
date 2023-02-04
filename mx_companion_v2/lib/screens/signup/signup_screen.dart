@@ -128,8 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-
-                  Form(
+                  Obx(() => Form(
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
@@ -163,16 +162,17 @@ class _SignupScreenState extends State<SignupScreen> {
                               return 'Phone number field is required';
                             } else if (value.length != 11) {
                               return 'Phone number must be 11 digits long';
-                            } else if(value.contains(RegExp(r'[A-Za-z].'))) {
-                              return 'Phone number contains digits only';
-                            }else {
+                            } else {
                               return null;
                             }
                           },
+                          inputFormatter: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           hintText: 'Phone number',
                           labelText: 'Phone number',
                           prefixIcon: Icons.phone_android_rounded,
-                          textInputType: TextInputType.numberWithOptions(),
+                          textInputType: TextInputType.phone,
                           controller: phoneNumberController,
                         ),
                         const SizedBox(
@@ -202,6 +202,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: 20,
                         ),
                         CustomTextField(
+                          inputFormatter: [
+                            FilteringTextInputFormatter(' ', allow: false)
+                          ],
                           onSaved: (value) {
                             email = value!;
                           },
@@ -240,6 +243,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           labelText: 'Password',
                           prefixIcon: Icons.password,
                           controller: passwordController,
+
                         ),
                         const SizedBox(
                           height: 20,
@@ -253,7 +257,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             var department =
                                 departmentController.text.trim().capitalizeFirst;
                             var phoneNumber = phoneNumberController.text.trim();
-                            var url = 'https://pixabay.com/get/g1a15e8abc18a61f2df80b2b18a5d07950815f2bc3cb9fa515f4d05fca938b9f32adfaaff469550813ddea11cf47d4bb7f9063109d33d9ab1346e594ea8b266dba274160a6856d1b0c02c6a830f2b01f0_640.jpg';
+                            var url = '';
                             var created = DateTime.now();
                             final isValid = _formKey.currentState!.validate();
                             if (!isValid) {
@@ -272,9 +276,14 @@ class _SignupScreenState extends State<SignupScreen> {
                               );
                             }
                           },
-                          buttonWidget: controller.isLoading.isFalse ? const Text(
+                          buttonWidget: controller.isLoading.isFalse
+                              ? const Text(
                             'Register', style: TextStyle(fontSize: 20,),
-                          ) : LoadingAnimationWidget.prograssiveDots(color: textColor, size: 60,),
+                          )
+                              : LoadingAnimationWidget.prograssiveDots(
+                            color: textColor,
+                            size: 60,
+                          ),
 
                         ),
                         const SizedBox(
@@ -282,7 +291,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ],
                     ),
-                  ),
+                  ),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

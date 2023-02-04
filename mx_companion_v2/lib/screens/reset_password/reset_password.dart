@@ -110,7 +110,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   const SizedBox(
                     height: 30,
                   ),
-                  Form(
+                  Obx(() => Form(
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
@@ -159,7 +159,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ),
                       ],
                     ),
-                  ),
+                  ),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

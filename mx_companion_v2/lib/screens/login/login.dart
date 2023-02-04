@@ -125,6 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
+                          inputFormatter: [
+                            FilteringTextInputFormatter(' ', allow: false)
+                          ],
                           onSaved: (value) {
                             email = value!.removeAllWhitespace;
                           },
