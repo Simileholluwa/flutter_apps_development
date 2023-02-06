@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/controllers/question_paper/question_paper_controller.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
 import 'package:mx_companion_v2/screens/data_uploader_screen.dart';
@@ -115,6 +116,7 @@ class AppRoutes {
           ),
           binding: BindingsBuilder(() {
             Get.put<QuestionsController>(QuestionsController());
+            Get.put(AuthController());
           }),
         ),
         GetPage(
@@ -126,6 +128,7 @@ class AppRoutes {
           ),
           binding: BindingsBuilder(() {
             Get.put(MyZoomDrawerController());
+            Get.put(AuthController());
           }),
         ),
       ];

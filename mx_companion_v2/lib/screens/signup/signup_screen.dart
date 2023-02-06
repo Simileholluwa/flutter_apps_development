@@ -145,7 +145,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             }
                           },
                           hintText: 'Department',
-                          labelText: 'Department',
                           prefixIcon: Icons.school,
                           textInputType: TextInputType.text,
                           controller: departmentController,
@@ -170,7 +169,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           hintText: 'Phone number',
-                          labelText: 'Phone number',
                           prefixIcon: Icons.phone_android_rounded,
                           textInputType: TextInputType.phone,
                           controller: phoneNumberController,
@@ -193,7 +191,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             }
                           },
                           hintText: 'Username',
-                          labelText: 'Username',
                           prefixIcon: Icons.person,
                           textInputType: TextInputType.text,
                           controller: userNameController,
@@ -218,7 +215,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             }
                           },
                           hintText: 'Email',
-                          labelText: 'Email',
                           prefixIcon: Icons.mail,
                           textInputType: TextInputType.emailAddress,
                           controller: emailController,
@@ -240,7 +236,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             }
                           },
                           hintText: 'Password',
-                          labelText: 'Password',
                           prefixIcon: Icons.password,
                           controller: passwordController,
 

@@ -8,3 +8,7 @@ DocumentReference questionsRef({
   required String paperId,
   required String questionId,
 }) => questionPaperRF.doc(paperId).collection('questions').doc(questionId);
+
+CollectionReference userDetailsRef({
+  required String email,
+}) => userRF.doc(email).collection('user_details');

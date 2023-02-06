@@ -130,7 +130,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                             }
                           },
                           hintText: 'Email',
-                          labelText: 'Email',
                           prefixIcon: Icons.mail,
                           textInputType: TextInputType.emailAddress,
                           controller: emailController,

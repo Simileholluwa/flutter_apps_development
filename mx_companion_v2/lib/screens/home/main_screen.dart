@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
 import 'package:mx_companion_v2/screens/home/question_card.dart';
 import '../../config/themes/app_dark_theme.dart';
@@ -19,6 +20,9 @@ class MainScreen extends GetView<MyZoomDrawerController> {
 
   @override
   Widget build(BuildContext context) {
+
+    AuthController auth = Get.find();
+
     DateTime _lastExitTime = DateTime.now();
     QuestionPaperController questionPaperController = Get.find();
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -32,7 +36,7 @@ class MainScreen extends GetView<MyZoomDrawerController> {
         onWillPop: () async {
           if (DateTime.now().difference(_lastExitTime) >=
               const Duration(seconds: 2)) {
-            _showSnackBar();
+            auth.showSnackBar('Press the back button again to exit app.', containerColor: textColor,);
             _lastExitTime = DateTime.now();
             return false;
           } else {
@@ -88,7 +92,8 @@ class MainScreen extends GetView<MyZoomDrawerController> {
                               color: orangeColor,
                               size: 15,
                             ),
-                            text: Text(controller.user.value == null
+                            text: Text(
+                                controller.user.value == null
                                 ? 'Hello there'
                                 : 'Hello ${controller.user.value!.displayName}'),
                           ),
@@ -216,41 +221,3 @@ class MainScreen extends GetView<MyZoomDrawerController> {
   }
 }
 
-void _showSnackBar() {
-  Get.snackbar(
-    'Exit',
-    'Press the back button again to exit app.',
-    padding: const EdgeInsets.only(
-      left: 25,
-    ),
-    icon: Container(
-      height: 60,
-      width: 60,
-      margin: const EdgeInsets.only(
-        right: 10,
-      ),
-      decoration: BoxDecoration(
-        color: textColor,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: const Icon(
-        Icons.info_outline_rounded,
-        size: 30,
-        color: Colors.white,
-      ),
-    ),
-    margin: const EdgeInsets.only(
-      left: 25,
-      right: 25,
-      top: 20,
-    ),
-    borderRadius: 10,
-    snackPosition: SnackPosition.TOP,
-    snackStyle: SnackStyle.FLOATING,
-    duration: const Duration(
-      seconds: 2,
-    ),
-  );
-}

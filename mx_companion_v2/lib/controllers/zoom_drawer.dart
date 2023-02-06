@@ -1,16 +1,19 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart';
-
+import '../config/themes/app_dark_theme.dart';
 import '../services/upload.dart';
 
 class MyZoomDrawerController extends GetxController{
+
   final zoomDrawerController = ZoomDrawerController();
   void toggleZoomDrawer(){
     zoomDrawerController.toggle?.call();
@@ -74,7 +77,66 @@ class MyZoomDrawerController extends GetxController{
       );
       launchUrl(emailLaunchUri);
     } catch (e) {
-      return ;
+      showSnackBar('Could not open Email App.');
+    }
+  }
+
+  Future<void> openWhatsapp() async {
+    var whatsappURlAndroid =
+        "whatsapp://send?phone=+2347087840509&text=Hi, send us your enquiry, we will be sure to respond as soon as possible.";
+    var whatsappURLIos =
+        "https://wa.me/+2347087840509?text=${Uri.tryParse('Hi, send us your enquiry, we will be sure to respond as soon as possible.')}";
+    try {
+      if (Platform.isIOS) {
+        await launchUrl(
+          Uri.parse(
+            whatsappURLIos,
+          ),
+        );
+      } else {
+        await launchUrl(Uri.parse(whatsappURlAndroid));
+      }
+    } catch (e) {
+      showSnackBar('Could not open WhatsApp.');
+    }
+  }
+
+  Future<void> openFacebook() async {
+    String fbProtocolUrl;
+    if (Platform.isIOS) {
+      fbProtocolUrl = 'fb://profile/100018248824645';
+    } else {
+      fbProtocolUrl = 'fb://page/100018248824645';
+    }
+    String fallBackUrl = 'https://www.facebook.com/100018248824645';
+    try {
+      Uri fbBundleUri = Uri.parse(fbProtocolUrl);
+      var canLaunchNatively = await canLaunchUrl(fbBundleUri);
+      if (canLaunchNatively) {
+        launchUrl(fbBundleUri);
+      } else {
+        await launchUrl(Uri.parse(fallBackUrl),
+            mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      showSnackBar('Could not open Facebook.');
+    }
+  }
+
+  Future<void> openTelegram() async {
+    String telegramPage =
+        'https://t.me/Tee4Tee';
+    try {
+      Uri telegramBundleUri = Uri.parse(telegramPage);
+      var canLaunchNatively = await canLaunchUrl(telegramBundleUri);
+      if (canLaunchNatively) {
+        launchUrl(telegramBundleUri);
+      } else {
+        await launchUrl(Uri.parse(telegramPage),
+            mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      showSnackBar('Could not open telegram.');
     }
   }
 
@@ -124,6 +186,33 @@ class MyZoomDrawerController extends GetxController{
     } catch(e){
       return;
     }
+  }
+
+  void showSnackBar(String message, {IconData icon = Icons.info_outline_rounded, Color containerColor = Colors.red}) {
+    Get.snackbar(
+      message,
+      '',
+      messageText: Container(),
+      padding: const EdgeInsets.only(left: 0,),
+      icon: Container(
+        height: 30,
+        width: 30,
+        margin: const EdgeInsets.only(right: 10,),
+        decoration: BoxDecoration(
+          color: containerColor,
+          //borderRadius: const BorderRadius.all(Radius.circular(15),),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, size: 20, color: altTextColor,),
+      ),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+      margin: const EdgeInsets.only(left: 25, right: 25, top: 20,),
+      borderRadius: 15,
+      snackPosition: SnackPosition.TOP,
+      snackStyle: SnackStyle.FLOATING,
+      backgroundColor: Theme.of(Get.context!).highlightColor,
+    );
   }
 
 }

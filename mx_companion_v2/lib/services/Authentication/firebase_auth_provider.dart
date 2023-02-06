@@ -159,7 +159,7 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   Future addUserDetails(String email, String department, String phoneNumber, String userName, DateTime created, String url) async {
-    await FirebaseFirestore.instance.collection('users').doc(email).collection('user_details').add(
+    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('user_details').add(
         {
           'email' : email,
           'department' : department,

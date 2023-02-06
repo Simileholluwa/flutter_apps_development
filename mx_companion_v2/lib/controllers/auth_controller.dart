@@ -45,28 +45,28 @@ class AuthController extends GetxController {
       await AuthService.firebase().logIn(email: email, password: password,);
       _isLoading.value = false;
       navigateToHome();
-      showSnackBar('Sign in', 'You have successfully signed in',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('You have successfully signed in',  icon: Icons.check_circle, containerColor: Colors.green,);
     } on UserNotFoundAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'No account found with this email.');
+      showSnackBar('No account found with this email.');
     } on WrongPasswordAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Your password is incorrect.');
+      showSnackBar( 'Your password is incorrect.');
     } on UnknownAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Text fields cannot be empty.');
+      showSnackBar( 'Text fields cannot be empty.');
     } on InvalidEmailAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'The email address is invalid.');
+      showSnackBar( 'The email address is invalid.');
     } on NetworkRequestFailedAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'You are not connected to the internet.');
+      showSnackBar('You are not connected to the internet.');
     } on TooManyRequestAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Your account is locked due to too many incorrect password. Please, try again later.');
+      showSnackBar('Your account is locked due to too many incorrect password. Please, try again later.');
     } on GenericAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Sign in failed. Try again later.');
+      showSnackBar('Sign in failed. Try again later.');
     }
   }
 
@@ -92,29 +92,29 @@ class AuthController extends GetxController {
       );
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Sign up', 'You have successfully signed up',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('You have successfully signed up',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on WeakPasswordAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Password is too weak.');
+      showSnackBar('Password is too weak.');
     } on EmailAlreadyInUseAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'This email already exist.');
+      showSnackBar('This email already exist.');
     } on UnknownAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Text fields cannot be empty.');
+      showSnackBar('Text fields cannot be empty.');
     } on InvalidEmailAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'The email address is invalid.');
+      showSnackBar('The email address is invalid.');
     } on NetworkRequestFailedAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'You are not connected to the internet.');
+      showSnackBar('You are not connected to the internet.');
     } on TooManyRequestAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Too many incorrect password. Try again later.');
+      showSnackBar('Too many incorrect password. Try again later.');
     } on GenericAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Sign in failed. Try again later.');
+      showSnackBar('Sign in failed. Try again later.');
     }
   }
 
@@ -129,27 +129,27 @@ class AuthController extends GetxController {
       await AuthService.firebase().resetPassword(email: email);
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Reset password', 'Please check your email...',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Please check your email...',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on UserNotFoundAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'No account found with this email.');
+      showSnackBar('No account found with this email.');
     } on UnknownAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Text fields cannot be empty.');
+      showSnackBar('Text fields cannot be empty.');
     } on InvalidEmailAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'The email address is invalid.');
+      showSnackBar('The email address is invalid.');
     } on NetworkRequestFailedAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'You are not connected to the internet.');
+      showSnackBar('You are not connected to the internet.');
     } on TooManyRequestAuthException {
       _isLoading.value = false;
-      showSnackBar('An Error Occurred', 'Too many requests sent. Try again later.');
+      showSnackBar('Too many requests sent. Try again later.');
     } on GenericAuthException {
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Reset password', 'Please check your email including your spam folder.',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Please check your email including your spam folder.',  icon: Icons.check_circle, containerColor: Colors.green,);
     }
   }
 
@@ -157,10 +157,10 @@ class AuthController extends GetxController {
     try {
       await AuthService.firebase().logOut();
       navigateToHome();
-      showSnackBar('Sign out', 'You have successfully signed out',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('You have successfully signed out',  icon: Icons.check_circle, containerColor: Colors.green,);
 
     } on UserNotLoggedInAuthException {
-      showSnackBar('An Error Occurred', 'You are currently not signed in.');
+      showSnackBar('You are currently not signed in.');
     }
 
   }
@@ -260,26 +260,32 @@ class AuthController extends GetxController {
     return _auth.currentUser != null;
   }
 
-  void showSnackBar(String title, String message, {IconData icon = Icons.info_outline_rounded, Color containerColor = Colors.red}) {
+  void showSnackBar(String message, {IconData icon = Icons.info_outline_rounded, Color containerColor = Colors.red}) {
     Get.snackbar(
-      title,
       message,
-      padding: const EdgeInsets.only(left: 25,),
+      '',
+      messageText: Container(),
+      padding: const EdgeInsets.only(left: 0,),
       icon: Container(
-        height: 60,
-        width: 60,
+        height: 30,
+        width: 30,
         margin: const EdgeInsets.only(right: 10,),
         decoration: BoxDecoration(
           color: containerColor,
-          borderRadius: const BorderRadius.all(Radius.circular(10),),
+          //borderRadius: const BorderRadius.all(Radius.circular(15),),
+          shape: BoxShape.circle,
         ),
-        child: Icon(icon, size: 30, color: altTextColor,),
+        child: Icon(icon, size: 20, color: altTextColor,),
       ),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
       margin: const EdgeInsets.only(left: 25, right: 25, top: 20,),
-      borderRadius: 10,
+      borderRadius: 15,
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
-      duration: const Duration(seconds: 3,),
+      backgroundColor: Theme.of(Get.context!).highlightColor,
     );
   }
 }
+
+

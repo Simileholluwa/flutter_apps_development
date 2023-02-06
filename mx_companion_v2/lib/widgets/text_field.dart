@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
   final IconData prefixIcon;
   final IconData? suffixIcon;
   final String hintText;
-  final String labelText;
+  final String? labelText;
   final TextInputType textInputType;
   final TextInputAction inputAction;
   final List<TextInputFormatter>? inputFormatter;
@@ -21,7 +21,7 @@ class CustomTextField extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     required this.hintText,
-    required this.labelText,
+    this.labelText,
     this.textInputType = TextInputType.text,
     this.inputAction = TextInputAction.next,
   }) : super(key: key);
@@ -37,6 +37,7 @@ class CustomTextField extends StatelessWidget {
       textInputAction: inputAction,
       decoration: InputDecoration(
         filled: true,
+        labelText: labelText,
         prefixIcon: Icon(
           prefixIcon,
         ),

@@ -43,4 +43,20 @@ class Dialogs {
       ],
     );
   }
+
+  static Widget updateDetailsDialog({
+    required Widget title,
+    required Widget content,
+  }) {
+    return AlertDialog(
+      //scrollable: true,
+      contentPadding: const EdgeInsets.all(5,),
+      titlePadding: const EdgeInsets.all(0,),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: title,
+      content: content,
+    );
+  }
 }

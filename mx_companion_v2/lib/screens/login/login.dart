@@ -143,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           hintText: 'Email',
-                          labelText: 'Email',
                           prefixIcon: Icons.mail,
                           textInputType: TextInputType.emailAddress,
                           controller: emailController,
@@ -165,7 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           hintText: 'Password',
-                          labelText: 'Password',
                           prefixIcon: Icons.password,
                           controller: passwordController,
                         ),

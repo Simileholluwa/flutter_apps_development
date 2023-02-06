@@ -6,7 +6,6 @@ class CustomTextFieldPW extends StatefulWidget {
   final TextEditingController? controller;
   final IconData prefixIcon;
   final String hintText;
-  final String labelText;
   const CustomTextFieldPW({
     Key? key,
     this.onSaved,
@@ -14,7 +13,6 @@ class CustomTextFieldPW extends StatefulWidget {
     this.controller,
     required this.prefixIcon,
     required this.hintText,
-    required this.labelText,
   }) : super(key: key);
 
   @override
