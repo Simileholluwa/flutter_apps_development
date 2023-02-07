@@ -4,14 +4,13 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/custom_text.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/text_button_with_icon.dart';
 import '../config/themes/ui_parameters.dart';
-import '../widgets/AppIconText.dart';
+import '../widgets/content_area.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({
@@ -36,7 +35,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     Future<void> _delete(String historyId) async {
       await _userHistory.doc(historyId).delete();
-      _showSnackBar();
+      controller.showSnackBar('History successfully deleted', icon: Icons.check_circle, containerColor: Colors.green,);
     }
 
     Future<void> _deleteAll() async {
@@ -47,7 +46,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         batch.delete(doc.reference);
       }
       await batch.commit();
-      _showSnackBar();
+      controller.showSnackBar('History successfully deleted', icon: Icons.check_circle, containerColor: Colors.green,);
     }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -61,43 +60,45 @@ class _HistoryScreenState extends State<HistoryScreen> {
           toolbarHeight: 70,
           shadowColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              'History',
-              style: Theme.of(context).textTheme.titleLarge!.merge(
-                const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 36,
-                ),
+          scrolledUnderElevation: 0,
+          leading:
+          Container(
+            margin: const EdgeInsets.only(
+              left: 15,
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new_outlined, size: 30,),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
+          title: Text(
+            'History',
+            style: Theme.of(context).textTheme.titleLarge!.merge(
+              const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
               ),
             ),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.delete, size: 30,),
-              onPressed: () {
-                controller.showDeleteAllHistory(() {
-                  _deleteAll();
-                  Get.back();
-                });
-              },
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                right: 15,
-              ),
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
               child: IconButton(
-                icon: const Icon(Icons.arrow_forward, size: 30,),
+                icon: const Icon(Icons.delete, size: 30,),
                 onPressed: () {
-                  Get.back();
+                  controller.showDeleteAllHistory(() {
+                    _deleteAll();
+                    Get.back();
+                  });
                 },
               ),
             ),
           ],
         ),
         body: StreamBuilder(
-            stream: _userHistory.snapshots(),
+            stream: _userHistory.orderBy('created', descending: true,).snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
                 if (streamSnapshot.data!.docs.isEmpty) {
@@ -111,7 +112,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           const Icon(
                             Icons.history_rounded,
                             size: 150,
-                            color: altTextColor,
                           ),
                           Text(
                             'Your practice history will appear here when you start practicing.',
@@ -129,271 +129,214 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                   );
                 } else {
-                  return Container(
-                    margin: const EdgeInsets.only(
-                      right: 20,
-                      left: 20,
-                      top: 10,
-                    ),
-                    child: Column(
-                      children: [
-                        ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(
-                                height: 5,
-                              );
-                            },
-                            itemCount: streamSnapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              final DocumentSnapshot documentSnapShot =
-                              streamSnapshot.data!.docs[index];
-                              return Dismissible(
-                                key: UniqueKey(),
-                                secondaryBackground: Container(
-                                  height: 80,
-                                  margin: const EdgeInsets.only(
-                                    bottom: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: maroonColor,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.end,
-                                      children: const [
-                                        Icon(
-                                          Icons.delete,
-                                          color: Colors.white,
-                                          size: 30,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                background: Container(
-                                  height: 80,
-                                  margin: const EdgeInsets.only(
-                                    bottom: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: maroonColor,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      children: const [
-                                        Icon(
-                                          Icons.delete,
-                                          color: Colors.white,
-                                          size: 30,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                onDismissed: (DismissDirection direction) {
-                                  if (direction ==
-                                      DismissDirection.endToStart) {
-                                    _delete(documentSnapShot.id);
-                                  } else {
-                                    _delete(documentSnapShot.id);
-                                  }
-                                  setState(() {
-                                    streamSnapshot.data!.docs.removeAt(index);
-                                  });
-                                },
-                                confirmDismiss:
-                                    (DismissDirection direction) async {
-                                  return await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return BackdropFilter(
-                                          filter: ImageFilter.blur(
-                                              sigmaX: 10, sigmaY: 10),
-                                          child: AlertDialog(
-                                            title: Text(
-                                              'Delete ${documentSnapShot['question_id']}?',
-                                              style: GoogleFonts.lobsterTwo(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25,
-                                                color: textColor,
-                                              ),
-                                            ),
-                                            content: Text(
-                                              'Are you sure you want to delete ${documentSnapShot['question_id']} from history list? This action is irreversible.',
-                                              style: GoogleFonts.jost(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17,
-                                                height: 1.3,
-                                                color: altTextColor,
-                                              ),
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pop(false);
-                                                  },
-                                                  child: Text(
-                                                    'Cancel',
-                                                    style: GoogleFonts
-                                                        .lobsterTwo(
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      color: Colors.grey,
-                                                      fontSize: 20,
-                                                    ),
-                                                  )),
-                                              TextButton(
-                                                onPressed: () =>
-                                                    Navigator.of(context)
-                                                        .pop(true),
-                                                child: Text(
-                                                  'Delete',
-                                                  style:
-                                                  GoogleFonts.lobsterTwo(
-                                                    fontWeight:
-                                                    FontWeight.bold,
-                                                    color: textColor,
-                                                    fontSize: 20,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                  return Column(
+                    children: [
+                      Flexible(
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.only(left: 10, right: 10),
+                          child: ContentAreaCustom(
+                            addRadius: true,
+                            addColor: true,
+                            addPadding: false,
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              child: Column(
+                                children: [
+                                  ListView.separated(
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      separatorBuilder:
+                                          (BuildContext context,
+                                          int index) {
+                                        return Divider(
+                                          height: 5,
+                                          thickness: 3,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
                                         );
-                                      });
-                                },
-                                child: Ink(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 20,
-                                    horizontal: 20,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    UIParameters.cardBorderRadius,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        children: [
-                                          Center(
-                                            child: Container(
-                                              width: 130,
-                                              height: 60,
-                                              decoration: const BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.all(
-                                                  Radius.circular(10),
-                                                ),
-                                              ),
+                                      },
+                                      itemCount: streamSnapshot.data!.docs.length,
+                                      itemBuilder: (context, index) {
+                                        final DocumentSnapshot documentSnapShot =
+                                        streamSnapshot.data!.docs[index];
+                                        return Dismissible(
+                                          key: UniqueKey(),
+                                          secondaryBackground: Container(
+                                            height: 80,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 10,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: UIParameters.cardBorderRadius,
+                                              //color: maroonColor,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    documentSnapShot[
-                                                    'points'],
-                                                    style: appHeading,
-                                                  ),
-                                                  Text(
-                                                    'points',
-                                                    style: GoogleFonts.jost(
-                                                      fontSize: 10,
-                                                      color: textColor,
-                                                      fontFeatures: [
-                                                        const FontFeature
-                                                            .subscripts()
-                                                      ],
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                    ),
+                                                MainAxisAlignment.end,
+                                                children: const [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    //color: Colors.white,
+                                                    size: 30,
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Text(
-                                                      documentSnapShot[
-                                                      'question_id'],
-                                                      style: cardTitles,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                      children: [
-                                                        AppIconText(
-                                                          icon: const Icon(
-                                                            Icons.timer,
-                                                            color:
-                                                            orangeColor,
-                                                            size: 17,
-                                                          ),
-                                                          text: Text(
-                                                            '${(documentSnapShot['time_spent'] / 60).toStringAsFixed(2)}min',
-                                                            style: GoogleFonts
-                                                                .lobsterTwo(
-                                                              fontSize: 17,
-                                                              color:
-                                                              altTextColor,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                Text(
-                                                  documentSnapShot[
-                                                  'correct_answer_count'],
-                                                  style:
-                                                  GoogleFonts.lobsterTwo(
-                                                    fontSize: 17,
-                                                    color: altTextColor,
+                                          background: Container(
+                                            height: 80,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 10,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: UIParameters.cardBorderRadius,
+                                              //color: maroonColor,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                children: const [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    //color: Colors.white,
+                                                    size: 30,
                                                   ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          onDismissed: (DismissDirection direction) {
+                                            if (direction ==
+                                                DismissDirection.endToStart) {
+                                              _delete(documentSnapShot.id);
+                                            } else {
+                                              _delete(documentSnapShot.id);
+                                            }
+                                            setState(() {
+                                              streamSnapshot.data!.docs.removeAt(index);
+                                            });
+                                          },
+                                          confirmDismiss:
+                                              (DismissDirection direction) {
+                                            return controller.showDeleteHistory(() {
+                                              Navigator.of(context)
+                                                  .pop(true);
+                                            }, 'Delete ${documentSnapShot['question_id']}?', 'Are you sure you want to delete ${documentSnapShot['question_id']} from history list? This action is irreversible.',);
+                                          },
+                                          child: Ink(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 15,
+                                              horizontal: 20,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              UIParameters.cardBorderRadius,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  children: [
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                        right: 10,
+                                                      left: 10,
+                                                    ),
+                                                        width: 100,
+                                                        height: 80,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius:
+                                                          const BorderRadius.all(
+                                                            Radius.circular(10),
+                                                          ),
+                                                          color: Theme.of(context).highlightColor
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.center,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.center,
+                                                          children: [
+                                                            Text(
+                                                              documentSnapShot[
+                                                              'points'],
+                                                              style: Theme.of(context).textTheme.titleLarge!.merge(
+                                                                const TextStyle(
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 30,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              'points',
+                                                              style: Theme.of(context).textTheme.labelSmall,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    const SizedBox(
+                                                      height: 60,
+                                                      child: VerticalDivider(
+                                                        width: 30,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                        children: [
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                            children: [
+                                                              Text(
+                                                                documentSnapShot[
+                                                                'question_id'],
+                                                                style: Theme.of(context).textTheme.titleLarge!.merge(
+                                                                  const TextStyle(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontSize: 18,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              const SizedBox(height: 2,),
+                                                              Text(
+                                                                documentSnapShot[
+                                                                'created'].toDate()
+                                                                    .toString()
+                                                                    .substring(0, 16),
+                                                                style: Theme.of(context).textTheme.subtitle1!.merge( TextStyle(color: Theme.of(context).hintColor),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                      ],
-                    ),
+                                          ),
+                                        );
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 }
               }
@@ -403,16 +346,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     LoadingAnimationWidget.fourRotatingDots(
-                        color: textColor, size: 70),
-                    const SizedBox(height: 10),
+                      color: textColor,
+                      size: 70,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Text(
-                      'MX Companion',
-                      style: Theme.of(context).textTheme.titleLarge!.merge(
-                        const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                        ),
-                      ),
+                      'Loading Database...',
+                      style: bigLobster,
+                    ),
+                    Text(
+                      'Ensure you have an active internet connection',
+                      style: smallestLobster,
                     ),
                   ],
                 ),
@@ -421,44 +367,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
     );
   }
-}
-
-void _showSnackBar() {
-  Get.snackbar(
-    'History',
-    'History successfully deleted!',
-    padding: const EdgeInsets.only(
-      left: 25,
-    ),
-    icon: Container(
-      height: 60,
-      width: 60,
-      margin: const EdgeInsets.only(
-        right: 10,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: const Icon(
-        Icons.check_circle,
-        size: 30,
-      ),
-    ),
-    margin: const EdgeInsets.only(
-      left: 25,
-      right: 25,
-      top: 50,
-    ),
-    borderRadius: 10,
-    snackPosition: SnackPosition.TOP,
-    snackStyle: SnackStyle.FLOATING,
-    duration: const Duration(
-      seconds: 2,
-    ),
-  );
 }
 
 

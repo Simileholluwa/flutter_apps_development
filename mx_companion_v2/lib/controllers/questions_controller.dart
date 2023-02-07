@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:mx_companion_v2/controllers/question_paper/question_paper_controller.dart';
 import 'package:mx_companion_v2/firebase_ref/loading_status.dart';
 import 'package:mx_companion_v2/models/questions_model.dart';
+import 'package:mx_companion_v2/screens/home/home_screen.dart';
 import '../firebase_ref/references.dart';
-import '../screens/home/main_screen.dart';
 import '../widgets/questions/result_screen.dart';
 
 class QuestionsController extends GetxController {
@@ -133,7 +133,7 @@ class QuestionsController extends GetxController {
 
   void navigateToHome() {
     _timer!.cancel();
-    Get.offNamedUntil(MainScreen.routeName, (route) => false);
+    Get.offNamedUntil(HomeScreen.routeName, (route) => false);
   }
 
   _startTimer(int seconds) {

@@ -128,7 +128,6 @@ class AppRoutes {
           ),
           binding: BindingsBuilder(() {
             Get.put(MyZoomDrawerController());
-            Get.put(AuthController());
           }),
         ),
       ];

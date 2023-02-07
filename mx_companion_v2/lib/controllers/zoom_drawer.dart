@@ -11,18 +11,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart';
 import '../config/themes/app_dark_theme.dart';
 import '../services/upload.dart';
+import '../widgets/alert_user.dart';
 
-class MyZoomDrawerController extends GetxController{
-
+class MyZoomDrawerController extends GetxController {
   final zoomDrawerController = ZoomDrawerController();
-  void toggleZoomDrawer(){
+  void toggleZoomDrawer() {
     zoomDrawerController.toggle?.call();
     update();
   }
 
   Rxn<User?> user = Rxn();
   @override
-  void onReady(){
+  void onReady() {
     user.value = Get.find<AuthController>().getUser();
     super.onReady();
   }
@@ -36,35 +36,33 @@ class MyZoomDrawerController extends GetxController{
   RxBool get isUploading => _isUploading;
   UploadTask? task;
 
-  void signOut(){
+  void signOut() {
     Get.find<AuthController>().showSignOutAlertDialog();
   }
 
-  void signIn(){
+  void signIn() {
     Get.find<AuthController>().navigateToLogin();
   }
 
-  void signUp(){
+  void signUp() {
     Get.find<AuthController>().navigateToSignup();
   }
 
-  void history(){
+  void history() {
     Get.find<AuthController>().navigateToHistory();
   }
 
-  void menu(){
+  void menu() {
     Get.find<AuthController>().navigateToMenu();
   }
 
-  void website(){
-
-  }
+  void website() {}
 
   Future<void> openEmail() async {
     String? encodeQueryParameters(Map<String, String> params) {
       return params.entries
           .map((e) =>
-      '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
           .join('&');
     }
 
@@ -124,8 +122,7 @@ class MyZoomDrawerController extends GetxController{
   }
 
   Future<void> openTelegram() async {
-    String telegramPage =
-        'https://t.me/Tee4Tee';
+    String telegramPage = 'https://t.me/Tee4Tee';
     try {
       Uri telegramBundleUri = Uri.parse(telegramPage);
       var canLaunchNatively = await canLaunchUrl(telegramBundleUri);
@@ -149,18 +146,18 @@ class MyZoomDrawerController extends GetxController{
         uploadFile();
         update();
       } else {
-        return ;
+        return;
       }
-    } catch(e){
-      return ;
+    } catch (e) {
+      return;
     }
   }
 
   Future uploadFile() async {
-    if(_photo == null){
+    if (_photo == null) {
       return;
     }
-    try{
+    try {
       if (_photo != null) {
         final fileName = basename(_photo!.path);
         final destination = 'images/$fileName';
@@ -172,7 +169,8 @@ class MyZoomDrawerController extends GetxController{
             _isUploading.value = true;
             final snapShot = await task!.whenComplete(() {});
             final urlDownload = await snapShot.ref.getDownloadURL();
-            await FirebaseAuth.instance.currentUser!.updatePhotoURL(urlDownload);
+            await FirebaseAuth.instance.currentUser!
+                .updatePhotoURL(urlDownload);
             update();
             _isUploading.value = false;
           } on FirebaseException catch (e) {
@@ -183,36 +181,124 @@ class MyZoomDrawerController extends GetxController{
         }
         update();
       }
-    } catch(e){
+    } catch (e) {
       return;
     }
   }
 
-  void showSnackBar(String message, {IconData icon = Icons.info_outline_rounded, Color containerColor = Colors.red}) {
+  void showJoinSocial() {
+    Get.dialog(
+      Dialogs.updateDetailsDialog(
+        title: Column(
+          children: [
+            const SizedBox(
+              height: 15,
+            ),
+            Center(
+              child: Text(
+                'Join Our Social Groups',
+                style: Theme.of(Get.context!).textTheme.titleMedium!.merge(
+                      const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Divider(
+              thickness: 3,
+              color: Theme.of(Get.context!).scaffoldBackgroundColor,
+            ),
+          ],
+        ),
+        content: Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            bottom: 20,
+          ),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  openWhatsapp();
+                },
+                icon: const Icon(
+                  Icons.whatsapp,
+                  size: 50,
+                  color: Colors.green,
+                ),
+              ),
+              const SizedBox(width: 20),
+              IconButton(
+                onPressed: () {
+                  openTelegram();
+                },
+                icon: const Icon(
+                  Icons.telegram,
+                  size: 50,
+                  color: Color.fromRGBO(0, 136, 204, 1),
+                ),
+              ),
+              const SizedBox(width: 20),
+              IconButton(
+                onPressed: () {
+                  openFacebook();
+                },
+                icon: const Icon(
+                  Icons.facebook,
+                  size: 50,
+                  color: Color.fromRGBO(66, 103, 178, 1),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
+  }
+
+  void showSnackBar(String message,
+      {IconData icon = Icons.info_outline_rounded,
+      Color containerColor = Colors.red}) {
     Get.snackbar(
       message,
       '',
       messageText: Container(),
-      padding: const EdgeInsets.only(left: 0,),
+      padding: const EdgeInsets.only(
+        left: 0,
+      ),
       icon: Container(
         height: 30,
         width: 30,
-        margin: const EdgeInsets.only(right: 10,),
+        margin: const EdgeInsets.only(
+          right: 10,
+        ),
         decoration: BoxDecoration(
           color: containerColor,
           //borderRadius: const BorderRadius.all(Radius.circular(15),),
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, size: 20, color: altTextColor,),
+        child: Icon(
+          icon,
+          size: 20,
+          color: altTextColor,
+        ),
       ),
       isDismissible: true,
       dismissDirection: DismissDirection.horizontal,
-      margin: const EdgeInsets.only(left: 25, right: 25, top: 20,),
+      margin: const EdgeInsets.only(
+        left: 25,
+        right: 25,
+        top: 20,
+      ),
       borderRadius: 15,
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
       backgroundColor: Theme.of(Get.context!).highlightColor,
     );
   }
-
 }

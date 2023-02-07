@@ -117,9 +117,10 @@ class ResultScreen extends GetView<QuestionsController> {
                                       goBack: false,
                                     );
                                     Get.toNamed(AnswerCheckScreen.routeName);
-                                  });
-                            }),
-
+                                  },
+                              );
+                            },
+                        ),
                       ],
                     ),
                   ),

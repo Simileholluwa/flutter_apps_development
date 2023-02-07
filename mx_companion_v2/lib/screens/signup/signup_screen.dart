@@ -71,6 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Scaffold(
           appBar: AppBar(
             shadowColor: Colors.transparent,
+            scrolledUnderElevation: 0,
             toolbarHeight: 70,
             automaticallyImplyLeading: false,
             title: Padding(

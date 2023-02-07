@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
 import '../../config/themes/app_dark_theme.dart';
-import '../../controllers/auth_controller.dart';
 import '../../widgets/alert_user.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/content_area.dart';
@@ -55,7 +54,6 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
 
     MyZoomDrawerController controller = Get.find();
-    AuthController auth = Get.find();
 
     void showUpdateUserDetails(CollectionReference userDetails,) {
       Get.dialog(
@@ -192,7 +190,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                   .updateDisplayName(userName);
                               _isLoading.value = false;
                               Get.back();
-                              auth.showSnackBar('Your profile has been updated', icon: Icons.check_circle, containerColor: Colors.green,);
+                              controller.showSnackBar('Your profile has been updated', icon: Icons.check_circle, containerColor: Colors.green,);
                             }
                           },
                           buttonWidget: _isLoading.isFalse
@@ -245,10 +243,6 @@ class _MenuScreenState extends State<MenuScreen> {
         margin: const EdgeInsets.only(
           top: 15,
           bottom: 5,
-        ),
-        padding: const EdgeInsets.only(
-          left: 10,
-          right: 10,
         ),
         decoration: BoxDecoration(
           color: Theme.of(context).canvasColor,
@@ -395,47 +389,63 @@ class _MenuScreenState extends State<MenuScreen> {
                           thickness: 3,
                           color: Theme.of(context).scaffoldBackgroundColor,
                         ),
-                        controller.user.value == null
-                            ? Container()
-                            : IconAndText(
-                                onTap: () {},
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                          ),
+                          child: Column(
+                            children: [
+                              controller.user.value == null
+                                  ? Container()
+                                  : IconAndText(
+                                onTap: () {
+                                  controller.history();
+                                },
                                 text: 'Practice History',
                                 image:
-                                    const AssetImage("assets/images/bomb.png"),
+                                const AssetImage("assets/images/bomb.png"),
                               ),
-                        IconAndText(
-                          onTap: () {},
-                          text: 'FAQs',
-                          image:
-                              const AssetImage("assets/images/questions.png"),
-                        ),
-                        IconAndText(
-                          onTap: () {},
-                          text: 'Feedback',
-                          image: const AssetImage(
-                              "assets/images/testimonials.png"),
-                        ),
-                        IconAndText(
-                          onTap: () {},
-                          text: 'Social Groups',
-                          image:
-                              const AssetImage("assets/images/connection.png"),
-                        ),
-                        IconAndText(
-                          onTap: () {},
-                          text: 'Notifications',
-                          image:
-                              const AssetImage("assets/images/newsletter.png"),
-                        ),
-                        IconAndText(
-                          onTap: () {},
-                          text: 'Share App',
-                          image: const AssetImage("assets/images/share.png"),
-                        ),
-                        IconAndText(
-                          onTap: () {},
-                          text: 'About Us',
-                          image: const AssetImage("assets/images/comment.png"),
+                              IconAndText(
+                                onTap: () {},
+                                text: 'FAQs',
+                                image:
+                                const AssetImage("assets/images/questions.png"),
+                              ),
+                              IconAndText(
+                                onTap: () {},
+                                text: 'Feedback',
+                                image: const AssetImage(
+                                    "assets/images/testimonials.png"),
+                              ),
+                              IconAndText(
+                                onTap: () {
+                                  controller.showJoinSocial();
+                                },
+                                text: 'Social Groups',
+                                image:
+                                const AssetImage("assets/images/connection.png"),
+                              ),
+                              controller.user.value == null ?
+                              Container() :
+                              IconAndText(
+                                onTap: () {},
+                                text: 'Notifications',
+                                image:
+                                const AssetImage("assets/images/newsletter.png"),
+                              ),
+                              IconAndText(
+                                onTap: () {},
+                                text: 'Share App',
+                                image: const AssetImage("assets/images/share.png"),
+                              ),
+                              IconAndText(
+                                onTap: () {},
+                                text: 'About Us',
+                                image: const AssetImage("assets/images/comment.png"),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

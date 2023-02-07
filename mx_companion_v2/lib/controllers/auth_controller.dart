@@ -241,6 +241,21 @@ class AuthController extends GetxController {
     );
   }
 
+  Future<bool?> showDeleteHistory(VoidCallback onTap, String text, String message,) async {
+    return Get.dialog(
+      Dialogs.appDialog(
+        onTap: onTap,
+        onPressed: () {
+          Get.back();
+        },
+        action: 'Delete',
+        text: text,
+        message: message,
+      ),
+      barrierDismissible: true,
+    );
+  }
+
   void showPracticeInfo(VoidCallback onTap, String message) {
     Get.dialog(
       Dialogs.appDialog(

@@ -27,8 +27,9 @@ extension QuestionsControllerExtension on QuestionsController {
     batch.set(
         userRF.doc(_user.uid)
             .collection('user_tests')
-            .doc(questionModel.id),
+            .doc(),
         {
+          "created": DateTime.now(),
           "points": points,
           "correct_answer_count":
               "$correctQuestionCount/${allQuestions.length}",

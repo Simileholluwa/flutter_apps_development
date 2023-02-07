@@ -58,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           shadowColor: Colors.transparent,
           toolbarHeight: 70,
+          scrolledUnderElevation: 0,
           automaticallyImplyLeading: false,
           title: Padding(
             padding: const EdgeInsets.only(left: 10.0),

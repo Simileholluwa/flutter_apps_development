@@ -54,6 +54,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           appBar: AppBar(
           shadowColor: Colors.transparent,
           toolbarHeight: 70,
+            scrolledUnderElevation: 0,
           automaticallyImplyLeading: false,
           title: Padding(
             padding: const EdgeInsets.only(left: 10.0),
