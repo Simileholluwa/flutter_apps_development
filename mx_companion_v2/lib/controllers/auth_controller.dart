@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
@@ -45,7 +46,7 @@ class AuthController extends GetxController {
       await AuthService.firebase().logIn(email: email, password: password,);
       _isLoading.value = false;
       navigateToHome();
-      showSnackBar('You have successfully signed in',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Signed in as ${_user.value!.displayName}');
     } on UserNotFoundAuthException {
       _isLoading.value = false;
       showSnackBar('No account found with this email.');
@@ -92,7 +93,7 @@ class AuthController extends GetxController {
       );
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('You have successfully signed up',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Sign up successful.',);
 
     } on WeakPasswordAuthException {
       _isLoading.value = false;
@@ -129,7 +130,7 @@ class AuthController extends GetxController {
       await AuthService.firebase().resetPassword(email: email);
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Please check your email...',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Check your email for password reset instructions.',);
 
     } on UserNotFoundAuthException {
       _isLoading.value = false;
@@ -149,7 +150,7 @@ class AuthController extends GetxController {
     } on GenericAuthException {
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Please check your email including your spam folder.',  icon: Icons.check_circle, containerColor: Colors.green,);
+      showSnackBar('Check your email for password reset instructions.',);
     }
   }
 
@@ -157,8 +158,7 @@ class AuthController extends GetxController {
     try {
       await AuthService.firebase().logOut();
       navigateToHome();
-      showSnackBar('You have successfully signed out',  icon: Icons.check_circle, containerColor: Colors.green,);
-
+      showSnackBar('Signed out successfully.',);
     } on UserNotLoggedInAuthException {
       showSnackBar('You are currently not signed in.');
     }
@@ -279,31 +279,11 @@ class AuthController extends GetxController {
     return _auth.currentUser != null;
   }
 
-  void showSnackBar(String message, {IconData icon = Icons.info_outline_rounded, Color containerColor = Colors.red}) {
-    Get.snackbar(
-      message,
-      '',
-      messageText: Container(),
-      padding: const EdgeInsets.only(left: 0,),
-      icon: Container(
-        height: 30,
-        width: 30,
-        margin: const EdgeInsets.only(right: 10,),
-        decoration: BoxDecoration(
-          color: containerColor,
-          //borderRadius: const BorderRadius.all(Radius.circular(15),),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, size: 20, color: Colors.white,),
-      ),
-      isDismissible: true,
-      dismissDirection: DismissDirection.horizontal,
-      duration: const Duration(seconds: 2,),
-      margin: const EdgeInsets.only(left: 25, right: 25, top: 20,),
-      borderRadius: 15,
-      snackPosition: SnackPosition.TOP,
-      snackStyle: SnackStyle.FLOATING,
-      backgroundColor: Theme.of(Get.context!).highlightColor,
+  void showSnackBar(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      timeInSecForIosWeb: 1,
     );
   }
 }

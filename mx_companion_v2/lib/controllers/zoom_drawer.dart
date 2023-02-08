@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart';
 import '../services/upload.dart';
 import '../widgets/alert_user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MyZoomDrawerController extends GetxController {
   final zoomDrawerController = ZoomDrawerController();
@@ -169,7 +170,6 @@ class MyZoomDrawerController extends GetxController {
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         _photo = File(pickedFile.path);
-        _isPhoto.value = true;
         uploadFile();
         update();
       } else {
@@ -193,16 +193,18 @@ class MyZoomDrawerController extends GetxController {
           return;
         } else {
           try {
-            _isUploading.value = true;
+            showSnackBar('Uploading profile image...');
             final snapShot = await task!.whenComplete(() {});
             final urlDownload = await snapShot.ref.getDownloadURL();
             await FirebaseAuth.instance.currentUser!
                 .updatePhotoURL(urlDownload);
             update();
-            _isUploading.value = false;
+            showSnackBar('Profile image uploaded.');
           } on FirebaseException catch (e) {
+            showSnackBar('Unable to upload profile image.');
             return;
           } catch (e) {
+            showSnackBar('Unable to upload profile image.');
             return;
           }
         }
@@ -288,45 +290,12 @@ class MyZoomDrawerController extends GetxController {
     );
   }
 
-  void showSnackBar(String message,
-      {IconData icon = Icons.info_outline_rounded,
-      Color containerColor = Colors.red}) {
-    Get.snackbar(
-      message,
-      '',
-      messageText: Container(),
-      padding: const EdgeInsets.only(
-        left: 0,
-      ),
-      icon: Container(
-        height: 30,
-        width: 30,
-        margin: const EdgeInsets.only(
-          right: 10,
-        ),
-        decoration: BoxDecoration(
-          color: containerColor,
-          //borderRadius: const BorderRadius.all(Radius.circular(15),),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          size: 20,
-          color: Colors.white,
-        ),
-      ),
-      isDismissible: true,
-      dismissDirection: DismissDirection.horizontal,
-      margin: const EdgeInsets.only(
-        left: 25,
-        right: 25,
-        top: 20,
-      ),
-      duration: const Duration(seconds: 2,),
-      borderRadius: 15,
-      snackPosition: SnackPosition.TOP,
-      snackStyle: SnackStyle.FLOATING,
-      backgroundColor: Theme.of(Get.context!).highlightColor,
+  void showSnackBar(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      timeInSecForIosWeb: 1,
     );
   }
 }
+

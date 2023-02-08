@@ -189,7 +189,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                   .updateDisplayName(userName);
                               _isLoading.value = false;
                               Get.back();
-                              controller.showSnackBar('Your profile has been updated', icon: Icons.check_circle, containerColor: Colors.green,);
+                              controller.showSnackBar('Your profile has been updated.',);
                             }
                           },
                           buttonWidget: _isLoading.isFalse
@@ -326,14 +326,6 @@ class _MenuScreenState extends State<MenuScreen> {
                               ),
                             );
                           },
-                        ),
-                        Visibility(
-                          visible: controller.isPhoto.isTrue,
-                          child: Text(
-                            controller.isUploading.isTrue
-                                ? 'Uploading Profile Image...'
-                                : 'Current Profile Image',
-                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

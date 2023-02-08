@@ -34,7 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     Future<void> _delete(String historyId) async {
       await _userHistory.doc(historyId).delete();
-      controller.showSnackBar('History successfully deleted', icon: Icons.check_circle, containerColor: Colors.green,);
+      controller.showSnackBar('History successfully deleted.',);
     }
 
     Future<void> _deleteAll() async {
@@ -45,7 +45,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         batch.delete(doc.reference);
       }
       await batch.commit();
-      controller.showSnackBar('History successfully deleted', icon: Icons.check_circle, containerColor: Colors.green,);
+      controller.showSnackBar('History successfully deleted.');
     }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(

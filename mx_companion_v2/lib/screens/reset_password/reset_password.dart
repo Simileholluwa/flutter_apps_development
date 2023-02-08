@@ -115,6 +115,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                     child: Column(
                       children: [
                         CustomTextField(
+                          inputFormatter: [
+                            FilteringTextInputFormatter(' ', allow: false)
+                          ],
                           inputAction : TextInputAction.done,
                           onSaved: (value) {
                             email = value!;

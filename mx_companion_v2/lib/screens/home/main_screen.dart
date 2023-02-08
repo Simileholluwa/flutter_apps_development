@@ -35,7 +35,7 @@ class MainScreen extends GetView<MyZoomDrawerController> {
         onWillPop: () async {
           if (DateTime.now().difference(_lastExitTime) >=
               const Duration(seconds: 2)) {
-            auth.showSnackBar('Press the back button again to exit app.', containerColor: Colors.blue,);
+            auth.showSnackBar('Press the back button again to exit app.',);
             _lastExitTime = DateTime.now();
             return false;
           } else {
