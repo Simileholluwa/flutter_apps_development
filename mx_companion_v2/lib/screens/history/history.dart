@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/custom_text.dart';
+import '../../config/themes/ui_parameters.dart';
 import '../../controllers/auth_controller.dart';
+import '../../widgets/content_area.dart';
 import '../../widgets/text_button_with_icon.dart';
-import '../config/themes/ui_parameters.dart';
-import '../widgets/content_area.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({
@@ -346,7 +345,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     LoadingAnimationWidget.fourRotatingDots(
-                      color: textColor,
+                      color: Colors.blue,
                       size: 70,
                     ),
                     const SizedBox(

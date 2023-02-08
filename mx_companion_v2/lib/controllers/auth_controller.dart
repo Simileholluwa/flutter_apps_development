@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
-import '../config/themes/app_dark_theme.dart';
 import '../firebase_ref/loading_status.dart';
-import '../history/history.dart';
 import '../screens/faq/faq.dart';
+import '../screens/history/history.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/reset_password/reset_password.dart';
@@ -295,10 +294,11 @@ class AuthController extends GetxController {
           //borderRadius: const BorderRadius.all(Radius.circular(15),),
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, size: 20, color: altTextColor,),
+        child: Icon(icon, size: 20, color: Colors.white,),
       ),
       isDismissible: true,
       dismissDirection: DismissDirection.horizontal,
+      duration: const Duration(seconds: 2,),
       margin: const EdgeInsets.only(left: 25, right: 25, top: 20,),
       borderRadius: 15,
       snackPosition: SnackPosition.TOP,

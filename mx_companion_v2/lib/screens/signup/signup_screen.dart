@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/app_button.dart';
@@ -22,9 +21,6 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  AuthController controller = Get.find();
-
-  Color btnColor = maroonColor;
 
   late TextEditingController emailController,
       passwordController,
@@ -277,7 +273,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             'Register', style: TextStyle(fontSize: 20,),
                           )
                               : LoadingAnimationWidget.prograssiveDots(
-                            color: textColor,
+                            color: Colors.blue,
                             size: 60,
                           ),
 

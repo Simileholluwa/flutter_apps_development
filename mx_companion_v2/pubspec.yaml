@@ -51,6 +51,7 @@ dependencies:
   flutter_zoom_drawer: ^3.0.3
   image_picker: ^0.8.6+1
   path: ^1.8.2
+  share_plus: ^6.3.0
 
 dev_dependencies:
   flutter_test:

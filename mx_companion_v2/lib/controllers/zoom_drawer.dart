@@ -6,9 +6,9 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path/path.dart';
-import '../config/themes/app_dark_theme.dart';
 import '../services/upload.dart';
 import '../widgets/alert_user.dart';
 
@@ -59,7 +59,31 @@ class MyZoomDrawerController extends GetxController {
     Get.find<AuthController>().navigateToFaq();
   }
 
-  void website() {}
+  void shareApp(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    await Share.share('https://link-to-app.com', subject: 'Download the MX Companion app via this link. It\'s free!', sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,);
+  }
+
+  Future<void> feedback() async {
+    String webpage = 'https://play.google.com/store/';
+    try {
+      Uri webpageUri = Uri.parse(webpage);
+      launchUrl(webpageUri, mode: LaunchMode.externalApplication,);
+    } catch (e) {
+      showSnackBar('Could not open browser.');
+    }
+  }
+
+  Future<void> website() async {
+    String webpage = 'https://simileholluwa.github.io';
+    try {
+      Uri webpageUri = Uri.parse(webpage);
+      launchUrl(webpageUri, mode: LaunchMode.externalApplication,);
+    } catch (e) {
+      print(e);
+      showSnackBar('Could not open browser.');
+    }
+  }
 
   Future<void> openEmail() async {
     String? encodeQueryParameters(Map<String, String> params) {
@@ -114,7 +138,7 @@ class MyZoomDrawerController extends GetxController {
       Uri fbBundleUri = Uri.parse(fbProtocolUrl);
       var canLaunchNatively = await canLaunchUrl(fbBundleUri);
       if (canLaunchNatively) {
-        launchUrl(fbBundleUri);
+        launchUrl(fbBundleUri, mode: LaunchMode.platformDefault);
       } else {
         await launchUrl(Uri.parse(fallBackUrl),
             mode: LaunchMode.externalApplication);
@@ -288,7 +312,7 @@ class MyZoomDrawerController extends GetxController {
         child: Icon(
           icon,
           size: 20,
-          color: altTextColor,
+          color: Colors.white,
         ),
       ),
       isDismissible: true,
@@ -298,6 +322,7 @@ class MyZoomDrawerController extends GetxController {
         right: 25,
         top: 20,
       ),
+      duration: const Duration(seconds: 2,),
       borderRadius: 15,
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/widgets/app_button.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../../widgets/text_button_with_icon.dart';
 import '../../widgets/text_field.dart';
@@ -22,9 +21,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //AuthController controller = Get.find();
 
-  Color btnColor = maroonColor;
 
   late TextEditingController emailController, passwordController;
   var email = '';
@@ -190,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Login', style: TextStyle(fontSize: 20,),
                           )
                               : LoadingAnimationWidget.prograssiveDots(
-                            color: textColor,
+                            color: Colors.blue,
                             size: 60,
                           ),
                         ),

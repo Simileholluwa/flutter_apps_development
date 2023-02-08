@@ -6,7 +6,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
 import 'package:mx_companion_v2/screens/home/question_card.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/custom_text.dart';
 import '../../controllers/question_paper/question_paper_controller.dart';
 import '../../firebase_ref/loading_status.dart';
@@ -36,7 +35,7 @@ class MainScreen extends GetView<MyZoomDrawerController> {
         onWillPop: () async {
           if (DateTime.now().difference(_lastExitTime) >=
               const Duration(seconds: 2)) {
-            auth.showSnackBar('Press the back button again to exit app.', containerColor: textColor,);
+            auth.showSnackBar('Press the back button again to exit app.', containerColor: Colors.blue,);
             _lastExitTime = DateTime.now();
             return false;
           } else {
@@ -89,13 +88,15 @@ class MainScreen extends GetView<MyZoomDrawerController> {
                           child: AppIconText(
                             icon: const Icon(
                               Icons.waving_hand,
-                              color: orangeColor,
+                              color: Color(0xffeea346),
                               size: 15,
                             ),
                             text: Text(
                                 controller.user.value == null
                                 ? 'Hello there'
-                                : 'Hello ${controller.user.value!.displayName}'),
+                                : 'Hello ${controller.user.value!.displayName}',
+                            style: smallestLobster,
+                            ),
                           ),
                         ),
                         Padding(
@@ -141,7 +142,7 @@ class MainScreen extends GetView<MyZoomDrawerController> {
                                 CrossAxisAlignment.center,
                                 children: [
                                   LoadingAnimationWidget.fourRotatingDots(
-                                    color: textColor,
+                                    color: Colors.blue,
                                     size: 70,
                                   ),
                                   const SizedBox(

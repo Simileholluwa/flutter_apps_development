@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/zoom_drawer.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../widgets/alert_user.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/content_area.dart';
@@ -198,7 +197,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             'Update', style: TextStyle(fontSize: 20,),
                           )
                               : LoadingAnimationWidget.prograssiveDots(
-                            color: textColor,
+                            color: Colors.blue,
                             size: 60,
                           ),
                         ),
@@ -220,7 +219,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   children: [
                     Center(
                       child: LoadingAnimationWidget.fourRotatingDots(
-                        color: textColor,
+                        color: Colors.blue,
                         size: 60,
                       ),
                     ),
@@ -303,7 +302,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                                 return Center(
                                                   child: LoadingAnimationWidget
                                                       .fourRotatingDots(
-                                                          color: textColor,
+                                                          color: Colors.blue,
                                                           size: 70),
                                                 );
                                               },
@@ -415,7 +414,9 @@ class _MenuScreenState extends State<MenuScreen> {
                                 const AssetImage("assets/images/questions.png"),
                               ),
                               IconAndText(
-                                onTap: () {},
+                                onTap: () {
+                                  controller.feedback();
+                                },
                                 text: 'Feedback',
                                 image: const AssetImage(
                                     "assets/images/testimonials.png"),
@@ -437,12 +438,16 @@ class _MenuScreenState extends State<MenuScreen> {
                                 const AssetImage("assets/images/newsletter.png"),
                               ),
                               IconAndText(
-                                onTap: () {},
+                                onTap: () async {
+                                  controller.shareApp(context);
+                                },
                                 text: 'Share App',
                                 image: const AssetImage("assets/images/share.png"),
                               ),
                               IconAndText(
-                                onTap: () {},
+                                onTap: () {
+                                  controller.website();
+                                },
                                 text: 'About Us',
                                 image: const AssetImage("assets/images/comment.png"),
                               ),

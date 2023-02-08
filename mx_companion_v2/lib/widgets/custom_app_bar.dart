@@ -49,10 +49,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                 if (showMenu)
                   Transform.translate(
-                    offset: const Offset(10, -10),
+                    offset: const Offset(10, 0),
                     child: IconButton(
                       onPressed: onMenuTap ?? () => Get.toNamed(QuestionsOverview.routeName),
-                      icon: Icon(Icons.apps, size: 30,),
+                      icon: const Icon(Icons.menu_sharp, size: 30,),
                     ),
                   ),
               ],
@@ -66,6 +66,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size(
         double.maxFinite,
-        80,
+        100,
       );
 }

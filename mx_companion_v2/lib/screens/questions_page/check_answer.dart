@@ -2,7 +2,6 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../config/themes/custom_text.dart';
 import '../../controllers/questions_controller.dart';
 import '../../widgets/content_area.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -29,7 +28,7 @@ class AnswerCheckScreen extends GetView<QuestionsController> {
             () => Center(
               child: Text(
                 'Question ${(controller.questionIndex.value + 1).toString().padLeft(2, '0')}',
-                style: smallJost,
+                style: Theme.of(context).textTheme.titleMedium!.merge(const TextStyle(fontWeight: FontWeight.bold,),),
               ),
             ),
           ),
@@ -46,20 +45,17 @@ class AnswerCheckScreen extends GetView<QuestionsController> {
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: ContentAreaCustom(
                     addRadius: true,
+                    addColor: true,
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.only(bottom: 20,),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 10.0,
-                              right: 10,
-                              left: 10,
-                            ),
+                            padding: const EdgeInsets.all(20),
                             child: Text(
                               controller.currentQuestion.value!.question,
-                              style: Theme.of(context).textTheme.titleLarge!.merge(TextStyle(fontWeight: FontWeight.bold,),),
+                              style: Theme.of(context).textTheme.titleLarge!.merge( const TextStyle(fontWeight: FontWeight.bold,),),
                             ),
                           ),
                           GetBuilder<QuestionsController>(
@@ -68,9 +64,9 @@ class AnswerCheckScreen extends GetView<QuestionsController> {
                                 return ListView.separated(
                                   shrinkWrap: true,
                                   padding: const EdgeInsets.only(
-                                    top: 25,
-                                    left: 10,
-                                    right: 10,
+                                    top: 10,
+                                    left: 20,
+                                    right: 20,
                                   ),
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (BuildContext context, int index) {

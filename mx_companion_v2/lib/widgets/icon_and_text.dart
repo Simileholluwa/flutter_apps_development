@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../config/themes/app_dark_theme.dart';
 
 class IconAndText extends StatelessWidget {
   final VoidCallback onTap;
@@ -43,7 +42,7 @@ class IconAndText extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
-                  Icon(Icons.arrow_forward_ios_sharp, color: orangeColor, size: 15,),
+                  Icon(Icons.arrow_forward_ios_sharp, color: Color(0xffeea346), size: 15,),
                 ],
               ),
             ],

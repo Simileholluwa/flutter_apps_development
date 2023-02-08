@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/ui_parameters.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/app_button.dart';
@@ -23,7 +22,6 @@ class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AuthController controller = Get.find();
 
-  Color btnColor = maroonColor;
 
   late TextEditingController emailController, passwordController;
   var email = '';
@@ -152,7 +150,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           },
                           buttonWidget: controller.isLoading.isFalse ? const Text(
                             'Reset Password', style: TextStyle(fontSize: 20,),
-                          ) : LoadingAnimationWidget.prograssiveDots(color: textColor, size: 60,),
+                          ) : LoadingAnimationWidget.prograssiveDots(color: Colors.blue, size: 60,),
                         ),
                         const SizedBox(
                           height: 20,

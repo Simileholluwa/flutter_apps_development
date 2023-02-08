@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../config/themes/app_dark_theme.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
           style: GoogleFonts.jost(
             fontSize: 40,
             fontWeight: FontWeight.bold,
-            color: textColor,
+            color: Colors.blue,
           ),
         ),
       ),

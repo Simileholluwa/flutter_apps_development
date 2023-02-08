@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
 import 'package:mx_companion_v2/widgets/questions/answer_card.dart';
 
 import '../../config/themes/ui_parameters.dart';
@@ -16,11 +15,11 @@ class QuestionAnswerCard extends StatelessWidget {
     Color backgroundColorr = Theme.of(context).backgroundColor;
     switch(status) {
       case AnswerStatus.answered:
-        backgroundColorr = textColor;
+        backgroundColorr = Colors.blue;
         break;
 
       case AnswerStatus.wrong:
-        backgroundColorr = maroonColor;
+        backgroundColorr = const Color(0xff994847);
         break;
 
       case AnswerStatus.correct:
@@ -28,11 +27,11 @@ class QuestionAnswerCard extends StatelessWidget {
         break;
 
       case AnswerStatus.notAnswered:
-        backgroundColorr = Theme.of(context).backgroundColor;
+        backgroundColorr = Theme.of(context).scaffoldBackgroundColor;
         break;
 
       default:
-        backgroundColorr = Theme.of(context).backgroundColor;
+        backgroundColorr = Theme.of(context).scaffoldBackgroundColor;
     }
     return Material(
       borderRadius: UIParameters.cardBorderRadius,

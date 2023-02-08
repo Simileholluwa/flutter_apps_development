@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
 import 'package:mx_companion_v2/config/themes/ui_parameters.dart';
 
 enum AnswerStatus{
@@ -39,12 +38,12 @@ class AnswerCard extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: UIParameters.cardBorderRadius,
-            color: isSelected ? textColor : null,
+            color: isSelected ? Colors.blue : Theme.of(context).scaffoldBackgroundColor,
           ),
           child: Text(
             answer,
             style: Theme.of(context).textTheme.titleMedium!.merge(TextStyle(
-              color: isSelected ? altTextColor : null,
+              color: isSelected ? Colors.white : null,
             ),),
           ),
         ),
@@ -97,12 +96,12 @@ class WrongAnswer extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: UIParameters.cardBorderRadius,
-          color: maroonColor.withOpacity(.2),
+          color: const Color(0xff994847).withOpacity(.2),
         ),
         child: Text(
           answer,
           style: Theme.of(context).textTheme.titleMedium!.merge(const TextStyle(
-            color: maroonColor,
+            color: Color(0xff994847),
             fontWeight: FontWeight.bold,
           ),),
         ),

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import 'package:mx_companion_v2/screens/questions_page/questions_overview.dart';
-import '../../config/themes/app_dark_theme.dart';
 import '../../config/themes/custom_text.dart';
 import '../../controllers/questions_controller.dart';
 import '../../firebase_ref/loading_status.dart';
@@ -36,7 +35,7 @@ class QuestionsPage extends GetView<QuestionsController> {
         onWillPop: () async {
           if (DateTime.now().difference(_lastExitTime) >=
               const Duration(seconds: 2)) {
-            auth.showSnackBar('Press the back button again to exit practice.', containerColor: textColor,);
+            auth.showSnackBar('Press the back button again to exit practice.', containerColor: Colors.blue,);
             _lastExitTime = DateTime.now();
             return false;
           } else {
@@ -52,7 +51,7 @@ class QuestionsPage extends GetView<QuestionsController> {
                 children: [
                   const Icon(
                     Icons.timer,
-                    color: orangeColor,
+                    color: Color(0xffeea346),
                     size: 22,
                   ),
                   const SizedBox(
@@ -94,7 +93,7 @@ class QuestionsPage extends GetView<QuestionsController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               LoadingAnimationWidget.fourRotatingDots(
-                                color: textColor,
+                                color: Colors.blue,
                                 size: 70,
                               ),
                               const SizedBox(
@@ -117,8 +116,9 @@ class QuestionsPage extends GetView<QuestionsController> {
                 if (controller.loadingStatus.value == LoadingStatus.completed)
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: ContentAreaCustom(
+                        addColor: true,
                         addRadius: true,
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.only(
@@ -128,11 +128,7 @@ class QuestionsPage extends GetView<QuestionsController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 10.0,
-                                  right: 10,
-                                  left: 10,
-                                ),
+                                padding: const EdgeInsets.all(20),
                                 child: Text(
                                   controller.currentQuestion.value!.question,
                                   style: Theme.of(context).textTheme.titleLarge!.merge(const TextStyle(fontWeight: FontWeight.bold,),),
@@ -144,9 +140,9 @@ class QuestionsPage extends GetView<QuestionsController> {
                                     return ListView.separated(
                                       shrinkWrap: true,
                                       padding: const EdgeInsets.only(
-                                        top: 25,
-                                        left: 10,
-                                        right: 10,
+                                        top: 10,
+                                        left: 20,
+                                        right: 20,
                                       ),
                                       physics:
                                           const NeverScrollableScrollPhysics(),

@@ -3,7 +3,6 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:mx_companion_v2/config/themes/app_dark_theme.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              LoadingAnimationWidget.fourRotatingDots(color: textColor, size: 70,),
+              LoadingAnimationWidget.fourRotatingDots(color: Colors.blue, size: 70,),
               const SizedBox(height: 10,),
               Text('MX Companion',
                   style: Theme.of(context).textTheme.titleLarge!.merge(
