@@ -6,6 +6,7 @@ import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../config/themes/app_dark_theme.dart';
 import '../firebase_ref/loading_status.dart';
 import '../history/history.dart';
+import '../screens/faq/faq.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/reset_password/reset_password.dart';
@@ -167,6 +168,10 @@ class AuthController extends GetxController {
 
   void navigateToHome() {
     Get.offAllNamed(HomeScreen.routeName);
+  }
+
+  void navigateToFaq() {
+    Get.toNamed(FaqScreen.routeName);
   }
 
   void navigateToMenu() {

@@ -407,7 +407,9 @@ class _MenuScreenState extends State<MenuScreen> {
                                 const AssetImage("assets/images/bomb.png"),
                               ),
                               IconAndText(
-                                onTap: () {},
+                                onTap: () {
+                                  controller.faq();
+                                },
                                 text: 'FAQs',
                                 image:
                                 const AssetImage("assets/images/questions.png"),

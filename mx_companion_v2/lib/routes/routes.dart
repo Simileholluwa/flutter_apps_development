@@ -8,6 +8,7 @@ import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/screens/questions_page/check_answer.dart';
 import '../controllers/questions_controller.dart';
 import '../history/history.dart';
+import '../screens/faq/faq.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/main_screen.dart';
 import '../screens/questions_page/questions_overview.dart';
@@ -130,5 +131,16 @@ class AppRoutes {
             Get.put(MyZoomDrawerController());
           }),
         ),
+    GetPage(
+      name: FaqScreen.routeName,
+      page: () => const FaqScreen(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(
+        milliseconds: 400,
+      ),
+      binding: BindingsBuilder(() {
+        Get.put(MyZoomDrawerController());
+      }),
+    ),
       ];
 }
