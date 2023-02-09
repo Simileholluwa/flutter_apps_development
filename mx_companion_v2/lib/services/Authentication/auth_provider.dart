@@ -15,6 +15,7 @@ abstract class AuthProvider {
     required String phoneNumber,
     required String url,
     required DateTime created,
+    required String deviceToken,
   });
 
   Future<AuthUser> resetPassword({

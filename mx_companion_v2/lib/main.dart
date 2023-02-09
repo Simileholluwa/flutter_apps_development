@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,11 +10,14 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'firebase_options.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   InitialBinding().dependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 
   SystemChrome.setPreferredOrientations(
@@ -44,7 +48,7 @@ class MyApp extends StatelessWidget {
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
         swapLegacyOnMaterial3: true,
-        fontFamily: GoogleFonts.ptSerif().fontFamily,
+        fontFamily: GoogleFonts.ubuntu().fontFamily,
       ),
       darkTheme: FlexThemeData.dark(
         scheme: FlexScheme.flutterDash,
@@ -63,7 +67,7 @@ class MyApp extends StatelessWidget {
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
         swapLegacyOnMaterial3: true,
-        fontFamily: GoogleFonts.ptSerif().fontFamily,
+        fontFamily: GoogleFonts.ubuntu().fontFamily,
       ),
       themeMode: ThemeMode.system,
 

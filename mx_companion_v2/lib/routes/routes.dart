@@ -11,6 +11,7 @@ import '../screens/faq/faq.dart';
 import '../screens/history/history.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/main_screen.dart';
+import '../screens/notification/notification.dart';
 import '../screens/questions_page/questions_overview.dart';
 import '../screens/questions_page/questions_page.dart';
 import '../screens/reset_password/reset_password.dart';
@@ -61,9 +62,17 @@ class AppRoutes {
           ),
         ),
         GetPage(
+          name: NotificationScreen.routeName,
+          page: () => const NotificationScreen(),
+          transition: Transition.downToUp,
+          transitionDuration: const Duration(
+            milliseconds: 400,
+          ),
+        ),
+        GetPage(
           name: HistoryScreen.routeName,
           page: () => const HistoryScreen(),
-          transition: Transition.fadeIn,
+          transition: Transition.downToUp,
           transitionDuration: const Duration(
             milliseconds: 400,
           ),
@@ -131,16 +140,16 @@ class AppRoutes {
             Get.put(MyZoomDrawerController());
           }),
         ),
-    GetPage(
-      name: FaqScreen.routeName,
-      page: () => const FaqScreen(),
-      transition: Transition.fadeIn,
-      transitionDuration: const Duration(
-        milliseconds: 400,
-      ),
-      binding: BindingsBuilder(() {
-        Get.put(MyZoomDrawerController());
-      }),
-    ),
+        GetPage(
+          name: FaqScreen.routeName,
+          page: () => const FaqScreen(),
+          transition: Transition.downToUp,
+          transitionDuration: const Duration(
+            milliseconds: 400,
+          ),
+          binding: BindingsBuilder(() {
+            Get.put(MyZoomDrawerController());
+          }),
+        ),
       ];
 }

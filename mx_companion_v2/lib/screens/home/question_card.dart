@@ -74,7 +74,7 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                   width: 30,
                 ),
               ),
-              Expanded(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -88,14 +88,12 @@ class QuestionsCard extends GetView<QuestionPaperController> {
                       ),
                     ),
                     const SizedBox(height: 2,),
-                    SizedBox(
-                      width: 250,
-                      child: Text(
-                        model.courseTitle!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.subtitle1!.merge( TextStyle(color: Theme.of(context).hintColor),),
-                      ),
+                    Text(
+                      model.courseTitle!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: Theme.of(context).textTheme.subtitle1!.merge( TextStyle(color: Theme.of(context).hintColor),),
                     ),
                   ],
                 ),

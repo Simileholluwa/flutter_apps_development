@@ -19,7 +19,6 @@ class MainScreen extends GetView<MyZoomDrawerController> {
 
   @override
   Widget build(BuildContext context) {
-
     AuthController auth = Get.find();
 
     DateTime _lastExitTime = DateTime.now();

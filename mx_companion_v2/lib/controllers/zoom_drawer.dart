@@ -24,6 +24,8 @@ class MyZoomDrawerController extends GetxController {
   @override
   void onReady() {
     user.value = Get.find<AuthController>().getUser();
+    Get.find<AuthController>().requestPermission();
+    Get.find<AuthController>().initInfo();
     super.onReady();
   }
 
@@ -50,6 +52,10 @@ class MyZoomDrawerController extends GetxController {
 
   void history() {
     Get.find<AuthController>().navigateToHistory();
+  }
+
+  void notifications(){
+    Get.find<AuthController>().navigateToNotifications();
   }
 
   void menu() {

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import '../../firebase_options.dart';
 import 'auth_exceptions.dart';
 import 'auth_provider.dart';
@@ -28,6 +30,7 @@ class FirebaseAuthProvider implements AuthProvider {
     required String phoneNumber,
     required String url,
     required DateTime created,
+    required String deviceToken,
   }) async {
     try {
 
@@ -37,7 +40,9 @@ class FirebaseAuthProvider implements AuthProvider {
       );
       FirebaseAuth.instance.currentUser!.updateDisplayName(userName);
       FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
-      addUserDetails(email, department, phoneNumber, userName, created, url);
+      addUserDetails(email, department, phoneNumber, userName, created, url,);
+      addDeviceToken(deviceToken);
+      Get.find<AuthController>().sendRegisterSuccessMessage(FirebaseAuth.instance.currentUser!.uid, 'Welcome to MX Companion! The best place to study past questions!', 'Hello $userName',);
 
       final user = currentUser;
       if (user != null) {
@@ -168,6 +173,12 @@ class FirebaseAuthProvider implements AuthProvider {
           'url' : url,
           'created' : created,
         });
+  }
+
+  Future addDeviceToken(String deviceToken) async {
+    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('user_details').doc("device_token").set({
+      'device_token' : deviceToken,
+    });
   }
 }
 

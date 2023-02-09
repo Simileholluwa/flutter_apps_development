@@ -1,29 +1,42 @@
+import 'dart:convert';
+import 'dart:core';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../firebase_ref/loading_status.dart';
+import '../firebase_ref/references.dart';
 import '../screens/faq/faq.dart';
 import '../screens/history/history.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/menu_screen.dart';
+import '../screens/notification/notification.dart';
 import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
 import '../services/Authentication/auth_service.dart';
 import '../widgets/alert_user.dart';
+import 'package:http/http.dart' as http;
 
 class AuthController extends GetxController {
   @override
   void onReady() {
     initAuth();
+    getToken();
     super.onReady();
   }
 
   final loadingStatus = LoadingStatus.loading.obs;
   final RxBool _isLoading = false.obs;
+
   RxBool get isLoading => _isLoading;
+  String? m_token = "";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   late FirebaseAuth _auth;
   final _user = Rxn<User>();
@@ -43,7 +56,10 @@ class AuthController extends GetxController {
   signInWithEmail(String email, String password) async {
     try {
       _isLoading.value = true;
-      await AuthService.firebase().logIn(email: email, password: password,);
+      await AuthService.firebase().logIn(
+        email: email,
+        password: password,
+      );
       _isLoading.value = false;
       navigateToHome();
       showSnackBar('Signed in as ${_user.value!.displayName}');
@@ -52,19 +68,20 @@ class AuthController extends GetxController {
       showSnackBar('No account found with this email.');
     } on WrongPasswordAuthException {
       _isLoading.value = false;
-      showSnackBar( 'Your password is incorrect.');
+      showSnackBar('Your password is incorrect.');
     } on UnknownAuthException {
       _isLoading.value = false;
-      showSnackBar( 'Text fields cannot be empty.');
+      showSnackBar('Text fields cannot be empty.');
     } on InvalidEmailAuthException {
       _isLoading.value = false;
-      showSnackBar( 'The email address is invalid.');
+      showSnackBar('The email address is invalid.');
     } on NetworkRequestFailedAuthException {
       _isLoading.value = false;
       showSnackBar('You are not connected to the internet.');
     } on TooManyRequestAuthException {
       _isLoading.value = false;
-      showSnackBar('Your account is locked due to too many incorrect password. Please, try again later.');
+      showSnackBar(
+          'Your account is locked due to too many incorrect password. Please, try again later.');
     } on GenericAuthException {
       _isLoading.value = false;
       showSnackBar('Sign in failed. Try again later.');
@@ -90,11 +107,13 @@ class AuthController extends GetxController {
         phoneNumber: phoneNumber,
         url: url,
         created: created,
+        deviceToken: m_token!,
       );
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Sign up successful.',);
-
+      showSnackBar(
+        'Sign up successful.',
+      );
     } on WeakPasswordAuthException {
       _isLoading.value = false;
       showSnackBar('Password is too weak.');
@@ -130,8 +149,9 @@ class AuthController extends GetxController {
       await AuthService.firebase().resetPassword(email: email);
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Check your email for password reset instructions.',);
-
+      showSnackBar(
+        'Check your email for password reset instructions.',
+      );
     } on UserNotFoundAuthException {
       _isLoading.value = false;
       showSnackBar('No account found with this email.');
@@ -150,7 +170,9 @@ class AuthController extends GetxController {
     } on GenericAuthException {
       _isLoading.value = false;
       navigateToLogin();
-      showSnackBar('Check your email for password reset instructions.',);
+      showSnackBar(
+        'Check your email for password reset instructions.',
+      );
     }
   }
 
@@ -158,11 +180,12 @@ class AuthController extends GetxController {
     try {
       await AuthService.firebase().logOut();
       navigateToHome();
-      showSnackBar('Signed out successfully.',);
+      showSnackBar(
+        'Signed out successfully.',
+      );
     } on UserNotLoggedInAuthException {
       showSnackBar('You are currently not signed in.');
     }
-
   }
 
   void navigateToHome() {
@@ -179,6 +202,10 @@ class AuthController extends GetxController {
 
   void navigateToReset() {
     Get.toNamed(ResetPassword.routeName);
+  }
+
+  void navigateToNotifications(){
+    Get.toNamed(NotificationScreen.routeName);
   }
 
   void navigateToUploader() {
@@ -199,15 +226,18 @@ class AuthController extends GetxController {
 
   void showLoginAlertDialog() {
     Get.dialog(
-      Dialogs.appDialog(onTap: () {
-        Get.back();
-        navigateToLogin();
-      }, onPressed: () {
-        Get.back();
-      },
-          action: 'Sign In',
-          text: 'Hello there!',
-          message: 'To start practicing your selected course, you need to sign in. It will only take a while..',
+      Dialogs.appDialog(
+        onTap: () {
+          Get.back();
+          navigateToLogin();
+        },
+        onPressed: () {
+          Get.back();
+        },
+        action: 'Sign In',
+        text: 'Hello there!',
+        message:
+            'To start practicing your selected course, you need to sign in. It will only take a while..',
       ),
       barrierDismissible: true,
     );
@@ -218,10 +248,11 @@ class AuthController extends GetxController {
       Dialogs.appDialog(
         onTap: () {
           Get.back();
-        signOut();
-      }, onPressed: () {
-        Get.back();
-      },
+          signOut();
+        },
+        onPressed: () {
+          Get.back();
+        },
         action: 'Sign Out',
         text: 'Sign Out',
         message: 'Are you sure you want to sign out?',
@@ -239,13 +270,18 @@ class AuthController extends GetxController {
         },
         action: 'Delete',
         text: 'Delete All',
-        message: 'Are you sure you want to delete all courses practice history?',
+        message:
+            'Are you sure you want to delete all courses practice history?',
       ),
       barrierDismissible: true,
     );
   }
 
-  Future<bool?> showDeleteHistory(VoidCallback onTap, String text, String message,) async {
+  Future<bool?> showDeleteHistory(
+    VoidCallback onTap,
+    String text,
+    String message,
+  ) async {
     return Get.dialog(
       Dialogs.appDialog(
         onTap: onTap,
@@ -286,6 +322,142 @@ class AuthController extends GetxController {
       timeInSecForIosWeb: 1,
     );
   }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    await messaging.requestPermission(
+      alert: true,
+      announcement: true,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      m_token = token;
+      update();
+    });
+  }
+
+  initInfo() {
+    var androidInitialize =
+        const AndroidInitializationSettings('@mipmap/launcher_icon');
+    const DarwinInitializationSettings iOSInitialize =
+        DarwinInitializationSettings();
+    var initializationSettings = InitializationSettings(
+      android: androidInitialize,
+      iOS: iOSInitialize,
+    );
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) async {
+        final String? payload = notificationResponse.payload;
+        try {
+          if (notificationResponse.payload != null && _user.value != null) {
+            Navigator.push(Get.context!,
+                MaterialPageRoute(builder: (BuildContext context) {
+              return const NotificationScreen();
+            }));
+          }
+        } catch (e) {
+          return;
+        }
+        return;
+      },
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
+        contentTitle: message.notification!.title.toString(),
+        htmlFormatContentTitle: true,
+      );
+
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails(
+        'MX Companion',
+        'MX Companion',
+        importance: Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: Priority.high,
+        playSound: true,
+      );
+
+      NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        //iOS: IOSNotificationDetails(),
+      );
+
+      await flutterLocalNotificationsPlugin.show(
+        0,
+        message.notification?.title,
+        message.notification?.body,
+        platformChannelSpecifics,
+        payload: message.data['body'],
+      );
+
+      _user.value == null
+          ? null
+          : sendNotificationToFirebase(
+              message.notification?.title,
+              message.notification?.body,
+            );
+    });
+  }
+
+  Future<void> sendNotificationToFirebase(String? title, String? body) async {
+    var batch = FirebaseFirestore.instance.batch();
+    batch.set(
+        userRF.doc(_user.value!.uid).collection('user_notifications').doc(), {
+      'notification_title': title,
+      'notification_body': body,
+      'created': DateTime.now(),
+    });
+    batch.commit();
+  }
+
+  void sendRegisterSuccessMessage(
+      String userId, String body, String title) async {
+    DocumentSnapshot snap = await userRF
+        .doc(userId)
+        .collection('user_details')
+        .doc('device_token')
+        .get();
+    String token = snap['device_token'];
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAARKkkSII:APA91bEgNSMdmzvVY7l2VirSZU91lS3p6-6GCD6WtELwYTyBdrQEm3-g4T8po5I4WURmQMdkxC84b3rkkBKIzISzCMJHabqUeonZm8DhYrjzlagM_0U-DkW1u1Lt0yAH3C713L3rnr2o'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title
+            },
+            'notification': <String, dynamic>{
+              'title': title,
+              'body': body,
+              'android_channel_id': 'Mx Companion'
+            },
+            'to': token,
+          },
+        ),
+      );
+    } catch (e) {
+      return;
+    }
+  }
 }
-
-

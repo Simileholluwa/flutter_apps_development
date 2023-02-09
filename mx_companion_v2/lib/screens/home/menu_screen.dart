@@ -85,11 +85,11 @@ class _MenuScreenState extends State<MenuScreen> {
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
                 departmentController.text =
-                streamSnapshot.data!.docs[0]['department'];
+                streamSnapshot.data!.docs[1]['department'];
                 userNameController.text =
-                streamSnapshot.data!.docs[0]['userName'];
+                streamSnapshot.data!.docs[1]['userName'];
                 phoneNumberController.text =
-                streamSnapshot.data!.docs[0]['phoneNumber'];
+                streamSnapshot.data!.docs[1]['phoneNumber'];
                 return Container(
                   padding: EdgeInsets.only(
                     top: 20.0,
@@ -179,7 +179,7 @@ class _MenuScreenState extends State<MenuScreen> {
                               _formKey.currentState!.save();
                               _isLoading.value = true;
                               await userDetails
-                                  .doc(streamSnapshot.data!.docs[0].id)
+                                  .doc(streamSnapshot.data!.docs[1].id)
                                   .update({
                                 'userName': userName,
                                 'department': department,
@@ -424,7 +424,9 @@ class _MenuScreenState extends State<MenuScreen> {
                               controller.user.value == null ?
                               Container() :
                               IconAndText(
-                                onTap: () {},
+                                onTap: () {
+                                  controller.notifications();
+                                },
                                 text: 'Notifications',
                                 image:
                                 const AssetImage("assets/images/newsletter.png"),

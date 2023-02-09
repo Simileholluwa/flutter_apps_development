@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Dialogs {
   static final Dialogs _singleton = Dialogs._internal();
@@ -26,6 +27,9 @@ class Dialogs {
       titlePadding: const EdgeInsets.only(top: 20, left: 20, bottom: 10,),
       content: Text(
         message,
+        style: TextStyle(
+          color: Theme.of(Get.context!).hintColor,
+        ),
       ),
       actions: [
         TextButton(

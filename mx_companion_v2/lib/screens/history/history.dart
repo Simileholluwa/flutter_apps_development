@@ -34,7 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     Future<void> _delete(String historyId) async {
       await _userHistory.doc(historyId).delete();
-      controller.showSnackBar('History successfully deleted.',);
+      controller.showSnackBar('History deleted.',);
     }
 
     Future<void> _deleteAll() async {
@@ -45,7 +45,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         batch.delete(doc.reference);
       }
       await batch.commit();
-      controller.showSnackBar('History successfully deleted.');
+      controller.showSnackBar('Histories deleted.');
     }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -227,14 +227,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   .pop(true);
                                             }, 'Delete ${documentSnapShot['question_id']}?', 'Are you sure you want to delete ${documentSnapShot['question_id']} from history list? This action is irreversible.',);
                                           },
-                                          child: Ink(
+                                          child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                               vertical: 15,
                                               horizontal: 20,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              UIParameters.cardBorderRadius,
                                             ),
                                             child: Column(
                                               children: [
@@ -287,37 +283,29 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                         width: 30,
                                                       ),
                                                     ),
-                                                    Expanded(
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                    Flexible(
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                            children: [
-                                                              Text(
-                                                                documentSnapShot[
-                                                                'question_id'],
-                                                                style: Theme.of(context).textTheme.titleLarge!.merge(
-                                                                  const TextStyle(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    fontSize: 18,
-                                                                  ),
-                                                                ),
+                                                          Text(
+                                                            documentSnapShot[
+                                                            'question_id'],
+                                                            style: Theme.of(context).textTheme.titleLarge!.merge(
+                                                              const TextStyle(
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 18,
                                                               ),
-                                                              const SizedBox(height: 2,),
-                                                              Text(
-                                                                documentSnapShot[
-                                                                'created'].toDate()
-                                                                    .toString()
-                                                                    .substring(0, 16),
-                                                                style: Theme.of(context).textTheme.subtitle1!.merge( TextStyle(color: Theme.of(context).hintColor),
-                                                                ),
-                                                              ),
-                                                            ],
+                                                            ),
+                                                          ),
+                                                          const SizedBox(height: 2,),
+                                                          Text(
+                                                            documentSnapShot[
+                                                            'created'].toDate()
+                                                                .toString()
+                                                                .substring(0, 16),
+                                                            style: Theme.of(context).textTheme.subtitle1!.merge( TextStyle(color: Theme.of(context).hintColor),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),

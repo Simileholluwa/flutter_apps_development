@@ -18,6 +18,7 @@ class AuthService implements AuthProvider {
     required String phoneNumber,
     required String url,
     required DateTime created,
+    required String deviceToken,
   }) =>
       provider.createUser(
         email: email,
@@ -27,6 +28,7 @@ class AuthService implements AuthProvider {
         phoneNumber: phoneNumber,
         created: created,
         url: url,
+        deviceToken: deviceToken,
       );
 
   @override
