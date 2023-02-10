@@ -92,7 +92,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   controller.showDeleteAllHistory(() {
                     _deleteAll();
                     Get.back();
-                  });
+                  }, 'Are you sure you want to delete all notifications?');
                 },
               ),
             ),
@@ -111,7 +111,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Icon(
-                          Icons.history_rounded,
+                          Icons.notifications,
                           size: 150,
                         ),
                         Text(

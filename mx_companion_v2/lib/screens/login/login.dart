@@ -57,35 +57,28 @@ class _LoginScreenState extends State<LoginScreen> {
           toolbarHeight: 70,
           scrolledUnderElevation: 0,
           automaticallyImplyLeading: false,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              'Login',
-              style: Theme.of(context).textTheme.titleLarge!.merge(
-                const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              ),
-              textAlign: TextAlign.center,
+          leading:
+          Container(
+            margin: const EdgeInsets.only(
+              left: 15,
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new_outlined, size: 30,),
+              onPressed: () {
+                Get.back();
+              },
             ),
           ),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(
-                right: 15,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  controller.navigateToHome();
-                },
-                icon: const Icon(
-                  Icons.home,
-                  size: 30,
-                ),
+          title: Text(
+            'Login',
+            style: Theme.of(context).textTheme.titleLarge!.merge(
+              const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
               ),
             ),
-          ],
+            textAlign: TextAlign.center,
+          ),
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

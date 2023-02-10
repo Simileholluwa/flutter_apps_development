@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,16 @@ import 'controllers/notifications_controller.dart';
 import 'firebase_options.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print(message.notification?.title);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  InitialBinding().dependencies();
-  await HelperNotification.sendNotificationToFirebase(message.notification?.title, message.notification?.body);
-
+  if(FirebaseAuth.instance.currentUser?.uid == null){
+    return;
+  } else {
+    await HelperNotification.sendNotificationToFirebase(
+        message.notification?.title, message.notification?.body,
+        FirebaseAuth.instance.currentUser!.uid);
+  }
 }
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();

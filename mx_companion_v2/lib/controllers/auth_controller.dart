@@ -1,6 +1,5 @@
-import 'dart:convert';
+
 import 'dart:core';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:mx_companion_v2/screens/login/login.dart';
 import 'package:mx_companion_v2/services/Authentication/auth_exceptions.dart';
 import '../firebase_ref/loading_status.dart';
-import '../firebase_ref/references.dart';
 import '../screens/faq/faq.dart';
 import '../screens/history/history.dart';
 import '../screens/home/home_screen.dart';
@@ -20,7 +18,6 @@ import '../screens/reset_password/reset_password.dart';
 import '../screens/signup/signup_screen.dart';
 import '../services/Authentication/auth_service.dart';
 import '../widgets/alert_user.dart';
-import 'package:http/http.dart' as http;
 
 class AuthController extends GetxController {
   @override
@@ -261,7 +258,7 @@ class AuthController extends GetxController {
     );
   }
 
-  void showDeleteAllHistory(VoidCallback onTap) {
+  void showDeleteAllHistory(VoidCallback onTap, String message) {
     Get.dialog(
       Dialogs.appDialog(
         onTap: onTap,
@@ -270,8 +267,7 @@ class AuthController extends GetxController {
         },
         action: 'Delete',
         text: 'Delete All',
-        message:
-            'Are you sure you want to delete all courses practice history?',
+        message: message,
       ),
       barrierDismissible: true,
     );

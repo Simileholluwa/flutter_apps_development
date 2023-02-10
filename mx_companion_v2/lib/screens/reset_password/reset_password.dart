@@ -54,31 +54,27 @@ class _ResetPasswordState extends State<ResetPassword> {
           toolbarHeight: 70,
             scrolledUnderElevation: 0,
           automaticallyImplyLeading: false,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              'Reset Password',
-              style: Theme.of(context).textTheme.titleLarge!.merge(
-                const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
+            leading:
+            Container(
+              margin: const EdgeInsets.only(
+                left: 15,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new_outlined, size: 30,),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ),
+          title: Text(
+            'Reset Password',
+            style: Theme.of(context).textTheme.titleLarge!.merge(
+              const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
               ),
             ),
           ),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(
-                right: 15,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  controller.navigateToHome();
-                },
-                icon: const Icon(Icons.home, size: 30,),
-              ),
-            ),
-          ],
         ),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

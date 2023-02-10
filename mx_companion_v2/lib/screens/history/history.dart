@@ -93,7 +93,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   controller.showDeleteAllHistory(() {
                     _deleteAll();
                     Get.back();
-                  });
+                  }, 'Are you sure you want to delete all practice history?');
                 },
               ),
             ),

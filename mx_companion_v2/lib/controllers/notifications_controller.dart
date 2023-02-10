@@ -1,14 +1,11 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
 import '../firebase_ref/references.dart';
-import '../screens/home/home_screen.dart';
-import '../screens/notification/notification.dart';
 import 'package:http/http.dart' as http;
 
 class HelperNotification {
@@ -27,14 +24,13 @@ class HelperNotification {
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
         final String? payload = notificationResponse.payload;
-        print(payload);
-
         try {
-          if (notificationResponse.payload != null && Get.find<AuthController>().getUser() != null) {
-            Navigator.push(Get.context!,
-                MaterialPageRoute(builder: (BuildContext context) {
-                  return const NotificationScreen();
-                }));
+          if (notificationResponse.payload != null) {
+            if( Get.find<AuthController>().getUser() != null) {
+              Get.find<AuthController>().navigateToNotifications();
+            } else {
+              Get.find<AuthController>().navigateToHome();
+            }
           }
         } catch (e) {
           return;
@@ -57,6 +53,7 @@ class HelperNotification {
         sendNotificationToFirebase(
           message.notification?.title,
           message.notification?.body,
+            Get.find<AuthController>().getUser()!.uid
         );
       }
 
@@ -65,16 +62,12 @@ class HelperNotification {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       try {
         if (message.notification?.title != null &&
-            message.notification?.body != null && Get.find<AuthController>().getUser() != null) {
-          Navigator.push(Get.context!,
-              MaterialPageRoute(builder: (BuildContext context) {
-                return const NotificationScreen();
-              }));
-        } else {
-          Navigator.push(Get.context!,
-              MaterialPageRoute(builder: (BuildContext context) {
-                return const HomeScreen();
-              }));
+            message.notification?.body != null) {
+          if (Get.find<AuthController>().getUser() != null) {
+            Get.find<AuthController>().navigateToNotifications();
+          } else {
+            Get.find<AuthController>().navigateToHome();
+          }
         }
       } catch(e){
         return;
@@ -83,18 +76,18 @@ class HelperNotification {
 
   }
 
-  static Future<void> sendNotificationToFirebase(String? title, String? body) async {
+  static Future<void> sendNotificationToFirebase(String? title, String? body, String uid) async {
     var batch = FirebaseFirestore.instance.batch();
-    if(Get.find<AuthController>().getUser() != null) {
+
       batch.set(
-          userRF.doc(Get.find<AuthController>().getUser()!.uid).collection(
+          userRF.doc(uid).collection(
               'user_notifications').doc(), {
         'notification_title': title,
         'notification_body': body,
         'created': DateTime.now(),
       });
       batch.commit();
-    }
+
   }
 
   static Future<void> showNotification(RemoteMessage message, FlutterLocalNotificationsPlugin flp) async {
