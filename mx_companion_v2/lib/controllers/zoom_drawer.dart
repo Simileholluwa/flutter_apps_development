@@ -25,7 +25,6 @@ class MyZoomDrawerController extends GetxController {
   void onReady() {
     user.value = Get.find<AuthController>().getUser();
     Get.find<AuthController>().requestPermission();
-    Get.find<AuthController>().initInfo();
     super.onReady();
   }
 
@@ -87,7 +86,6 @@ class MyZoomDrawerController extends GetxController {
       Uri webpageUri = Uri.parse(webpage);
       launchUrl(webpageUri, mode: LaunchMode.externalApplication,);
     } catch (e) {
-      print(e);
       showSnackBar('Could not open browser.');
     }
   }

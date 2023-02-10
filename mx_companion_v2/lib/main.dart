@@ -2,21 +2,33 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mx_companion_v2/bindings/initial_binding.dart';
 import 'package:mx_companion_v2/routes/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'controllers/notifications_controller.dart';
 import 'firebase_options.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print(message.notification?.title);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await HelperNotification.sendNotificationToFirebase(message.notification?.title, message.notification?.body);
+
+}
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   InitialBinding().dependencies();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseMessaging.instance.getInitialMessage();
+  await HelperNotification.initInfo(flutterLocalNotificationsPlugin);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 

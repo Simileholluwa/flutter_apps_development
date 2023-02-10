@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -246,7 +245,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                       left: 10,
                                                     ),
                                                         width: 100,
-                                                        height: 80,
+                                                        height: 70,
                                                         decoration: BoxDecoration(
                                                           borderRadius:
                                                           const BorderRadius.all(

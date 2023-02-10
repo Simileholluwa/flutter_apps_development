@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:mx_companion_v2/controllers/auth_controller.dart';
+import '../../controllers/notifications_controller.dart';
 import '../../firebase_options.dart';
 import 'auth_exceptions.dart';
 import 'auth_provider.dart';
@@ -42,7 +43,7 @@ class FirebaseAuthProvider implements AuthProvider {
       FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
       addUserDetails(email, department, phoneNumber, userName, created, url,);
       addDeviceToken(deviceToken);
-      Get.find<AuthController>().sendRegisterSuccessMessage(FirebaseAuth.instance.currentUser!.uid, 'Welcome to MX Companion! The best place to study past questions!', 'Hello $userName',);
+      HelperNotification.sendRegisterSuccessMessage(FirebaseAuth.instance.currentUser!.uid, 'Welcome to MX Companion! The best place to study past questions!', 'Hello $userName',);
 
       final user = currentUser;
       if (user != null) {
