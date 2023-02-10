@@ -16,6 +16,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print(message.notification?.title);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  InitialBinding().dependencies();
   await HelperNotification.sendNotificationToFirebase(message.notification?.title, message.notification?.body);
 
 }

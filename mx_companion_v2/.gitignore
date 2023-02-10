@@ -50,7 +50,6 @@ android/
 # Project related
 assets/DB/papers/*.json
 lib/firebase_options.dart
-*.env
+.env
 /android/app/google-services.json
 /ios/runner/GoogleService-info.plist
-*.json

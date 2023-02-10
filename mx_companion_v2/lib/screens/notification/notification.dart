@@ -37,11 +37,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
       final WriteBatch batch = FirebaseFirestore.instance.batch();
       final collection = _userNotifications;
       var snapShots = await collection.get();
-      for (var doc in snapShots.docs) {
-        batch.delete(doc.reference);
+      if (snapShots.docs.isEmpty){
+        controller.showSnackBar('Nothing to delete.');
+      } else {
+        for (var doc in snapShots.docs) {
+          batch.delete(doc.reference);
+        }
+        await batch.commit();
+        controller.showSnackBar('Notifications deleted.');
       }
-      await batch.commit();
-      controller.showSnackBar('Notifications deleted.');
     }
 
     bool isTapped = false;

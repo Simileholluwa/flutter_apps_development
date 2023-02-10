@@ -40,11 +40,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final WriteBatch batch = FirebaseFirestore.instance.batch();
       final collection = _userHistory;
       var snapShots = await collection.get();
-      for (var doc in snapShots.docs) {
-        batch.delete(doc.reference);
+      if (snapShots.docs.isEmpty){
+        controller.showSnackBar('Nothing to delete.');
+      } else {
+        for (var doc in snapShots.docs) {
+          batch.delete(doc.reference);
+        }
+        await batch.commit();
+        controller.showSnackBar('Histories deleted.');
       }
-      await batch.commit();
-      controller.showSnackBar('Histories deleted.');
     }
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
